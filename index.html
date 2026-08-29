@@ -595,87 +595,61 @@
         f.setAttribute('loading','lazy');
         return f;
       }
-      function injectHTML(el, html){
-        var d = document.createElement('div');
-        d.innerHTML = html;
-        while(d.firstChild) el.appendChild(d.firstChild);
-      }
 
       // 1. Top — profitableratecpm link ad
       var top = document.getElementById('adTop');
       if(top) top.appendChild(makeIframe('https://www.profitableratecpmnetwork.com/kukivjatz?key=81dcb0dc1205c8fc45fcf379623078bd', isDesktop?728:320, isDesktop?90:50));
 
-      // 2. After hero — 300x250
-      var hero = document.getElementById('adHero');
-      if(hero) injectHTML(hero, '<div id="container-hero-300x250"></div>');
-
-      // 3. Compare mid — banner
-      var cmpMid = document.getElementById('adCompareMid');
-      if(cmpMid) injectHTML(cmpMid, '<div id="container-cmpmid-ban"></div>');
-
-      // 4. Compare bottom — native div ad
-      var cmp = document.getElementById('adCompare');
-      if(cmp) injectHTML(cmp, '<div id="container-9020c1d3adc61e269ff2bea91a7845a4"></div>');
-
-      // 5. Scan tabs — banner
-      var scanTabs = document.getElementById('adScanTabs');
-      if(scanTabs) injectHTML(scanTabs, '<div id="container-scantabs-ban"></div>');
-
-      // 6. Scan bottom — banner
-      var scan = document.getElementById('adScan');
-      if(scan) injectHTML(scan, '<div id="container-scanbot-ban"></div>');
-
-      // 7. Between scan and learn — 300x250
-      var scanLearn = document.getElementById('adScanLearn');
-      if(scanLearn) injectHTML(scanLearn, '<div id="container-scanlearn-300x250"></div>');
-
-      // 8. Learn mid — banner
-      var learnMid = document.getElementById('adLearnMid');
-      if(learnMid) injectHTML(learnMid, '<div id="container-learnmid-ban"></div>');
-
-      // 9. Learn bottom — 300x250
-      var lrn = document.getElementById('adLearn');
-      if(lrn) injectHTML(lrn, '<div id="container-learnbot-300x250"></div>');
-
-      // 10. Before footer — banner
-      var foot = document.getElementById('adFooter');
-      if(foot) injectHTML(foot, '<div id="container-foot-ban"></div>');
-
-      // 11. Desktop sidebar — skyscraper
-      if(isWide){
-        var side = document.getElementById('adSidebar');
-        if(side) injectHTML(side, '<div id="container-sidebar-skyscraper"></div>');
-      }
-
-      // Load each highrevenueformat ad as a self-contained inline script block.
-      // Each block sets atOptions then immediately loads invoke.js — no async race.
-      function loadAd(key, w, h){
-        var id = 'container-' + key.substring(0,8);
-        if(!document.getElementById(id)) return;
+      // Load a highrevenueformat ad into a container by key
+      function loadAd(containerId, key, w, h){
+        var el = document.getElementById(containerId);
+        if(!el) return;
         var s = document.createElement('script');
         s.textContent =
           'atOptions={"key":"'+key+'","format":"iframe","height":'+h+',"width":'+w+',"params":{}};' +
           'var _s=document.createElement("script");_s.async=true;_s.src="https://www.highrevenueformat.com/'+key+'/invoke.js";document.body.appendChild(_s);';
-        document.body.appendChild(s);
+        el.appendChild(s);
       }
 
-      loadAd('1ea1f8e32afbf0f6efe296bcaaa0ca18', 300, 250);   // hero
-      loadAd('b725ffb9f444458dda0bd540f20899a8', 320, 50);     // compare mid
-      loadAd('5f67c3aa64213386f04a397f9f6a38aa', 468, 60);     // scan bottom
-      loadAd('1ea1f8e32afbf0f6efe296bcaaa0ca18', 300, 250);   // scan-learn
-      loadAd('b725ffb9f444458dda0bd540f20899a8', 320, 50);     // learn mid
-      loadAd('1ea1f8e32afbf0f6efe296bcaaa0ca18', 300, 250);   // learn bottom
-      loadAd('5f67c3aa64213386f04a397f9f6a38aa', 468, 60);     // footer
-      loadAd('666e19643f145f1de664605ae137a69b', 160, 600);   // sidebar
+      // 2. After hero — 300x250
+      loadAd('adHero', '1ea1f8e32afbf0f6efe296bcaaa0ca18', 300, 250);
 
-      // profitableratecpm native ad
-      if(document.getElementById('container-9020c1d3adc61e269ff2bea91a7845a4')){
+      // 3. Compare mid — banner
+      loadAd('adCompareMid', 'b725ffb9f444458dda0bd540f20899a8', 320, 50);
+
+      // 4. Compare bottom — native div ad
+      var cmp = document.getElementById('adCompare');
+      if(cmp){
+        var d = document.createElement('div');
+        d.id = 'container-9020c1d3adc61e269ff2bea91a7845a4';
+        cmp.appendChild(d);
         var p = document.createElement('script');
         p.async = true;
         p.setAttribute('data-cfasync','false');
         p.src = 'https://pl31086945.profitableratecpmnetwork.com/9020c1d3adc61e269ff2bea91a7845a4/invoke.js';
-        document.body.appendChild(p);
+        cmp.appendChild(p);
       }
+
+      // 5. Scan tabs — banner
+      loadAd('adScanTabs', 'b725ffb9f444458dda0bd540f20899a8', 320, 50);
+
+      // 6. Scan bottom — banner
+      loadAd('adScan', '5f67c3aa64213386f04a397f9f6a38aa', 468, 60);
+
+      // 7. Between scan and learn — 300x250
+      loadAd('adScanLearn', '1ea1f8e32afbf0f6efe296bcaaa0ca18', 300, 250);
+
+      // 8. Learn mid — banner
+      loadAd('adLearnMid', 'b725ffb9f444458dda0bd540f20899a8', 320, 50);
+
+      // 9. Learn bottom — 300x250
+      loadAd('adLearn', '1ea1f8e32afbf0f6efe296bcaaa0ca18', 300, 250);
+
+      // 10. Before footer — banner
+      loadAd('adFooter', '5f67c3aa64213386f04a397f9f6a38aa', 468, 60);
+
+      // 11. Desktop sidebar — skyscraper
+      if(isWide) loadAd('adSidebar', '666e19643f145f1de664605ae137a69b', 160, 600);
     }
 
     function initAdblockAndAds(){
