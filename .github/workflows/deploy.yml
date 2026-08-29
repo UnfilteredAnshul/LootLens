@@ -1,0 +1,21 @@
+name: Deploy to Antideploy
+
+on:
+  push:
+    branches: [master]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Create archive
+        run: tar czf /tmp/lootlens.tar.gz --exclude='.git' --exclude='node_modules' --exclude='.opencode' --exclude='.github' -C "$GITHUB_WORKSPACE" .
+
+      - name: Deploy to Antideploy
+        run: |
+          curl -sS -X POST \
+            "https://antideploy.com/api/v1/deploy?applicationId=a80f2a5a-d5d2-48d2-9ac8-799446bb56df" \
+            -H "Authorization: Bearer ${{ secrets.ANTIDEPLOY_TOKEN }}" \
+            -F "archive=@/tmp/lootlens.tar.gz"
