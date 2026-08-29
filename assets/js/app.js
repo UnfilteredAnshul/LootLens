@@ -358,7 +358,7 @@ async function shareResult() {
     ),
     '',
     `Choosing right saves ~${formatCurrency(worst.price - best.ppu * worst.baseQty)} per worst-size pack.`,
-    `Compare yours free at lootlens.app`,
+    `Compare yours free at lootlens.antideploy.com`,
   ];
   const text = lines.join('\n');
 

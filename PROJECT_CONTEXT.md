@@ -128,7 +128,7 @@ isCharmEnding(price)
 - Structured data: `WebApplication` + `FAQPage` (rich-result eligible).
 - `sitemap.xml`, `robots.txt`, PWA manifest, `theme-color`.
 - CWV-by-design: no render-blocking third parties, inline critical CSS, deferred module JS.
-- **Before deploy:** replace `https://lootlens.app` placeholder in `index.html`,
+- **Before deploy:** replace `https://lootlens.antideploy.com` placeholder in `index.html`,
   `robots.txt`, `sitemap.xml` with the real domain, and drop AdSense IDs into the marked slots.
 
 ## 8. Ads Strategy (no accounts, ads only)
