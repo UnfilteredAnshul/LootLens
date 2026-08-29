@@ -462,9 +462,6 @@
 
   </main>
 
-  <!-- Desktop sidebar ad — 160x600 skyscraper -->
-  <div class="ad-sidebar" id="adSidebar" role="complementary" aria-label="Advertisement"></div>
-
   <!-- Sticky ad slot — always visible above nav on mobile -->
   <div class="ad-footer-wrap" id="adFooterWrap" role="complementary" aria-label="Advertisement">
     <div id="adFooter"></div>
@@ -647,11 +644,8 @@
       // 9. Learn bottom — 300x250
       loadAd('adLearn', '1ea1f8e32afbf0f6efe296bcaaa0ca18', 300, 250);
 
-      // 10. Before footer — banner
+      // 10. Sticky footer — banner
       loadAd('adFooter', '5f67c3aa64213386f04a397f9f6a38aa', 468, 60);
-
-      // 11. Desktop sidebar — skyscraper
-      if(isWide) loadAd('adSidebar', '666e19643f145f1de664605ae137a69b', 160, 600);
     }
 
     function initAdblockAndAds(){
