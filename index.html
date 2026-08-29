@@ -162,6 +162,9 @@
     </ul>
   </section>
 
+  <!-- Ad slot after hero -->
+  <div class="ad-slot" id="adHero" role="complementary" aria-label="Advertisement"></div>
+
   <main id="app">
     <!-- ============ COMPARE VIEW ============ -->
     <section class="view" id="view-compare" aria-label="Compare packs">
@@ -175,6 +178,9 @@
           <svg class="ic"><use href="#i-zap"/></svg>Try Lay's trick
         </button>
       </div>
+
+      <!-- Ad slot between intro and items -->
+      <div class="ad-slot" id="adCompareMid" role="complementary" aria-label="Advertisement"></div>
 
       <div id="items" class="items"></div>
 
@@ -229,6 +235,9 @@
         <button class="seg-btn" data-tool="shrink" role="tab" aria-selected="false">Shrink</button>
         <button class="seg-btn" data-tool="bundle" role="tab" aria-selected="false">Bundle</button>
       </div>
+
+      <!-- Ad slot after scan tabs -->
+      <div class="ad-slot" id="adScanTabs" role="complementary" aria-label="Advertisement"></div>
 
       <form class="card tool-panel" data-panel="claim" novalidate>
         <div class="tool-head">
@@ -305,6 +314,9 @@
       <!-- Mid ad slot — scan -->
       <div class="ad-slot" id="adScan" role="complementary" aria-label="Advertisement"></div>
     </section>
+
+    <!-- Ad slot between scan and learn -->
+    <div class="ad-slot" id="adScanLearn" role="complementary" aria-label="Advertisement"></div>
 
     <!-- ============ LEARN VIEW ============ -->
     <section class="view learn-body" id="view-learn" aria-label="Learn the tricks" hidden>
@@ -390,6 +402,9 @@
         </ol>
       </div>
 
+      <!-- Ad slot between checklist and FAQ -->
+      <div class="ad-slot" id="adLearnMid" role="complementary" aria-label="Advertisement"></div>
+
       <h2 class="learn-title faq-title">FAQ</h2>
       <details class="acc">
         <summary>What is a price per unit and why does it matter?<svg class="ic chev"><use href="#i-chev"/></svg></summary>
@@ -432,6 +447,12 @@
     </div>
 
   </main>
+
+  <!-- Desktop sidebar ad — 160x600 skyscraper -->
+  <div class="ad-sidebar" id="adSidebar" role="complementary" aria-label="Advertisement"></div>
+
+  <!-- Ad slot before footer -->
+  <div class="ad-slot" id="adFooter" role="complementary" aria-label="Advertisement"></div>
 
   <footer>
     <p>LootLens compares unit prices and flags common retail tricks. All data stays on your
@@ -529,19 +550,33 @@
 
     // --- Load ads into containers ---
     function loadAds(){
-      // Top slot: 320x50 mobile, 728x90 desktop
-      var top = document.getElementById('adTop');
-      if(top){
-        var isDesktop = window.innerWidth >= 900;
-        var iframe = document.createElement('iframe');
-        iframe.src = 'https://www.profitableratecpmnetwork.com/kukivjatz?key=81dcb0dc1205c8fc45fcf379623078bd';
-        iframe.style.cssText = isDesktop ? 'width:728px;height:90px;' : 'width:320px;height:50px;';
-        iframe.setAttribute('scrolling','no');
-        iframe.setAttribute('frameborder','0');
-        top.appendChild(iframe);
+      var isDesktop = window.innerWidth >= 900;
+      var isWide = window.innerWidth >= 1100;
+
+      // Helper: create iframe ad
+      function makeIframe(src, w, h){
+        var f = document.createElement('iframe');
+        f.src = src;
+        f.style.cssText = 'width:'+w+'px;height:'+h+'px;';
+        f.setAttribute('scrolling','no');
+        f.setAttribute('frameborder','0');
+        f.setAttribute('loading','lazy');
+        return f;
       }
 
-      // Compare slot: 300x250
+      // 1. Top slot: 320x50 mobile / 728x90 desktop
+      var top = document.getElementById('adTop');
+      if(top) top.appendChild(makeIframe('https://www.profitableratecpmnetwork.com/kukivjatz?key=81dcb0dc1205c8fc45fcf379623078bd', isDesktop?728:320, isDesktop?90:50));
+
+      // 2. After hero: 300x250
+      var hero = document.getElementById('adHero');
+      if(hero) hero.appendChild(makeIframe('https://www.highrevenueformat.com/1ea1f8e32afbf0f6efe296bcaaa0ca18/invoke.js', 300, 250));
+
+      // 3. Compare mid (between intro and items): 320x50 mobile / 468x60 desktop
+      var cmpMid = document.getElementById('adCompareMid');
+      if(cmpMid) cmpMid.appendChild(makeIframe('https://www.highrevenueformat.com/b725ffb9f444458dda0bd540f20899a8/invoke.js', isDesktop?468:320, isDesktop?60:50));
+
+      // 4. Compare bottom: 300x250 native
       var cmp = document.getElementById('adCompare');
       if(cmp){
         var c = document.createElement('div');
@@ -554,26 +589,34 @@
         cmp.appendChild(s1);
       }
 
-      // Scan slot: 468x60 desktop / 320x50 mobile
-      var scan = document.getElementById('adScan');
-      if(scan){
-        var sFrame = document.createElement('iframe');
-        sFrame.src = 'https://www.highrevenueformat.com/5f67c3aa64213386f04a397f9f6a38aa/invoke.js';
-        sFrame.style.cssText = isDesktop ? 'width:468px;height:60px;' : 'width:320px;height:50px;';
-        sFrame.setAttribute('scrolling','no');
-        sFrame.setAttribute('frameborder','0');
-        scan.appendChild(sFrame);
-      }
+      // 5. Scan tabs (after segment buttons): 320x50
+      var scanTabs = document.getElementById('adScanTabs');
+      if(scanTabs) scanTabs.appendChild(makeIframe('https://www.highrevenueformat.com/b725ffb9f444458dda0bd540f20899a8/invoke.js', 320, 50));
 
-      // Learn slot: 300x250
+      // 6. Scan bottom: 468x60 desktop / 320x50 mobile
+      var scan = document.getElementById('adScan');
+      if(scan) scan.appendChild(makeIframe('https://www.highrevenueformat.com/5f67c3aa64213386f04a397f9f6a38aa/invoke.js', isDesktop?468:320, isDesktop?60:50));
+
+      // 7. Between scan and learn: 300x250
+      var scanLearn = document.getElementById('adScanLearn');
+      if(scanLearn) scanLearn.appendChild(makeIframe('https://www.highrevenueformat.com/1ea1f8e32afbf0f6efe296bcaaa0ca18/invoke.js', 300, 250));
+
+      // 8. Learn mid (between checklist and FAQ): 320x50
+      var learnMid = document.getElementById('adLearnMid');
+      if(learnMid) learnMid.appendChild(makeIframe('https://www.highrevenueformat.com/b725ffb9f444458dda0bd540f20899a8/invoke.js', 320, 50));
+
+      // 9. Learn bottom: 300x250
       var lrn = document.getElementById('adLearn');
-      if(lrn){
-        var lFrame = document.createElement('iframe');
-        lFrame.src = 'https://www.highrevenueformat.com/1ea1f8e32afbf0f6efe296bcaaa0ca18/invoke.js';
-        lFrame.style.cssText = 'width:300px;height:250px;';
-        lFrame.setAttribute('scrolling','no');
-        lFrame.setAttribute('frameborder','0');
-        lrn.appendChild(lFrame);
+      if(lrn) lrn.appendChild(makeIframe('https://www.highrevenueformat.com/1ea1f8e32afbf0f6efe296bcaaa0ca18/invoke.js', 300, 250));
+
+      // 10. Before footer: 468x60 desktop / 320x50 mobile
+      var foot = document.getElementById('adFooter');
+      if(foot) foot.appendChild(makeIframe('https://www.highrevenueformat.com/5f67c3aa64213386f04a397f9f6a38aa/invoke.js', isDesktop?468:320, isDesktop?60:50));
+
+      // 11. Desktop sidebar: 160x600 skyscraper
+      if(isWide){
+        var side = document.getElementById('adSidebar');
+        if(side) side.appendChild(makeIframe('https://www.highrevenueformat.com/666e19643f145f1de664605ae137a69b/invoke.js', 160, 600));
       }
     }
 
