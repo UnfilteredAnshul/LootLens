@@ -1,0 +1,14 @@
+{
+  "name": "lootlens",
+  "version": "1.0.0",
+  "description": "See through marketing gimmicks. Find the real best price per unit.",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "test": "node --test tests/",
+    "dev": "node scripts/dev-server.mjs"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
