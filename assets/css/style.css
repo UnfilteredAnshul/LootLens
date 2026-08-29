@@ -984,3 +984,140 @@ footer { padding-bottom: calc(var(--nav-h) + 30px); }
   line-height: 1.5;
 }
 .guide-tip strong { color: var(--accent); }
+
+/* ---------- adblocker notice banner ---------- */
+.adblock-notice {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 200;
+  background: #1a1205;
+  border-bottom: 1px solid rgba(217,119,6,0.3);
+  padding: 8px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: 13px;
+  color: var(--muted);
+  transform: translateY(-100%);
+  transition: transform 0.3s ease;
+}
+.adblock-notice.show { transform: translateY(0); }
+.adblock-notice svg { flex-shrink: 0; color: var(--accent); }
+.adblock-notice a { color: var(--accent); text-decoration: underline; }
+
+/* ---------- adblocker popup overlay ---------- */
+.adblock-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 999;
+  background: rgba(0,0,0,0.85);
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.adblock-overlay.show {
+  display: flex;
+  opacity: 1;
+}
+.adblock-popup {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 28px 24px;
+  max-width: 360px;
+  width: 100%;
+  text-align: center;
+  position: relative;
+}
+.adblock-popup h2 {
+  font-size: 18px;
+  margin: 0 0 8px;
+  color: var(--text);
+}
+.adblock-popup p {
+  font-size: 14px;
+  color: var(--muted);
+  margin: 0 0 16px;
+  line-height: 1.5;
+}
+.adblock-timer {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  border: 3px solid var(--accent);
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--accent);
+  margin: 0 auto 16px;
+}
+.adblock-timer-label {
+  font-size: 12px;
+  color: var(--muted);
+  margin-bottom: 16px;
+}
+.adblock-popup .btn-group {
+  display: flex;
+  gap: 10px;
+}
+.adblock-popup .btn-group button {
+  flex: 1;
+  padding: 12px 16px;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  transition: all 0.2s;
+}
+.adblock-popup .btn-dismiss {
+  background: rgba(255,255,255,0.06);
+  color: var(--muted);
+  border: 1px solid var(--border) !important;
+}
+.adblock-popup .btn-dismiss:hover { background: rgba(255,255,255,0.1); }
+.adblock-popup .btn-support {
+  background: var(--accent);
+  color: #000;
+}
+.adblock-popup .btn-support:hover { background: var(--amber); }
+.adblock-popup .btn-dismiss:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* ---------- live ad slots ---------- */
+.ad-slot {
+  margin: 12px 0;
+  text-align: center;
+  overflow: hidden;
+  border-radius: 12px;
+}
+.ad-slot .ad-label {
+  display: block;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.25);
+  margin-bottom: 4px;
+}
+.ad-slot iframe {
+  display: block;
+  margin: 0 auto;
+  border: none;
+}
+/* mobile banner 320x50 */
+.ad-slot-top { margin: 0 0 8px; }
+/* desktop leaderboard 728x90 */
+@media (min-width: 900px) {
+  .ad-slot-top iframe { max-width: 728px; }
+}

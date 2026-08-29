@@ -93,10 +93,32 @@
     #app{min-height:60vh}
     @media(min-width:900px){#app,.hero,main{max-width:640px}}
   </style>
-  <link rel="stylesheet" href="/assets/css/style.css?v=5">
+  <link rel="stylesheet" href="/assets/css/style.css?v=6">
+  <script src="https://pl31086943.profitableratecpmnetwork.com/36/98/d9/3698d90ac7474a3bc4baa976c8bffc95.js" defer></script>
 </head>
 <body>
   <noscript><div>LootLens needs JavaScript for the calculators. The guide below still works without it.</div></noscript>
+
+  <!-- Adblocker notice banner (fixed top) -->
+  <div class="adblock-notice" id="adblockBanner">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4"/><path d="M12 16h.01"/></svg>
+    Ads keep LootLens free. Please consider disabling your ad blocker.
+  </div>
+
+  <!-- Adblocker popup overlay -->
+  <div class="adblock-overlay" id="adblockOverlay">
+    <div class="adblock-popup">
+      <div class="adblock-timer" id="adblockTimer">15</div>
+      <p class="adblock-timer-label">seconds to dismiss</p>
+      <h2>We get it, ads are annoying.</h2>
+      <p>LootLens is free because of ads. Disabling your ad blocker helps us keep it that way.
+         We never track you — everything stays on your device.</p>
+      <div class="btn-group">
+        <button class="btn-dismiss" id="adblockDismiss" disabled>I'll keep my blocker</button>
+        <button class="btn-support" id="adblockDisable">Disable it</button>
+      </div>
+    </div>
+  </div>
 
   <svg width="0" height="0" style="position:absolute" aria-hidden="true">
     <symbol id="i-logo" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M11 19a8 8 0 1 0 0-16 8 8 0 0 0 0 16Z"/><path stroke="currentColor" stroke-width="2" stroke-linecap="round" d="m21 21-4.35-4.35"/><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-dasharray="2 3" d="M7.5 11h7"/></symbol>
@@ -123,6 +145,9 @@
       <span class="brand-name">Loot<b>Lens</b></span>
     </a>
   </header>
+
+  <!-- Top ad slot — mobile: 320x50, desktop: 728x90 -->
+  <div class="ad-slot ad-slot-top" id="adTop" role="complementary" aria-label="Advertisement"></div>
 
   <section class="hero">
     <p class="kicker">Marketing gimmick buster · India edition</p>
@@ -192,14 +217,8 @@
         </div>
       </section>
 
-      <!-- AD SLOT 1 — banner. To activate AdSense: paste your loader script tag below
-           (<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXX"></script>)
-           and replace the inner span with your <ins class="adsbygoogle"> block. Slot height is
-           fixed to prevent layout shift (CLS). -->
-      <div class="ad-slot ad-bottom" data-ad-slot="compare-banner" role="complementary" aria-label="Advertisement">
-        <span class="ad-label">Advertisement</span>
-        <div class="ad-box" data-ad-height="100"></div>
-      </div>
+      <!-- Bottom ad slot — compare -->
+      <div class="ad-slot" id="adCompare" role="complementary" aria-label="Advertisement"></div>
     </section>
 
     <!-- ============ SCAN VIEW ============ -->
@@ -283,10 +302,8 @@
         <output class="tool-out" id="bundleOut" for="bCombo bParts" aria-live="polite"></output>
       </form>
 
-      <div class="ad-slot" data-ad-slot="scan-inline" role="complementary" aria-label="Advertisement">
-        <span class="ad-label">Advertisement</span>
-        <div class="ad-box" data-ad-height="250"></div>
-      </div>
+      <!-- Mid ad slot — scan -->
+      <div class="ad-slot" id="adScan" role="complementary" aria-label="Advertisement"></div>
     </section>
 
     <!-- ============ LEARN VIEW ============ -->
@@ -397,10 +414,8 @@
            nothing ever leaves your device.</p>
       </details>
 
-      <div class="ad-slot" data-ad-slot="learn-footer" role="complementary" aria-label="Advertisement">
-        <span class="ad-label">Advertisement</span>
-        <div class="ad-box" data-ad-height="250"></div>
-      </div>
+      <!-- Bottom ad slot — learn -->
+      <div class="ad-slot" id="adLearn" role="complementary" aria-label="Advertisement"></div>
     </section>
 
     <!-- ============ TOOL GUIDE MODAL ============ -->
@@ -422,7 +437,8 @@
     <p>LootLens compares unit prices and flags common retail tricks. All data stays on your
        device. This site displays advertisements to stay free. Prices shown are examples you
        enter — always verify on the shelf.</p>
-    <p>&copy; 2026 LootLens · Made for smart Indian shoppers</p>
+    <p><a href="/privacy.html" style="color:var(--accent);text-decoration:none">Privacy Policy</a> ·
+       &copy; 2026 LootLens · Made for smart Indian shoppers</p>
   </footer>
 
   <nav class="bottom-nav" aria-label="Primary">
@@ -439,6 +455,159 @@
 
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-  <script type="module" src="/assets/js/app.js?v=4"></script>
+  <script type="module" src="/assets/js/app.js?v=5"></script>
+
+  <!-- Adblocker detection + ad loading -->
+  <script>
+  (function(){
+    var shown = false;
+    var popupTimer = null;
+    var dismissInterval = null;
+    var lastDismiss = 0;
+    var RESHOW_MS = 150000; // 2.5 min
+
+    // --- Adblocker detection ---
+    function detect(){
+      var bait = document.createElement('div');
+      bait.className = 'pub_300x250 pub_300x250m pub_728x90 text_ad text_ad text_ad banner_ad';
+      bait.style.cssText = 'width:1px;height:1px;position:absolute;left:-9999px;top:-9999px;';
+      bait.innerHTML = '&nbsp;';
+      document.body.appendChild(bait);
+      var blocked = (
+        bait.offsetHeight === 0 ||
+        bait.clientHeight === 0 ||
+        getComputedStyle(bait).display === 'none' ||
+        getComputedStyle(bait).visibility === 'hidden'
+      );
+      setTimeout(function(){ try{ bait.remove(); }catch(e){} }, 100);
+      return blocked;
+    }
+
+    // --- Show/hide banner + popup ---
+    function showBanner(){
+      document.getElementById('adblockBanner').classList.add('show');
+      document.body.style.paddingTop = '40px';
+    }
+    function hideBanner(){
+      document.getElementById('adblockBanner').classList.remove('show');
+      document.body.style.paddingTop = '';
+    }
+
+    function showPopup(){
+      if(shown) return;
+      shown = true;
+      var overlay = document.getElementById('adblockOverlay');
+      var timerEl = document.getElementById('adblockTimer');
+      var dismissBtn = document.getElementById('adblockDismiss');
+      overlay.classList.add('show');
+      var seconds = 15;
+      timerEl.textContent = seconds;
+      dismissBtn.disabled = true;
+      dismissInterval = setInterval(function(){
+        seconds--;
+        timerEl.textContent = seconds;
+        if(seconds <= 0){
+          clearInterval(dismissInterval);
+          dismissBtn.disabled = false;
+        }
+      }, 1000);
+    }
+
+    function hidePopup(){
+      document.getElementById('adblockOverlay').classList.remove('show');
+      clearInterval(dismissInterval);
+      lastDismiss = Date.now();
+      shown = false;
+      // schedule reappearance
+      setTimeout(function(){
+        if(detect()){
+          showBanner();
+          showPopup();
+        }
+      }, RESHOW_MS);
+    }
+
+    // --- Load ads into containers ---
+    function loadAds(){
+      // Top slot: 320x50 mobile, 728x90 desktop
+      var top = document.getElementById('adTop');
+      if(top){
+        var isDesktop = window.innerWidth >= 900;
+        var iframe = document.createElement('iframe');
+        iframe.src = 'https://www.profitableratecpmnetwork.com/kukivjatz?key=81dcb0dc1205c8fc45fcf379623078bd';
+        iframe.style.cssText = isDesktop ? 'width:728px;height:90px;' : 'width:320px;height:50px;';
+        iframe.setAttribute('scrolling','no');
+        iframe.setAttribute('frameborder','0');
+        top.appendChild(iframe);
+      }
+
+      // Compare slot: 300x250
+      var cmp = document.getElementById('adCompare');
+      if(cmp){
+        var c = document.createElement('div');
+        c.id = 'container-9020c1d3adc61e269ff2bea91a7845a4';
+        cmp.appendChild(c);
+        var s1 = document.createElement('script');
+        s1.async = true;
+        s1.setAttribute('data-cfasync','false');
+        s1.src = 'https://pl31086945.profitableratecpmnetwork.com/9020c1d3adc61e269ff2bea91a7845a4/invoke.js';
+        cmp.appendChild(s1);
+      }
+
+      // Scan slot: 468x60 desktop / 320x50 mobile
+      var scan = document.getElementById('adScan');
+      if(scan){
+        var sFrame = document.createElement('iframe');
+        sFrame.src = 'https://www.highrevenueformat.com/5f67c3aa64213386f04a397f9f6a38aa/invoke.js';
+        sFrame.style.cssText = isDesktop ? 'width:468px;height:60px;' : 'width:320px;height:50px;';
+        sFrame.setAttribute('scrolling','no');
+        sFrame.setAttribute('frameborder','0');
+        scan.appendChild(sFrame);
+      }
+
+      // Learn slot: 300x250
+      var lrn = document.getElementById('adLearn');
+      if(lrn){
+        var lFrame = document.createElement('iframe');
+        lFrame.src = 'https://www.highrevenueformat.com/1ea1f8e32afbf0f6efe296bcaaa0ca18/invoke.js';
+        lFrame.style.cssText = 'width:300px;height:250px;';
+        lFrame.setAttribute('scrolling','no');
+        lFrame.setAttribute('frameborder','0');
+        lrn.appendChild(lFrame);
+      }
+    }
+
+    // --- Init ---
+    function init(){
+      var blocked = detect();
+      if(blocked){
+        showBanner();
+        showPopup();
+      } else {
+        loadAds();
+      }
+    }
+
+    // Dismiss button
+    document.getElementById('adblockDismiss').addEventListener('click', hidePopup);
+
+    // "Disable it" — user goes to whitelist instructions
+    document.getElementById('adblockDisable').addEventListener('click', function(){
+      hidePopup();
+      hideBanner();
+      // Try loading ads in case user did disable
+      setTimeout(function(){
+        if(!detect()) loadAds();
+      }, 500);
+    });
+
+    // Run after DOM ready
+    if(document.readyState === 'loading'){
+      document.addEventListener('DOMContentLoaded', init);
+    } else {
+      init();
+    }
+  })();
+  </script>
 </body>
 </html>
