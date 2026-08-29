@@ -1098,25 +1098,26 @@ footer { padding-bottom: calc(var(--nav-h) + 30px); }
 .privacy-overlay {
   display: none;
   position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
+  inset: 0;
   z-index: 998;
-  background: rgba(0,0,0,0.7);
-  padding: 0 12px 12px;
-  padding-bottom: calc(12px + env(safe-area-inset-bottom, 0px));
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
 }
 .privacy-overlay.show {
-  display: block;
+  display: flex;
 }
 .privacy-popup {
   background: var(--bg2);
   border: 1px solid var(--border);
-  border-radius: 16px 16px 16px 16px;
-  padding: 20px 18px;
+  border-radius: 16px 16px 0 0;
+  padding: 24px 20px;
+  padding-bottom: calc(24px + env(safe-area-inset-bottom, 0px));
+  width: 100%;
   max-width: 480px;
-  margin: 0 auto;
   text-align: left;
+  box-shadow: 0 -4px 32px rgba(0,0,0,0.5);
 }
 .privacy-popup h2 {
   font-size: 16px;
