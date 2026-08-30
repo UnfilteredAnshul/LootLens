@@ -22,10 +22,15 @@ packs, expose fake discounts, decoy pricing and shrinkflation. Free, no login. W
   <meta property="og:image" content="https://lootlens.antideploy.com/assets/icons/og.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="LootLens — Price Per Unit Calculator and Marketing Gimmick Buster">
+  <meta property="og:locale" content="en_US">
   <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@lootlens">
+  <meta name="twitter:creator" content="@lootlens">
   <meta name="twitter:title" content="LootLens — Marketing Gimmick Buster">
   <meta name="twitter:description" content="Compare price per gram, bust fake discounts and shrinkflation. Free forever, no login.">
   <meta name="twitter:image" content="https://lootlens.antideploy.com/assets/icons/og.png">
+  <meta name="twitter:image:alt" content="LootLens — Price Per Unit Calculator">
 
   <script type="application/ld+json">
   {
@@ -43,7 +48,12 @@ packs, expose fake discounts, decoy pricing and shrinkflation. Free, no login. W
       "Fake discount verification",
       "Shrinkflation check",
       "Combo bundle trap analysis"
-    ]
+    ],
+    "browserRequirements": "Requires a modern web browser with JavaScript enabled",
+    "softwareHelp": { "@type": "CreativeWork", "url": "https://lootlens.antideploy.com/#faq" },
+    "applicationSubCategory": "Unit Price Calculator, Grocery Savings Tool",
+    "provider": { "@type": "Organization", "name": "LootLens" },
+    "screenshot": "https://lootlens.antideploy.com/assets/icons/og.png"
   }
   </script>
   <script type="application/ld+json">
@@ -51,6 +61,11 @@ packs, expose fake discounts, decoy pricing and shrinkflation. Free, no login. W
     "@context": "https://schema.org",
     "@type": "FAQPage",
     "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What is LootLens and how does it work?",
+        "acceptedAnswer": { "@type": "Answer", "text": "LootLens is a free online tool that helps you compare grocery prices across different pack sizes. It calculates the price per gram, per ml, or per piece for each pack and ranks them from best to worst value. You enter the price and quantity for 2-8 packs, and LootLens instantly shows which pack is the best deal and detects marketing tricks like decoy pricing, fake discounts, and shrinkflation." }
+      },
       {
         "@type": "Question",
         "name": "What is a price per unit and why does it matter?",
@@ -63,15 +78,103 @@ packs, expose fake discounts, decoy pricing and shrinkflation. Free, no login. W
       },
       {
         "@type": "Question",
-        "name": "What is shrinkflation?",
+        "name": "What is shrinkflation and how do I detect it?",
         "acceptedAnswer": { "@type": "Answer", "text": "Shrinkflation is when a brand quietly reduces the pack size while keeping the same price — for example a cereal box going from 500g to 425g at the same price. You pay the same at the counter but about 15% more per gram. LootLens Shrink Check quantifies the hidden hike so you can see exactly how much you are losing." }
       },
       {
         "@type": "Question",
         "name": "Is LootLens free? Does it store my data?",
         "acceptedAnswer": { "@type": "Answer", "text": "LootLens is completely free with no login or signup. Everything you type stays on your device — comparisons are saved only in your browser's local storage and never sent to a server." }
+      },
+      {
+        "@type": "Question",
+        "name": "How much can I save using LootLens?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Savings vary by product, but typical grocery shoppers save 10-30% on each purchase by choosing the right pack size. For example, if you regularly buy chips and discover the medium pack has the same price per gram as the large pack, you save the extra cost of the large pack every time. Over a year of grocery shopping, this adds up to hundreds of dollars." }
+      },
+      {
+        "@type": "Question",
+        "name": "What is decoy pricing and how does LootLens detect it?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Decoy pricing is when a third option is placed to make one specific pack look irresistible. For example, a small coffee sachet at $5/100g, a 50g jar at $4.20/100g, and a 100g jar at $3.80/100g — the tiny sachet exists to make the jar look like genius. LootLens detects this by comparing price-per-unit across all packs and identifying when one pack is priced to make another look like a better deal." }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I use the extra free decoder?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Enter the percentage of 'extra free' claimed on the pack (e.g., 50% extra free). LootLens calculates the real discount: 50% extra free is actually only 33.3% off, not 50%. The formula is: real % off = extra ÷ (100 + extra) × 100." }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I use LootLens on my phone?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Yes! LootLens is designed for mobile-first use. It works on any device with a web browser — phones, tablets, and desktops. The interface is optimized for one-handed use on mobile screens." }
+      },
+      {
+        "@type": "Question",
+        "name": "What currencies does LootLens support?",
+        "acceptedAnswer": { "@type": "Answer", "text": "LootLens supports 20 currencies including USD, EUR, GBP, INR, JPY, CNY, KRW, BRL, MXN, AUD, CAD, SGD, AED, SAR, ZAR, NGN, EGP, THB, IDR, and PHP. Select your currency when you first open the app, and all prices will be formatted automatically." }
       }
     ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    "name": "How to compare grocery prices and find the best deal",
+    "description": "Learn how to use LootLens to compare pack sizes, detect fake discounts, and find the real best value at the grocery store.",
+    "totalTime": "PT1M",
+    "step": [
+      {
+        "@type": "HowToStep",
+        "name": "Select your currency",
+        "text": "Choose the currency you shop in from the currency selector. LootLens supports 20 currencies including USD, EUR, GBP, and INR.",
+        "url": "https://lootlens.antideploy.com/#currency"
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Add packs to compare",
+        "text": "Click 'Add another pack' and enter the price, quantity, and unit for each pack you want to compare. You can add up to 8 packs.",
+        "url": "https://lootlens.antideploy.com/#compare"
+      },
+      {
+        "@type": "HowToStep",
+        "name": "View the results",
+        "text": "LootLens instantly calculates the price per gram/ml/piece for each pack and ranks them from best to worst value. It also shows you how much you save by choosing the best pack.",
+        "url": "https://lootlens.antideploy.com/#results"
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Check for marketing tricks",
+        "text": "Use the Scan tools to verify if discount claims are honest, decode 'extra free' offers, detect shrinkflation, and check if bundle deals are actually saving you money.",
+        "url": "https://lootlens.antideploy.com/#scan"
+      }
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://lootlens.antideploy.com/" },
+      { "@type": "ListItem", "position": 2, "name": "Compare Packs", "item": "https://lootlens.antideploy.com/#compare" },
+      { "@type": "ListItem", "position": 3, "name": "Scan Tools", "item": "https://lootlens.antideploy.com/#scan" },
+      { "@type": "ListItem", "position": 4, "name": "Learn", "item": "https://lootlens.antideploy.com/#learn" }
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "LootLens — Price Per Unit Calculator & Marketing Gimmick Buster",
+    "description": "Beat supermarket tricks in seconds. Compare price per gram/ml across packs, expose fake discounts, decoy pricing and shrinkflation.",
+    "url": "https://lootlens.antideploy.com/",
+    "isPartOf": { "@type": "WebSite", "name": "LootLens", "url": "https://lootlens.antideploy.com/" },
+    "about": { "@type": "Thing", "name": "Grocery Price Comparison" },
+    "mainEntity": { "@type": "WebApplication", "name": "LootLens" },
+    "speakable": {
+      "@type": "SpeakableSpecification",
+      "cssSelector": [".hero h1", ".hero p", ".currency-prompt h2"]
+    }
   }
   </script>
 
@@ -478,16 +581,31 @@ packs, expose fake discounts, decoy pricing and shrinkflation. Free, no login. W
     <div style="max-width:480px;margin:0 auto;padding:16px;color:#fafaf9;font-family:system-ui,sans-serif;">
       <h2>LootLens — Price Per Unit Calculator</h2>
       <p>Compare grocery pack sizes and find the real best deal. LootLens normalizes prices to per gram, per ml, or per piece so you can see through marketing tricks.</p>
+      <h3>What is LootLens?</h3>
+      <p>LootLens is a free online grocery price comparison tool that calculates the price per unit (per gram, per ml, or per piece) for different pack sizes. It helps shoppers find the best value and detect marketing tricks like decoy pricing, fake discounts, shrinkflation, and bundle traps.</p>
+      <h3>How to use LootLens</h3>
+      <ol>
+        <li><strong>Select your currency</strong> — Choose from 20 currencies including USD, EUR, GBP, INR, JPY, and more.</li>
+        <li><strong>Add packs to compare</strong> — Enter the price, quantity, and unit for 2-8 packs of the same product.</li>
+        <li><strong>View ranked results</strong> — LootLens calculates price per unit and ranks packs from best to worst value.</li>
+        <li><strong>Check for tricks</strong> — Use the Scan tools to verify discount claims, decode "extra free" offers, detect shrinkflation, and check bundle deals.</li>
+      </ol>
       <h3>Features</h3>
       <ul>
         <li><strong>Compare Packs</strong> — Add 2-8 packs, see ranked price per unit instantly</li>
-        <li><strong>Claim Check</strong> — Verify if "40% OFF" labels are honest</li>
-        <li><strong>Extra Free Decoder</strong> — "50% extra free" is really 33% off, not 50%</li>
-        <li><strong>Shrinkflation Check</strong> — Detect quiet pack size reductions</li>
-        <li><strong>Bundle Trap Checker</strong> — Is that combo deal actually saving you money?</li>
+        <li><strong>Claim Check</strong> — Verify if "40% OFF" labels are honest. Enter original price, sale price, and claimed discount to see the real percentage.</li>
+        <li><strong>Extra Free Decoder</strong> — "50% extra free" is really 33% off, not 50%. Enter the extra free percentage to see the real discount.</li>
+        <li><strong>Shrinkflation Check</strong> — Compare old vs new pack to detect quiet size reductions. Enter old and new price/quantity/unit to see the hidden price hike.</li>
+        <li><strong>Bundle Trap Checker</strong> — Is that combo deal actually saving you money? Enter combo price and individual prices to calculate real savings.</li>
       </ul>
-      <h3>How it works</h3>
-      <p>Enter the price and quantity for each pack. LootLens calculates the price per gram/ml/piece and ranks them from best to worst value. It also detects decoy pricing, flat multiplier packs, and charm pricing tricks.</p>
+      <h3>Key facts about grocery pricing</h3>
+      <ul>
+        <li><strong>Decoy pricing</strong> — A third option placed to make one pack look irresistible. The small sachet exists to make the jar look like genius.</li>
+        <li><strong>Flat multiplier packs</strong> — When every size costs the same per unit, buying more gets you exactly proportionally more with no bonus.</li>
+        <li><strong>Shrinkflation</strong> — Pack size reduces while price stays the same. A 15% size reduction means you pay 15% more per gram.</li>
+        <li><strong>"Extra free" illusion</strong> — "50% extra free" is added on top of a bigger base, so the real discount is only 33.3%.</li>
+        <li><strong>Charm pricing</strong> — Prices ending in 9 or 99 make items feel cheaper than they are. $19.99 is effectively $20.</li>
+      </ul>
       <p><strong>Free forever. No login. All data stays on your device.</strong></p>
       <p>Enable JavaScript to use the interactive calculators.</p>
     </div>
