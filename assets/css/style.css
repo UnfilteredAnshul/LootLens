@@ -1210,8 +1210,13 @@ footer { padding-bottom: calc(var(--nav-h) + 30px); }
 }
 .privacy-popup a { color: var(--accent); text-decoration: underline; }
 .privacy-popup .btn-group { margin-top: 12px; }
+.privacy-popup .btn-group-row {
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+}
 .privacy-popup .btn-support {
-  width: 100%;
+  flex: 1;
   padding: 13px 16px;
   border-radius: 12px;
   font-size: 14px;
@@ -1223,6 +1228,25 @@ footer { padding-bottom: calc(var(--nav-h) + 30px); }
   transition: background 0.2s;
 }
 .privacy-popup .btn-support:hover { background: var(--amber); }
+.privacy-popup .btn-secondary {
+  flex: 1;
+  padding: 13px 16px;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  border: 1px solid var(--border);
+  background: rgba(255,255,255,0.05);
+  color: var(--muted);
+  transition: background 0.2s, border-color 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.privacy-popup .btn-secondary:hover {
+  background: rgba(255,255,255,0.08);
+  border-color: rgba(255,255,255,0.15);
+}
 
 /* ---------- live ad slots ---------- */
 .ad-slot {
