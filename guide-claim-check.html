@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Claim Check Guide — How to Verify Discount Labels | LootLens</title>
+  <meta name="description" content="Learn how to verify if "40% OFF" labels are honest. Step-by-step guide to checking discount claims with real examples and the exact formula.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://lootlens.antideploy.com/guide-claim-check.html">
+  <meta name="theme-color" content="#0c0a09">
+  <link rel="icon" type="image/svg+xml" href="/assets/icons/favicon.svg">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="LootLens">
+  <meta property="og:title" content="Claim Check Guide — How to Verify Discount Labels">
+  <meta property="og:description" content="Learn how to verify if "40% OFF" labels are honest. Step-by-step guide with real examples.">
+  <meta property="og:url" content="https://lootlens.antideploy.com/guide-claim-check.html">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Claim Check Guide — LootLens">
+  <meta name="twitter:description" content="Learn how to verify if discount labels are honest. Step-by-step guide.">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    "name": "How to Verify Discount Labels with Claim Check",
+    "description": "Learn how to verify if '40% OFF' labels are honest using LootLens Claim Check tool.",
+    "totalTime": "PT2M",
+    "step": [
+      {
+        "@type": "HowToStep",
+        "name": "Find the original price",
+        "text": "Find the price before the sale on the shelf tag or product listing."
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Find the sale price",
+        "text": "Find what you actually pay right now — the big bold number on the sticker."
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Enter the claimed discount",
+        "text": "Enter the percentage the label claims. Usually the loudest number on the tag."
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Compare results",
+        "text": "LootLens calculates the real discount and tells you if the label is lying."
+      }
+    ]
+  }
+  </script>
+  <style>
+    :root{--bg:#0c0a09;--bg2:#1c1917;--text:#fafaf9;--muted:#a8a29e;--accent:#d97706;--border:rgba(255,255,255,.08);--good:#22c55e;--warn:#eab308;--bad:#ef4444}
+    html,body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;line-height:1.6}
+    .container{max-width:640px;margin:0 auto;padding:32px 20px 80px}
+    h1{font-size:clamp(24px,6vw,32px);margin:0 0 8px;color:var(--text)}
+    h2{font-size:18px;margin:28px 0 8px;color:var(--accent)}
+    h3{font-size:15px;margin:20px 0 8px;color:var(--text)}
+    p,li{font-size:15px;color:var(--muted);margin:0 0 12px}
+    ul,ol{padding-left:20px}
+    a{color:var(--accent);text-decoration:none}
+    a:hover{text-decoration:underline}
+    .back{display:inline-flex;align-items:center;gap:6px;color:var(--accent);font-size:14px;margin-bottom:24px;text-decoration:none}
+    .back:hover{text-decoration:underline}
+    hr{border:none;border-top:1px solid var(--border);margin:24px 0}
+    .intro{font-size:16px;color:var(--text);line-height:1.7;margin-bottom:24px}
+    .sim{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:16px;margin:16px 0}
+    .sim-label{font-size:13px;color:var(--muted);margin-bottom:8px}
+    .sim-box{display:flex;flex-direction:column;gap:4px}
+    .sim-big{font-size:18px;font-weight:700;color:var(--text)}
+    .sim-strike{text-decoration:line-through;color:var(--muted);font-size:14px}
+    .sim-tag{color:var(--accent);font-weight:600;font-size:14px}
+    .sim-result{border-top:1px solid var(--border);padding-top:8px;margin-top:8px}
+    .verdict{font-size:14px;font-weight:600;margin-top:4px}
+    .verdict.good{color:var(--good)}
+    .verdict.bad{color:var(--bad)}
+    .verdict.warn{color:var(--warn)}
+    .tip{background:var(--bg2);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;padding:12px 16px;margin:20px 0;font-size:14px;color:var(--muted)}
+    .tip strong{color:var(--accent)}
+    code{background:var(--bg2);padding:2px 6px;border-radius:4px;font-size:14px;color:var(--accent)}
+    .cta{display:inline-block;background:var(--accent);color:#000;font-weight:600;padding:12px 24px;border-radius:8px;text-decoration:none;margin:20px 0}
+    .cta:hover{opacity:.9}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <a class="back" href="/">&larr; Back to LootLens</a>
+    <h1>Claim Check Guide</h1>
+    <p class="intro">Use this tool when a shelf tag shouts <strong>"40% OFF!"</strong> or <strong>"Save $50!"</strong>. It tells you the real discount percentage and whether the label is lying.</p>
+
+    <h2>How to use it</h2>
+    <ol>
+      <li><strong>Original price</strong> — the price before the sale. Find it on the shelf tag or product listing.</li>
+      <li><strong>Sale price</strong> — what you actually pay right now. The big bold number on the sticker.</li>
+      <li><strong>Claimed discount</strong> — the percentage the label claims. Usually the loudest number on the tag.</li>
+    </ol>
+
+    <h2>Real example — Honest tag</h2>
+    <div class="sim">
+      <div class="sim-label">You see this on the shelf:</div>
+      <div class="sim-box">
+        <span class="sim-strike">Was $99.99</span>
+        <span class="sim-big">Now $59.99</span>
+        <span class="sim-tag">40% OFF!</span>
+      </div>
+    </div>
+    <ol>
+      <li>Enter <strong>99.99</strong> as the original price.</li>
+      <li>Enter <strong>59.99</strong> as the sale price.</li>
+      <li>Enter <strong>40</strong> as the claimed discount.</li>
+    </ol>
+    <div class="sim">
+      <div class="sim-label">LootLens tells you:</div>
+      <div class="sim-box sim-result">
+        <span>Real discount: <strong>40.0%</strong></span>
+        <span class="verdict good">Honest tag — the math checks out.</span>
+      </div>
+    </div>
+
+    <h2>When the label lies</h2>
+    <div class="sim">
+      <div class="sim-label">You see this on the shelf:</div>
+      <div class="sim-box">
+        <span class="sim-strike">Was $49.99</span>
+        <span class="sim-big">Now $37.99</span>
+        <span class="sim-tag">35% OFF!</span>
+      </div>
+    </div>
+    <ol>
+      <li>Enter <strong>49.99</strong> as the original price.</li>
+      <li>Enter <strong>37.99</strong> as the sale price.</li>
+      <li>Enter <strong>35</strong> as the claimed discount.</li>
+    </ol>
+    <div class="sim">
+      <div class="sim-label">LootLens tells you:</div>
+      <div class="sim-box sim-result">
+        <span>Real discount: <strong>24.0%</strong></span>
+        <span class="verdict bad">Inflated by 11 points — the tag is lying.</span>
+      </div>
+    </div>
+
+    <div class="tip">
+      <strong>Pro tip:</strong> On online stores, the "original price" shown is sometimes inflated before the sale. Cross-check with the actual product listing or receipt.
+    </div>
+
+    <hr>
+    <a class="cta" href="/?tool=claim">Try Claim Check Now</a>
+    <p><a href="/guide-extra-free.html">Next: Extra Free Check Guide →</a></p>
+  </div>
+</body>
+</html>

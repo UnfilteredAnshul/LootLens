@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Bundle Trap Check Guide — Is That Combo Deal Actually a Deal? | LootLens</title>
+  <meta name="description" content="Learn how to check if combo deals and bundles are actually saving you money. Step-by-step guide with real examples and verdict thresholds.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://lootlens.antideploy.com/guide-bundle-trap.html">
+  <meta name="theme-color" content="#0c0a09">
+  <link rel="icon" type="image/svg+xml" href="/assets/icons/favicon.svg">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="LootLens">
+  <meta property="og:title" content="Bundle Trap Check Guide — Is That Combo Deal Actually a Deal?">
+  <meta property="og:description" content="Learn how to check if combo deals and bundles are actually saving you money.">
+  <meta property="og:url" content="https://lootlens.antideploy.com/guide-bundle-trap.html">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Bundle Trap Check Guide — LootLens">
+  <meta name="twitter:description" content="Learn how to check if combo deals are actually saving you money.">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    "name": "How to Check if Bundle Deals Are Real",
+    "description": "Learn how to check if combo deals and bundles are actually saving you money using LootLens Bundle Check tool.",
+    "totalTime": "PT2M",
+    "step": [
+      {
+        "@type": "HowToStep",
+        "name": "Enter combo price",
+        "text": "Enter the total price of the bundle."
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Enter individual prices",
+        "text": "Enter the shelf price of each item in the bundle, separated by commas. Find these on the same website or at your local store."
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Check the verdict",
+        "text": "LootLens calculates the real savings percentage and tells you if it's a trap, borderline, or a real deal."
+      }
+    ]
+  }
+  </script>
+  <style>
+    :root{--bg:#0c0a09;--bg2:#1c1917;--text:#fafaf9;--muted:#a8a29e;--accent:#d97706;--border:rgba(255,255,255,.08);--good:#22c55e;--warn:#eab308;--bad:#ef4444}
+    html,body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;line-height:1.6}
+    .container{max-width:640px;margin:0 auto;padding:32px 20px 80px}
+    h1{font-size:clamp(24px,6vw,32px);margin:0 0 8px;color:var(--text)}
+    h2{font-size:18px;margin:28px 0 8px;color:var(--accent)}
+    h3{font-size:15px;margin:20px 0 8px;color:var(--text)}
+    p,li{font-size:15px;color:var(--muted);margin:0 0 12px}
+    ul,ol{padding-left:20px}
+    a{color:var(--accent);text-decoration:none}
+    a:hover{text-decoration:underline}
+    .back{display:inline-flex;align-items:center;gap:6px;color:var(--accent);font-size:14px;margin-bottom:24px;text-decoration:none}
+    .back:hover{text-decoration:underline}
+    hr{border:none;border-top:1px solid var(--border);margin:24px 0}
+    .intro{font-size:16px;color:var(--text);line-height:1.7;margin-bottom:24px}
+    .sim{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:16px;margin:16px 0}
+    .sim-label{font-size:13px;color:var(--muted);margin-bottom:8px}
+    .sim-box{display:flex;flex-direction:column;gap:4px}
+    .sim-big{font-size:18px;font-weight:700;color:var(--text)}
+    .sim-muted{color:var(--muted);font-size:13px}
+    .sim-result{border-top:1px solid var(--border);padding-top:8px;margin-top:8px}
+    .verdict{font-size:14px;font-weight:600;margin-top:4px}
+    .verdict.good{color:var(--good)}
+    .verdict.bad{color:var(--bad)}
+    .verdict.warn{color:var(--warn)}
+    .tip{background:var(--bg2);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;padding:12px 16px;margin:20px 0;font-size:14px;color:var(--muted)}
+    .tip strong{color:var(--accent)}
+    table{width:100%;border-collapse:collapse;margin:16px 0;font-size:14px}
+    th,td{padding:8px 12px;text-align:left;border-bottom:1px solid var(--border);color:var(--muted)}
+    th{color:var(--accent);font-weight:600}
+    .cta{display:inline-block;background:var(--accent);color:#000;font-weight:600;padding:12px 24px;border-radius:8px;text-decoration:none;margin:20px 0}
+    .cta:hover{opacity:.9}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <a class="back" href="/">&larr; Back to LootLens</a>
+    <h1>Bundle Trap Check Guide</h1>
+    <p class="intro">A "combo deal" says <strong>"Save $5!"</strong>. But is it actually a deal, or are they moving slow stock by hiding it next to something popular? This tool does the math.</p>
+
+    <h2>How to use it</h2>
+    <ol>
+      <li><strong>Combo price</strong> — the total price of the bundle.</li>
+      <li><strong>Individual prices</strong> — the shelf price of each item in the bundle, separated by commas. Find these on the same website or at your local store.</li>
+    </ol>
+
+    <h2>Real example — "Frequently Bought Together"</h2>
+    <div class="sim">
+      <div class="sim-label">You see this on the store:</div>
+      <div class="sim-box">
+        <span class="sim-big">Buy together, save $5!</span>
+        <span class="sim-muted">Cereal + Milk = $9.99</span>
+      </div>
+    </div>
+    <ol>
+      <li>Enter <strong>9.99</strong> as the combo price.</li>
+      <li>Enter <strong>5.99, 4.50</strong> as the individual prices.</li>
+    </ol>
+    <div class="sim">
+      <div class="sim-label">LootLens tells you:</div>
+      <div class="sim-box sim-result">
+        <span>Individual total: $10.49, Combo: $9.99</span>
+        <span class="verdict warn">Saves $0.50 (4.8%) — borderline, not the $5 they claimed.</span>
+      </div>
+    </div>
+
+    <h2>When the bundle is real</h2>
+    <ol>
+      <li>Combo price: <strong>29.99</strong></li>
+      <li>Individual prices: <strong>18.00, 14.99</strong></li>
+      <li>Total: $32.99, Combo: $29.99</li>
+      <li>Saves: $3.00 (<strong>9.1%</strong>) — decent deal, worth it if you need both.</li>
+    </ol>
+
+    <h2>What the verdicts mean</h2>
+    <table>
+      <tr><th>Saving %</th><th>Verdict</th></tr>
+      <tr><td>Under 5%</td><td>Trap — the bundle exists to move stock, not save you money.</td></tr>
+      <tr><td>5–15%</td><td>Borderline — worth it only if you'd buy both items anyway.</td></tr>
+      <tr><td>Over 15%</td><td>Real deal — genuinely saves money.</td></tr>
+    </table>
+
+    <div class="tip">
+      <strong>Pro tip:</strong> Always check the "Frequently Bought Together" section against individual product pages. The "savings" shown are sometimes calculated against inflated "list prices" that nobody actually pays.
+    </div>
+
+    <hr>
+    <a class="cta" href="/?tool=bundle">Try Bundle Check Now</a>
+    <p><a href="/guide-shrinkflation.html">← Previous: Shrinkflation Check</a></p>
+  </div>
+</body>
+</html>

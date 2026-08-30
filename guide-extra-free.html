@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Extra Free Check Guide — Decode "50% Extra Free" Labels | LootLens</title>
+  <meta name="description" content="Learn why "50% extra free" is really 33% off, not 50%. Step-by-step guide to decoding extra free labels with the real formula.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://lootlens.antideploy.com/guide-extra-free.html">
+  <meta name="theme-color" content="#0c0a09">
+  <link rel="icon" type="image/svg+xml" href="/assets/icons/favicon.svg">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="LootLens">
+  <meta property="og:title" content="Extra Free Check Guide — Decode Extra Free Labels">
+  <meta property="og:description" content="Learn why "50% extra free" is really 33% off, not 50%. Step-by-step guide with the real formula.">
+  <meta property="og:url" content="https://lootlens.antideploy.com/guide-extra-free.html">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Extra Free Check Guide — LootLens">
+  <meta name="twitter:description" content="Learn why "50% extra free" is really 33% off. Step-by-step guide.">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    "name": "How to Decode Extra Free Labels",
+    "description": "Learn why '50% extra free' is really 33% off, not 50%, using LootLens Extra Free Check tool.",
+    "totalTime": "PT1M",
+    "step": [
+      {
+        "@type": "HowToStep",
+        "name": "Find the extra free claim",
+        "text": "Find the % extra free claim on the pack. It's usually printed large on the front: '25% Extra Free', '50% Extra Free', etc."
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Enter the number",
+        "text": "Type that number into the box."
+      },
+      {
+        "@type": "HowToStep",
+        "name": "See the real discount",
+        "text": "The tool instantly tells you the real percentage off."
+      }
+    ]
+  }
+  </script>
+  <style>
+    :root{--bg:#0c0a09;--bg2:#1c1917;--text:#fafaf9;--muted:#a8a29e;--accent:#d97706;--border:rgba(255,255,255,.08);--good:#22c55e;--warn:#eab308;--bad:#ef4444}
+    html,body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;line-height:1.6}
+    .container{max-width:640px;margin:0 auto;padding:32px 20px 80px}
+    h1{font-size:clamp(24px,6vw,32px);margin:0 0 8px;color:var(--text)}
+    h2{font-size:18px;margin:28px 0 8px;color:var(--accent)}
+    h3{font-size:15px;margin:20px 0 8px;color:var(--text)}
+    p,li{font-size:15px;color:var(--muted);margin:0 0 12px}
+    ul,ol{padding-left:20px}
+    a{color:var(--accent);text-decoration:none}
+    a:hover{text-decoration:underline}
+    .back{display:inline-flex;align-items:center;gap:6px;color:var(--accent);font-size:14px;margin-bottom:24px;text-decoration:none}
+    .back:hover{text-decoration:underline}
+    hr{border:none;border-top:1px solid var(--border);margin:24px 0}
+    .intro{font-size:16px;color:var(--text);line-height:1.7;margin-bottom:24px}
+    .sim{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:16px;margin:16px 0}
+    .sim-label{font-size:13px;color:var(--muted);margin-bottom:8px}
+    .sim-box{display:flex;flex-direction:column;gap:4px}
+    .sim-big{font-size:18px;font-weight:700;color:var(--text)}
+    .sim-muted{color:var(--muted);font-size:13px}
+    .sim-result{border-top:1px solid var(--border);padding-top:8px;margin-top:8px}
+    .verdict{font-size:14px;font-weight:600;margin-top:4px}
+    .verdict.good{color:var(--good)}
+    .verdict.bad{color:var(--bad)}
+    .verdict.warn{color:var(--warn)}
+    .tip{background:var(--bg2);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;padding:12px 16px;margin:20px 0;font-size:14px;color:var(--muted)}
+    .tip strong{color:var(--accent)}
+    code{background:var(--bg2);padding:2px 6px;border-radius:4px;font-size:14px;color:var(--accent)}
+    table{width:100%;border-collapse:collapse;margin:16px 0;font-size:14px}
+    th,td{padding:8px 12px;text-align:left;border-bottom:1px solid var(--border);color:var(--muted)}
+    th{color:var(--accent);font-weight:600}
+    .cta{display:inline-block;background:var(--accent);color:#000;font-weight:600;padding:12px 24px;border-radius:8px;text-decoration:none;margin:20px 0}
+    .cta:hover{opacity:.9}
+    .formula{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:12px 16px;margin:16px 0;text-align:center;font-size:16px;color:var(--text)}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <a class="back" href="/">&larr; Back to LootLens</a>
+    <h1>Extra Free Check Guide</h1>
+    <p class="intro">The label says <strong>"50% EXTRA FREE!"</strong> on a bigger pack. Sounds like half price, right? It never is. This tool shows you the real discount hidden behind the "extra free" math.</p>
+
+    <h2>How to use it</h2>
+    <ol>
+      <li>Find the <strong>% extra free</strong> claim on the pack. It's usually printed large on the front: "25% Extra Free", "50% Extra Free", etc.</li>
+      <li>Type that number into the box.</li>
+      <li>The tool instantly tells you the real percentage off.</li>
+    </ol>
+
+    <h2>Real example — "25% Extra Free"</h2>
+    <div class="sim">
+      <div class="sim-label">You see this on the pack:</div>
+      <div class="sim-box">
+        <span class="sim-big">25% EXTRA FREE</span>
+        <span class="sim-muted">on the 1kg pack</span>
+      </div>
+    </div>
+    <ol>
+      <li>Enter <strong>25</strong> in the box.</li>
+    </ol>
+    <div class="sim">
+      <div class="sim-label">LootLens tells you:</div>
+      <div class="sim-box sim-result">
+        <span>Real discount: <strong>20.0%</strong></span>
+        <span class="verdict warn">Not 25% off — only 20% off.</span>
+      </div>
+    </div>
+
+    <h2>The cheat sheet</h2>
+    <table>
+      <tr><th>Label claims</th><th>Real discount</th></tr>
+      <tr><td>10% extra free</td><td>9.1%</td></tr>
+      <tr><td>25% extra free</td><td>20.0%</td></tr>
+      <tr><td>50% extra free</td><td>33.3%</td></tr>
+      <tr><td>100% extra free</td><td>50.0%</td></tr>
+    </table>
+
+    <h2>The formula</h2>
+    <p>If the label says <strong>X%</strong> extra free, the real discount is:</p>
+    <div class="formula">
+      <code>Real % off = X ÷ (100 + X) × 100</code>
+    </div>
+    <p>So "50% extra free" → 50 ÷ 150 × 100 = <strong>33.3% off</strong>. Not 50%. Not even close.</p>
+
+    <div class="tip">
+      <strong>Pro tip:</strong> Always compare the "extra free" pack's price-per-gram against the regular pack. Sometimes a straight "20% off" sale on the smaller pack beats the "extra free" bigger pack.
+    </div>
+
+    <hr>
+    <a class="cta" href="/?tool=extrafree">Try Extra Free Check Now</a>
+    <p><a href="/guide-claim-check.html">← Previous: Claim Check</a> · <a href="/guide-shrinkflation.html">Next: Shrinkflation Check →</a></p>
+  </div>
+</body>
+</html>

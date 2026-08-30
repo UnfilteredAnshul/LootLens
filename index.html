@@ -386,10 +386,10 @@ packs, expose fake discounts, decoy pricing and shrinkflation. Free, no login. W
           <h2><svg class="ic"><use href="#i-tag"/></svg> Is this discount real?</h2>
         </div>
         <p class="hint">Enter the tag prices and the % OFF the label shouts.</p>
-        <button class="guide-link" type="button" data-guide="claim">
+        <a class="guide-link" href="/guide-claim-check.html">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
-          New to this? Open the guide
-        </button>
+          New to this? Read the guide
+        </a>
         <label>Original price<input id="claimOriginal" inputmode="decimal" placeholder="e.g. 240" autocomplete="off"></label>
         <label>Sale price<input id="claimSale" inputmode="decimal" placeholder="e.g. 172" autocomplete="off"></label>
         <label>Claimed discount (%)<input id="claimPct" inputmode="decimal" placeholder="e.g. 40" autocomplete="off"></label>
@@ -401,10 +401,10 @@ packs, expose fake discounts, decoy pricing and shrinkflation. Free, no login. W
           <h2><svg class="ic"><use href="#i-zap"/></svg> "Extra free" decoder</h2>
         </div>
         <p class="hint">"50% extra free" sounds like half price. It never is.</p>
-        <button class="guide-link" type="button" data-guide="extrafree">
+        <a class="guide-link" href="/guide-extra-free.html">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
-          New to this? Open the guide
-        </button>
+          New to this? Read the guide
+        </a>
         <label>Extra free amount (%)<input id="efExtra" inputmode="decimal" placeholder="e.g. 50" autocomplete="off"></label>
         <output class="tool-out" id="efOut" for="efExtra" aria-live="polite"></output>
       </form>
@@ -414,10 +414,10 @@ packs, expose fake discounts, decoy pricing and shrinkflation. Free, no login. W
           <h2><svg class="ic"><use href="#i-alert"/></svg> Shrinkflation check</h2>
         </div>
         <p class="hint">Same product, old pack vs new pack. Same price, less stuff?</p>
-        <button class="guide-link" type="button" data-guide="shrink">
+        <a class="guide-link" href="/guide-shrinkflation.html">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
-          New to this? Open the guide
-        </button>
+          New to this? Read the guide
+        </a>
         <div class="grid2">
           <label>Old price<input id="sOldPrice" inputmode="decimal" placeholder="10" autocomplete="off"></label>
           <label>New price<input id="sNewPrice" inputmode="decimal" placeholder="10" autocomplete="off"></label>
@@ -444,10 +444,10 @@ packs, expose fake discounts, decoy pricing and shrinkflation. Free, no login. W
           <h2><svg class="ic"><use href="#i-tag"/></svg> Combo deal or combo trap?</h2>
         </div>
         <p class="hint">Combo price, then the shelf prices of each item inside, comma separated.</p>
-        <button class="guide-link" type="button" data-guide="bundle">
+        <a class="guide-link" href="/guide-bundle-trap.html">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
-          New to this? Open the guide
-        </button>
+          New to this? Read the guide
+        </a>
         <label>Combo price<input id="bCombo" inputmode="decimal" placeholder="e.g. 149" autocomplete="off"></label>
         <label>Individual prices<textarea id="bParts" rows="2" inputmode="decimal" placeholder="e.g. 80, 85"></textarea></label>
         <output class="tool-out" id="bundleOut" for="bCombo bParts" aria-live="polite"></output>
