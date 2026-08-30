@@ -163,6 +163,11 @@ v2 — crowdsourced pack database, price-history graphs per SKU, regional langua
 - **HighRevenueFormat** — banner ads (468x60, 320x50, 300x250) via `atOptions` + `invoke.js`
 - **ProfitableRateCPM** — native div ads via `data-cfasync="false"` + `invoke.js`
 
+### Ad Slots (Active)
+1. **Top banner** — 320x50 mobile / 728x90 desktop (profitableratecpm link ad)
+2. **Compare bottom** — 300x250 native div (profitableratecpm)
+3. **Footer** — 320x50 mobile / 468x60 desktop (highrevenueformat, brute-force positioned above nav)
+
 ### How HighRevenueFormat Ads Load
 1. Set `window.atOptions = { key, format:'iframe', height, width, params:{} }`
 2. Load `https://www.highrevenueformat.com/{key}/invoke.js`
@@ -191,7 +196,7 @@ setInterval(function(){
 Runs every 200ms, overrides faster than the ad script can re-apply.
 
 ### Privacy Consent
-- Bottom sheet overlay (full-screen backdrop)
+- Bottom sheet overlay (full-screen backdrop, popup slides from bottom)
 - Stores `lootlens_privacy_accepted` in localStorage
 - Must accept before ads load or site is usable
 
