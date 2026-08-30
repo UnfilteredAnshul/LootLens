@@ -390,9 +390,33 @@ packs, expose fake discounts, decoy pricing and shrinkflation. Free, no login. W
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
           New to this? Read the guide
         </a>
-        <label>Original price<input id="claimOriginal" inputmode="decimal" placeholder="e.g. 240" autocomplete="off"></label>
-        <label>Sale price<input id="claimSale" inputmode="decimal" placeholder="e.g. 172" autocomplete="off"></label>
-        <label>Claimed discount (%)<input id="claimPct" inputmode="decimal" placeholder="e.g. 40" autocomplete="off"></label>
+        <div class="field-row">
+          <label>Original price
+            <div class="input-wrap">
+              <input id="claimOriginal" inputmode="decimal" placeholder="e.g. 240" autocomplete="off">
+              <button class="field-clear" type="button" data-clear="claimOriginal" aria-label="Clear">&times;</button>
+            </div>
+          </label>
+        </div>
+        <div class="field-row">
+          <label>Sale price
+            <div class="input-wrap">
+              <input id="claimSale" inputmode="decimal" placeholder="e.g. 172" autocomplete="off">
+              <button class="field-clear" type="button" data-clear="claimSale" aria-label="Clear">&times;</button>
+            </div>
+          </label>
+        </div>
+        <div class="field-row">
+          <label>Claimed discount (%)
+            <div class="input-wrap">
+              <input id="claimPct" inputmode="decimal" placeholder="e.g. 40" autocomplete="off">
+              <button class="field-clear" type="button" data-clear="claimPct" aria-label="Clear">&times;</button>
+            </div>
+          </label>
+        </div>
+        <div class="tool-actions">
+          <button class="clear-scan" type="button" data-clearall="claim">Clear all</button>
+        </div>
         <output class="tool-out" id="claimOut" for="claimOriginal claimSale claimPct" aria-live="polite"></output>
         <button class="share-scan" id="shareClaim" type="button" hidden>
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v13m0-13L8 7m4-4 4 4M5 13v6a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-6"/></svg>
@@ -409,7 +433,17 @@ packs, expose fake discounts, decoy pricing and shrinkflation. Free, no login. W
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
           New to this? Read the guide
         </a>
-        <label>Extra free amount (%)<input id="efExtra" inputmode="decimal" placeholder="e.g. 50" autocomplete="off"></label>
+        <div class="field-row">
+          <label>Extra free amount (%)
+            <div class="input-wrap">
+              <input id="efExtra" inputmode="decimal" placeholder="e.g. 50" autocomplete="off">
+              <button class="field-clear" type="button" data-clear="efExtra" aria-label="Clear">&times;</button>
+            </div>
+          </label>
+        </div>
+        <div class="tool-actions">
+          <button class="clear-scan" type="button" data-clearall="extrafree">Clear all</button>
+        </div>
         <output class="tool-out" id="efOut" for="efExtra" aria-live="polite"></output>
         <button class="share-scan" id="shareEf" type="button" hidden>
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v13m0-13L8 7m4-4 4 4M5 13v6a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-6"/></svg>
@@ -427,10 +461,30 @@ packs, expose fake discounts, decoy pricing and shrinkflation. Free, no login. W
           New to this? Read the guide
         </a>
         <div class="grid2">
-          <label>Old price<input id="sOldPrice" inputmode="decimal" placeholder="10" autocomplete="off"></label>
-          <label>New price<input id="sNewPrice" inputmode="decimal" placeholder="10" autocomplete="off"></label>
-          <label>Old quantity<input id="sOldQty" inputmode="decimal" placeholder="100" autocomplete="off"></label>
-          <label>New quantity<input id="sNewQty" inputmode="decimal" placeholder="90" autocomplete="off"></label>
+          <label>Old price
+            <div class="input-wrap">
+              <input id="sOldPrice" inputmode="decimal" placeholder="10" autocomplete="off">
+              <button class="field-clear" type="button" data-clear="sOldPrice" aria-label="Clear">&times;</button>
+            </div>
+          </label>
+          <label>New price
+            <div class="input-wrap">
+              <input id="sNewPrice" inputmode="decimal" placeholder="10" autocomplete="off">
+              <button class="field-clear" type="button" data-clear="sNewPrice" aria-label="Clear">&times;</button>
+            </div>
+          </label>
+          <label>Old quantity
+            <div class="input-wrap">
+              <input id="sOldQty" inputmode="decimal" placeholder="100" autocomplete="off">
+              <button class="field-clear" type="button" data-clear="sOldQty" aria-label="Clear">&times;</button>
+            </div>
+          </label>
+          <label>New quantity
+            <div class="input-wrap">
+              <input id="sNewQty" inputmode="decimal" placeholder="90" autocomplete="off">
+              <button class="field-clear" type="button" data-clear="sNewQty" aria-label="Clear">&times;</button>
+            </div>
+          </label>
           <label>Old unit
             <select id="sOldUnit">
               <option value="g">g</option><option value="kg">kg</option>
@@ -443,6 +497,9 @@ packs, expose fake discounts, decoy pricing and shrinkflation. Free, no login. W
               <option value="ml">ml</option><option value="l">l</option><option value="pc">pcs</option>
             </select>
           </label>
+        </div>
+        <div class="tool-actions">
+          <button class="clear-scan" type="button" data-clearall="shrink">Clear all</button>
         </div>
         <output class="tool-out" id="shrinkOut" aria-live="polite"></output>
         <button class="share-scan" id="shareShrink" type="button" hidden>
@@ -460,8 +517,25 @@ packs, expose fake discounts, decoy pricing and shrinkflation. Free, no login. W
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
           New to this? Read the guide
         </a>
-        <label>Combo price<input id="bCombo" inputmode="decimal" placeholder="e.g. 149" autocomplete="off"></label>
-        <label>Individual prices<textarea id="bParts" rows="2" inputmode="decimal" placeholder="e.g. 80, 85"></textarea></label>
+        <div class="field-row">
+          <label>Combo price
+            <div class="input-wrap">
+              <input id="bCombo" inputmode="decimal" placeholder="e.g. 149" autocomplete="off">
+              <button class="field-clear" type="button" data-clear="bCombo" aria-label="Clear">&times;</button>
+            </div>
+          </label>
+        </div>
+        <div class="field-row">
+          <label>Individual prices
+            <div class="input-wrap">
+              <textarea id="bParts" rows="2" inputmode="decimal" placeholder="e.g. 80, 85"></textarea>
+              <button class="field-clear" type="button" data-clear="bParts" aria-label="Clear">&times;</button>
+            </div>
+          </label>
+        </div>
+        <div class="tool-actions">
+          <button class="clear-scan" type="button" data-clearall="bundle">Clear all</button>
+        </div>
         <output class="tool-out" id="bundleOut" for="bCombo bParts" aria-live="polite"></output>
         <button class="share-scan" id="shareBundle" type="button" hidden>
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v13m0-13L8 7m4-4 4 4M5 13v6a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-6"/></svg>

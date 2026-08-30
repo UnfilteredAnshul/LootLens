@@ -128,13 +128,19 @@ function fieldHTML(item) {
   return `
     <div class="field">
       <label for="${item.id}-price">Price</label>
-      <input id="${item.id}-price" data-f="price" value="${escapeAttr(item.price)}"
-             inputmode="decimal" autocomplete="off" placeholder="10">
+      <div class="input-wrap">
+        <input id="${item.id}-price" data-f="price" value="${escapeAttr(item.price)}"
+               inputmode="decimal" autocomplete="off" placeholder="10">
+        <button class="field-clear" type="button" data-clear="${item.id}-price" aria-label="Clear price">&times;</button>
+      </div>
     </div>
     <div class="field">
       <label for="${item.id}-qty">Qty</label>
-      <input id="${item.id}-qty" data-f="qty" value="${escapeAttr(item.qty)}"
-             inputmode="decimal" autocomplete="off" placeholder="100">
+      <div class="input-wrap">
+        <input id="${item.id}-qty" data-f="qty" value="${escapeAttr(item.qty)}"
+               inputmode="decimal" autocomplete="off" placeholder="100">
+        <button class="field-clear" type="button" data-clear="${item.id}-qty" aria-label="Clear quantity">&times;</button>
+      </div>
     </div>
     <div class="field">
       <label for="${item.id}-unit">Unit</label>
@@ -153,9 +159,12 @@ function itemHTML(item, index) {
   <article class="item" data-id="${item.id}" style="--i:${index}">
     <div class="item-head">
       <span class="item-num">${index + 1}</span>
-      <input class="item-name" data-f="label" value="${escapeAttr(item.label)}"
-             placeholder="Pack name (optional)" autocomplete="off" maxlength="40"
-             aria-label="Pack ${index + 1} name">
+      <div class="input-wrap input-wrap-name">
+        <input class="item-name" data-f="label" value="${escapeAttr(item.label)}"
+               placeholder="Pack name (optional)" autocomplete="off" maxlength="40"
+               aria-label="Pack ${index + 1} name">
+        <button class="field-clear field-clear-name" type="button" data-clear="${item.id}-label" aria-label="Clear name">&times;</button>
+      </div>
       <button class="item-del" type="button" aria-label="Remove pack ${index + 1}">
         <svg class="ic"><use href="#i-trash"/></svg>
       </button>
@@ -631,6 +640,66 @@ $('#resetBtn').addEventListener('click', () => {
   state.items.forEach((it, i) => $('#items').appendChild(renderItem(it.id, i)));
   refresh();
   toast('Cleared. Fresh start.');
+});
+
+/* ---------- clear field buttons ---------- */
+
+function updateClearVisibility(input) {
+  const wrap = input.closest('.input-wrap');
+  if (!wrap) return;
+  const btn = wrap.querySelector('.field-clear');
+  if (!btn) return;
+  if (input.value && input.value.length > 0) {
+    btn.classList.add('force-show');
+  } else {
+    btn.classList.remove('force-show');
+  }
+}
+
+document.addEventListener('click', (e) => {
+  const clearBtn = e.target.closest('.field-clear');
+  if (clearBtn) {
+    e.preventDefault();
+    const inputId = clearBtn.dataset.clear;
+    const input = $(`#${inputId}`);
+    if (input) {
+      input.value = '';
+      input.dispatchEvent(new Event('input', { bubbles: true }));
+      updateClearVisibility(input);
+      input.focus();
+    }
+    return;
+  }
+
+  const clearAllBtn = e.target.closest('.clear-scan');
+  if (clearAllBtn) {
+    e.preventDefault();
+    const tool = clearAllBtn.dataset.clearall;
+    const panel = $(`[data-panel="${tool}"]`);
+    if (!panel) return;
+    panel.querySelectorAll('input, textarea').forEach(input => {
+      input.value = '';
+      input.dispatchEvent(new Event('input', { bubbles: true }));
+      updateClearVisibility(input);
+    });
+    panel.querySelectorAll('select').forEach(sel => {
+      sel.selectedIndex = 0;
+      sel.dispatchEvent(new Event('change', { bubbles: true }));
+    });
+    return;
+  }
+});
+
+document.addEventListener('input', (e) => {
+  if (e.target.matches('input, textarea')) {
+    updateClearVisibility(e.target);
+  }
+});
+
+$$('.field-clear').forEach(btn => {
+  const inputId = btn.dataset.clear;
+  const input = $(`#${inputId}`);
+  if (input) updateClearVisibility(input);
 });
 
 $('#shareBtn').addEventListener('click', async () => {
