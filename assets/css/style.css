@@ -853,6 +853,28 @@ footer { padding-bottom: calc(var(--nav-h) + 30px); }
   border-color: var(--accent);
 }
 
+/* ---------- share scan button ---------- */
+.share-scan {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--accent);
+  background: rgba(217,119,6,0.1);
+  border: 1px solid rgba(217,119,6,0.3);
+  border-radius: 8px;
+  padding: 8px 14px;
+  cursor: pointer;
+  margin: 12px 0 4px;
+  transition: background 0.2s, border-color 0.2s;
+}
+.share-scan:hover {
+  background: rgba(217,119,6,0.18);
+  border-color: var(--accent);
+}
+.share-scan svg { width: 14px; height: 14px; color: var(--accent); flex-shrink: 0; }
+
 /* ---------- guide modal ---------- */
 .guide-modal {
   position: fixed;

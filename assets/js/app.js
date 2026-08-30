@@ -353,6 +353,24 @@ function renderVerdicts(verdicts, byId) {
 
 /* ---------- share ---------- */
 
+async function shareText(text, title) {
+  try {
+    if (navigator.share) {
+      await navigator.share({ title: title || 'LootLens result', text });
+      return;
+    }
+    throw new Error('no-share');
+  } catch (err) {
+    if (err?.name === 'AbortError') return;
+    try {
+      await navigator.clipboard.writeText(text);
+      toast('Result copied to clipboard');
+    } catch {
+      toast('Could not share on this device');
+    }
+  }
+}
+
 async function shareResult() {
   const res = analyze(state.items);
   const usable = res.groups.filter((g) => g.ranked.length >= 2);
@@ -372,23 +390,14 @@ async function shareResult() {
     `Choosing right saves ~${formatCurrency(worst.price - best.ppu * worst.baseQty)} per worst-size pack.`,
     `Compare yours free at lootlens.antideploy.com`,
   ];
-  const text = lines.join('\n');
+  await shareText(lines.join('\n'), 'LootLens comparison result');
+}
 
-  try {
-    if (navigator.share) {
-      await navigator.share({ title: 'LootLens result', text });
-      return;
-    }
-    throw new Error('no-share');
-  } catch (err) {
-    if (err?.name === 'AbortError') return;
-    try {
-      await navigator.clipboard.writeText(text);
-      toast('Result copied to clipboard');
-    } catch {
-      toast('Could not share on this device');
-    }
-  }
+function showShare(id, text) {
+  const btn = $(`#${id}`);
+  if (!btn) return;
+  btn.hidden = false;
+  btn.onclick = () => shareText(text);
 }
 
 /* ---------- scan tools ---------- */
@@ -424,15 +433,22 @@ bindScanTool(['claimOriginal', 'claimSale', 'claimPct'], () => {
   const el = $('#claimOut');
   if (!(o > 0) || !(s >= 0) || !(c >= 0) || s > o || c > 100) {
     out(el, null);
+    $('#shareClaim').hidden = true;
     return;
   }
   const v = verifyClaim(o, s, c);
-  if (v.status === 'honest')
+  let text;
+  if (v.status === 'honest') {
     out(el, toolCard('tv-good', `${v.actual.toFixed(1)}% real`, 'The tag matches the math. Rare and beautiful.'));
-  else if (v.status === 'inflated')
+    text = `Claim Check: ${v.actual.toFixed(1)}% real discount — the tag is honest.\nCompare yours free at lootlens.antideploy.com`;
+  } else if (v.status === 'inflated') {
     out(el, toolCard('tv-bad', `${v.actual.toFixed(1)}% real`, `Tag shouts ${v.claimed}% off. It is overstated by ${v.delta.toFixed(1)} points.`));
-  else
+    text = `Claim Check: Tag claims ${v.claimed}% off but real discount is only ${v.actual.toFixed(1)}% — inflated by ${v.delta.toFixed(1)} points!\nCompare yours free at lootlens.antideploy.com`;
+  } else {
     out(el, toolCard('tv-good', `${v.actual.toFixed(1)}% real`, `Better than the ${v.claimed}% they claimed.`));
+    text = `Claim Check: Real discount is ${v.actual.toFixed(1)}% — better than the ${v.claimed}% claimed!\nCompare yours free at lootlens.antideploy.com`;
+  }
+  showShare('shareClaim', text);
 });
 
 bindScanTool(['efExtra'], () => {
@@ -440,6 +456,7 @@ bindScanTool(['efExtra'], () => {
   const el = $('#efOut');
   if (!(e > 0) || e > 1000) {
     out(el, null);
+    $('#shareEf').hidden = true;
     return;
   }
   const real = extraFreePercentOff(e);
@@ -447,6 +464,7 @@ bindScanTool(['efExtra'], () => {
     el,
     toolCard('tv-bad', `${real.toFixed(1)}% off`, `"${e}% extra free" is worth this much as a straight discount — not ${e}% off.`)
   );
+  showShare('shareEf', `Extra Free Check: "${e}% extra free" is actually only ${real.toFixed(1)}% off — not ${e}%!\nCompare yours free at lootlens.antideploy.com`);
 });
 
 bindScanTool(['sOldPrice', 'sNewPrice', 'sOldQty', 'sNewQty', 'sOldUnit', 'sNewUnit'], () => {
@@ -459,6 +477,7 @@ bindScanTool(['sOldPrice', 'sNewPrice', 'sOldQty', 'sNewQty', 'sOldUnit', 'sNewU
   const el = $('#shrinkOut');
   if (!(op > 0) || !(np > 0) || !(oq > 0) || !(nq > 0)) {
     out(el, null);
+    $('#shareShrink').hidden = true;
     return;
   }
   const r = shrinkflation({
@@ -470,14 +489,21 @@ bindScanTool(['sOldPrice', 'sNewPrice', 'sOldQty', 'sNewQty', 'sOldUnit', 'sNewU
     newUnit: nu,
   });
   const sizeLine = `${r.sizeDeltaPct >= 0 ? '+' : ''}${r.sizeDeltaPct.toFixed(1)}% size · ${r.ppuRisePct >= 0 ? '+' : ''}${r.ppuRisePct.toFixed(1)}% per unit`;
-  if (r.verdict === 'shrinkflation' || r.verdict === 'price_hike')
+  let text;
+  if (r.verdict === 'shrinkflation' || r.verdict === 'price_hike') {
     out(el, toolCard('tv-bad', `Hidden hike +${r.hiddenHikePct.toFixed(1)}%`, `${sizeLine}. Same shelf, quieter robbery.`));
-  else if (r.verdict === 'worse_value')
+    text = `Shrinkflation Check: Hidden price hike of +${r.hiddenHikePct.toFixed(1)}%! Pack shrank ${Math.abs(r.sizeDeltaPct).toFixed(1)}% but you pay ${r.ppuRisePct.toFixed(1)}% more per unit.\nCompare yours free at lootlens.antideploy.com`;
+  } else if (r.verdict === 'worse_value') {
     out(el, toolCard('tv-bad', `+${r.ppuRisePct.toFixed(1)}% per unit`, sizeLine));
-  else if (r.verdict === 'better_value')
+    text = `Shrinkflation Check: Paying ${r.ppuRisePct.toFixed(1)}% more per unit.\nCompare yours free at lootlens.antideploy.com`;
+  } else if (r.verdict === 'better_value') {
     out(el, toolCard('tv-good', `${Math.abs(r.ppuRisePct).toFixed(1)}% cheaper`, `${sizeLine}. The new pack wins.`));
-  else
+    text = `Shrinkflation Check: New pack is ${Math.abs(r.ppuRisePct).toFixed(1)}% cheaper per unit — good deal!\nCompare yours free at lootlens.antideploy.com`;
+  } else {
     out(el, toolCard('tv-neutral', 'No meaningful change', sizeLine));
+    text = `Shrinkflation Check: No meaningful change detected.\nCompare yours free at lootlens.antideploy.com`;
+  }
+  showShare('shareShrink', text);
 });
 
 bindScanTool(['bCombo', 'bParts'], () => {
@@ -486,21 +512,29 @@ bindScanTool(['bCombo', 'bParts'], () => {
   const el = $('#bundleOut');
   if (!(combo > 0) || partsRaw.length < 2) {
     out(el, null);
+    $('#shareBundle').hidden = true;
     return;
   }
   const parts = partsRaw.map(parseNum);
   if (parts.some((p) => !(p > 0))) {
     out(el, null);
+    $('#shareBundle').hidden = true;
     return;
   }
   const b = bundleCheck(combo, parts);
   const detail = `${formatCurrency(b.saving)} on ${formatCurrency(b.sum)} (${b.savingPct.toFixed(1)}%)`;
-  if (b.verdict === 'great')
+  let text;
+  if (b.verdict === 'great') {
     out(el, toolCard('tv-good', `Save ${formatCurrency(b.saving)}`, `${detail}. A genuinely good combo.`));
-  else if (b.verdict === 'ok')
+    text = `Bundle Check: Save ${formatCurrency(b.saving)} (${b.savingPct.toFixed(1)}%) — genuinely good combo!\nCompare yours free at lootlens.antideploy.com`;
+  } else if (b.verdict === 'ok') {
     out(el, toolCard('tv-neutral', `${b.savingPct.toFixed(1)}% saving`, `${detail}. Fine, if you need everything inside.`));
-  else
+    text = `Bundle Check: ${b.savingPct.toFixed(1)}% saving (${formatCurrency(b.saving)}) — borderline deal.\nCompare yours free at lootlens.antideploy.com`;
+  } else {
     out(el, toolCard('tv-bad', 'Trap', `${detail}. The combo barely discounts — it exists to move stock, not help you.`));
+    text = `Bundle Check: Trap! Only ${b.savingPct.toFixed(1)}% saving (${formatCurrency(b.saving)}) — barely discounts.\nCompare yours free at lootlens.antideploy.com`;
+  }
+  showShare('shareBundle', text);
 });
 
 /* ---------- views / tabs ---------- */

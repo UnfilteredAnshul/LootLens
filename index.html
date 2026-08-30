@@ -394,6 +394,10 @@ packs, expose fake discounts, decoy pricing and shrinkflation. Free, no login. W
         <label>Sale price<input id="claimSale" inputmode="decimal" placeholder="e.g. 172" autocomplete="off"></label>
         <label>Claimed discount (%)<input id="claimPct" inputmode="decimal" placeholder="e.g. 40" autocomplete="off"></label>
         <output class="tool-out" id="claimOut" for="claimOriginal claimSale claimPct" aria-live="polite"></output>
+        <button class="share-scan" id="shareClaim" type="button" hidden>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v13m0-13L8 7m4-4 4 4M5 13v6a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-6"/></svg>
+          Share result
+        </button>
       </form>
 
       <form class="card tool-panel" data-panel="extrafree" hidden novalidate>
@@ -407,6 +411,10 @@ packs, expose fake discounts, decoy pricing and shrinkflation. Free, no login. W
         </a>
         <label>Extra free amount (%)<input id="efExtra" inputmode="decimal" placeholder="e.g. 50" autocomplete="off"></label>
         <output class="tool-out" id="efOut" for="efExtra" aria-live="polite"></output>
+        <button class="share-scan" id="shareEf" type="button" hidden>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v13m0-13L8 7m4-4 4 4M5 13v6a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-6"/></svg>
+          Share result
+        </button>
       </form>
 
       <form class="card tool-panel" data-panel="shrink" hidden novalidate>
@@ -437,6 +445,10 @@ packs, expose fake discounts, decoy pricing and shrinkflation. Free, no login. W
           </label>
         </div>
         <output class="tool-out" id="shrinkOut" aria-live="polite"></output>
+        <button class="share-scan" id="shareShrink" type="button" hidden>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v13m0-13L8 7m4-4 4 4M5 13v6a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-6"/></svg>
+          Share result
+        </button>
       </form>
 
       <form class="card tool-panel" data-panel="bundle" hidden novalidate>
@@ -451,6 +463,10 @@ packs, expose fake discounts, decoy pricing and shrinkflation. Free, no login. W
         <label>Combo price<input id="bCombo" inputmode="decimal" placeholder="e.g. 149" autocomplete="off"></label>
         <label>Individual prices<textarea id="bParts" rows="2" inputmode="decimal" placeholder="e.g. 80, 85"></textarea></label>
         <output class="tool-out" id="bundleOut" for="bCombo bParts" aria-live="polite"></output>
+        <button class="share-scan" id="shareBundle" type="button" hidden>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v13m0-13L8 7m4-4 4 4M5 13v6a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-6"/></svg>
+          Share result
+        </button>
       </form>
     </section>
 
