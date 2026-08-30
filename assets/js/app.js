@@ -178,7 +178,9 @@ function renderItem(id, index) {
   const item = state.items.find((x) => x.id === id);
   const wrap = document.createElement('div');
   wrap.innerHTML = itemHTML(item, index);
-  return wrap.firstElementChild;
+  const el = wrap.firstElementChild;
+  el.querySelectorAll('input, textarea').forEach(inp => updateClearVisibility(inp));
+  return el;
 }
 
 function addItem(focus = true) {
