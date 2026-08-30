@@ -156,4 +156,51 @@ v2 — crowdsourced pack database, price-history graphs per SKU, regional langua
 
 ---
 
+## 11. Ad Integration Notes
+
+### Networks Used
+- **Adsterra** — loader script in `<head>`, pop/popup ads
+- **HighRevenueFormat** — banner ads (468x60, 320x50, 300x250) via `atOptions` + `invoke.js`
+- **ProfitableRateCPM** — native div ads via `data-cfasync="false"` + `invoke.js`
+
+### How HighRevenueFormat Ads Load
+1. Set `window.atOptions = { key, format:'iframe', height, width, params:{} }`
+2. Load `https://www.highrevenueformat.com/{key}/invoke.js`
+3. Script reads `atOptions`, creates an iframe, appends it to `document.body`
+4. The iframe gets **inline styles** with `position:fixed; bottom:0` — overrides everything
+
+### The Problem
+Ad network scripts apply inline styles to their iframes. CSS `!important` doesn't work
+because the script re-applies styles. Monkey-patching `appendChild` doesn't work because
+the script may use other DOM methods or recreate the iframe.
+
+### The Solution: Brute Force setInterval
+The ONLY approach that works against aggressive ad network positioning:
+```javascript
+setInterval(function(){
+  var iframes = document.querySelectorAll('iframe');
+  iframes.forEach(function(f){
+    var s = f.getAttribute('src') || '';
+    if(s.indexOf('kukivjatz') !== -1) return; // skip specific ads
+    if(s.indexOf('google') !== -1) return;
+    if(s === '') return;
+    f.style.cssText = 'position:fixed!important;bottom:68px!important;left:50%!important;transform:translateX(-50%)!important;z-index:9999!important;border:none!important;display:block!important;visibility:visible!important;opacity:1!important;';
+  });
+}, 200);
+```
+Runs every 200ms, overrides faster than the ad script can re-apply.
+
+### Privacy Consent
+- Bottom sheet overlay (full-screen backdrop)
+- Stores `lootlens_privacy_accepted` in localStorage
+- Must accept before ads load or site is usable
+
+### Adblocker Detection
+- Bait div with ad-like classes (`pub_300x250`, `text_ad`, `banner_ad`)
+- Check `offsetHeight`, `clientHeight`, `display`, `visibility`
+- If blocked: show banner + popup with 15s countdown timer
+- Popup reappears after 2.5 minutes if blocker still active
+
+---
+
 *Built handsfree as requested. Owner review pending at final delivery.*

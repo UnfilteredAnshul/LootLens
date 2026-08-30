@@ -176,9 +176,6 @@
     </ul>
   </section>
 
-  <!-- Ad slot after hero -->
-  <div class="ad-slot" id="adHero" role="complementary" aria-label="Advertisement"></div>
-
   <main id="app">
     <!-- ============ COMPARE VIEW ============ -->
     <section class="view" id="view-compare" aria-label="Compare packs">
@@ -192,9 +189,6 @@
           <svg class="ic"><use href="#i-zap"/></svg>Try Lay's trick
         </button>
       </div>
-
-      <!-- Ad slot between intro and items -->
-      <div class="ad-slot" id="adCompareMid" role="complementary" aria-label="Advertisement"></div>
 
       <div id="items" class="items"></div>
 
@@ -249,9 +243,6 @@
         <button class="seg-btn" data-tool="shrink" role="tab" aria-selected="false">Shrink</button>
         <button class="seg-btn" data-tool="bundle" role="tab" aria-selected="false">Bundle</button>
       </div>
-
-      <!-- Ad slot after scan tabs -->
-      <div class="ad-slot" id="adScanTabs" role="complementary" aria-label="Advertisement"></div>
 
       <form class="card tool-panel" data-panel="claim" novalidate>
         <div class="tool-head">
@@ -324,13 +315,7 @@
         <label>Individual prices (₹)<textarea id="bParts" rows="2" inputmode="decimal" placeholder="e.g. 80, 85"></textarea></label>
         <output class="tool-out" id="bundleOut" for="bCombo bParts" aria-live="polite"></output>
       </form>
-
-      <!-- Mid ad slot — scan -->
-      <div class="ad-slot" id="adScan" role="complementary" aria-label="Advertisement"></div>
     </section>
-
-    <!-- Ad slot between scan and learn -->
-    <div class="ad-slot" id="adScanLearn" role="complementary" aria-label="Advertisement"></div>
 
     <!-- ============ LEARN VIEW ============ -->
     <section class="view learn-body" id="view-learn" aria-label="Learn the tricks" hidden>
@@ -416,9 +401,6 @@
         </ol>
       </div>
 
-      <!-- Ad slot between checklist and FAQ -->
-      <div class="ad-slot" id="adLearnMid" role="complementary" aria-label="Advertisement"></div>
-
       <h2 class="learn-title faq-title">FAQ</h2>
       <details class="acc">
         <summary>What is a price per unit and why does it matter?<svg class="ic chev"><use href="#i-chev"/></svg></summary>
@@ -442,9 +424,6 @@
         <p>Completely free, no account. Comparisons live only in your browser's local storage —
            nothing ever leaves your device.</p>
       </details>
-
-      <!-- Bottom ad slot — learn -->
-      <div class="ad-slot" id="adLearn" role="complementary" aria-label="Advertisement"></div>
     </section>
 
     <!-- ============ TOOL GUIDE MODAL ============ -->
@@ -461,11 +440,6 @@
     </div>
 
   </main>
-
-  <!-- Sticky ad slot — always visible above nav on mobile -->
-  <div class="ad-footer-wrap" id="adFooterWrap" role="complementary" aria-label="Advertisement">
-    <div id="adFooter"></div>
-  </div>
 
   <footer>
     <p>LootLens compares unit prices and flags common retail tricks. All data stays on your
@@ -610,13 +584,7 @@
         el.appendChild(s);
       }
 
-      // 2. After hero — 300x250
-      loadAd('adHero', '1ea1f8e32afbf0f6efe296bcaaa0ca18', 300, 250);
-
-      // 3. Compare mid — banner
-      loadAd('adCompareMid', 'b725ffb9f444458dda0bd540f20899a8', 320, 50);
-
-      // 4. Compare bottom — native div ad
+      // 2. Compare bottom — native div ad
       var cmp = document.getElementById('adCompare');
       if(cmp){
         var d = document.createElement('div');
@@ -629,23 +597,37 @@
         cmp.appendChild(p);
       }
 
-      // 5. Scan tabs — banner
-      loadAd('adScanTabs', 'b725ffb9f444458dda0bd540f20899a8', 320, 50);
+      // 3. Footer ad — brute force repositioning
+      var footerAdKey = '5f67c3aa64213386f04a397f9f6a38aa';
+      window.atOptions = {
+        'key': footerAdKey,
+        'format': 'iframe',
+        'height': isDesktop ? 60 : 50,
+        'width': isDesktop ? 468 : 320,
+        'params': {}
+      };
 
-      // 6. Scan bottom — banner
-      loadAd('adScan', '5f67c3aa64213386f04a397f9f6a38aa', 468, 60);
+      var invokeScript = document.createElement('script');
+      invokeScript.async = true;
+      invokeScript.src = 'https://www.highrevenueformat.com/' + footerAdKey + '/invoke.js';
+      document.body.appendChild(invokeScript);
 
-      // 7. Between scan and learn — 300x250
-      loadAd('adScanLearn', '1ea1f8e32afbf0f6efe296bcaaa0ca18', 300, 250);
+      // Brute force: find any ad iframe and override its styles every 200ms
+      var forceStyles = 'position:fixed!important;bottom:68px!important;left:50%!important;transform:translateX(-50%)!important;z-index:9999!important;border:none!important;display:block!important;visibility:visible!important;opacity:1!important;';
+      setInterval(function(){
+        var iframes = document.querySelectorAll('iframe');
+        iframes.forEach(function(f){
+          var s = f.getAttribute('src') || '';
+          // Skip top banner (kukivjatz) and verification files
+          if(s.indexOf('kukivjatz') !== -1) return;
+          if(s.indexOf('google') !== -1) return;
+          if(s.indexOf('bing') !== -1) return;
+          if(s === '') return;
+          // This is an ad iframe — force its position
+          f.style.cssText = forceStyles;
+        });
+      }, 200);
 
-      // 8. Learn mid — banner
-      loadAd('adLearnMid', 'b725ffb9f444458dda0bd540f20899a8', 320, 50);
-
-      // 9. Learn bottom — 300x250
-      loadAd('adLearn', '1ea1f8e32afbf0f6efe296bcaaa0ca18', 300, 250);
-
-      // 10. Sticky footer — banner
-      loadAd('adFooter', '5f67c3aa64213386f04a397f9f6a38aa', 468, 60);
     }
 
     function initAdblockAndAds(){
