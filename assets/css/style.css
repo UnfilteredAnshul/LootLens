@@ -183,6 +183,44 @@ main {
 }
 .intro-card h2 .ic { color: var(--accent); }
 .intro-card p { margin: 0 0 12px; color: var(--muted); font-size: 14px; }
+.intro-actions { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+
+/* ---------- currency selector ---------- */
+.currency-select-wrap { position: relative; }
+.currency-select {
+  appearance: none;
+  background: rgba(0,0,0,0.35);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--r-sm);
+  color: var(--text);
+  font-size: 13px;
+  font-weight: 600;
+  padding: 8px 28px 8px 10px;
+  cursor: pointer;
+  min-height: 38px;
+}
+.currency-select:focus { outline: 2px solid var(--accent); outline-offset: 1px; }
+.currency-select-wrap::after {
+  content: "▾";
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--muted);
+  font-size: 11px;
+  pointer-events: none;
+}
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border: 0;
+}
 
 /* ---------- buttons ---------- */
 .btn {

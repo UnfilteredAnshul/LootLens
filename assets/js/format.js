@@ -1,13 +1,40 @@
-// Formatting helpers — Indian locale, currency-aware.
+// Formatting helpers — currency-aware, locale-aware.
+
+const CURRENCY_DATA = {
+  USD: { symbol: '$', locale: 'en-US', maxDec: 2 },
+  EUR: { symbol: '€', locale: 'de-DE', maxDec: 2 },
+  GBP: { symbol: '£', locale: 'en-GB', maxDec: 2 },
+  INR: { symbol: '₹', locale: 'en-IN', maxDec: 2 },
+  JPY: { symbol: '¥', locale: 'ja-JP', maxDec: 0 },
+  CNY: { symbol: '¥', locale: 'zh-CN', maxDec: 2 },
+  KRW: { symbol: '₩', locale: 'ko-KR', maxDec: 0 },
+  BRL: { symbol: 'R$', locale: 'pt-BR', maxDec: 2 },
+  MXN: { symbol: '$', locale: 'es-MX', maxDec: 2 },
+  AUD: { symbol: '$', locale: 'en-AU', maxDec: 2 },
+  CAD: { symbol: '$', locale: 'en-CA', maxDec: 2 },
+  SGD: { symbol: '$', locale: 'en-SG', maxDec: 2 },
+  AED: { symbol: 'د.إ', locale: 'ar-AE', maxDec: 2 },
+  SAR: { symbol: '﷼', locale: 'ar-SA', maxDec: 2 },
+  ZAR: { symbol: 'R', locale: 'en-ZA', maxDec: 2 },
+  NGN: { symbol: '₦', locale: 'en-NG', maxDec: 2 },
+  EGP: { symbol: 'E£', locale: 'ar-EG', maxDec: 2 },
+  THB: { symbol: '฿', locale: 'th-TH', maxDec: 2 },
+  IDR: { symbol: 'Rp', locale: 'id-ID', maxDec: 0 },
+  PHP: { symbol: '₱', locale: 'en-PH', maxDec: 2 },
+};
 
 let CURRENCY = 'INR';
 
 export function setCurrency(c) {
-  CURRENCY = c;
+  if (CURRENCY_DATA[c]) CURRENCY = c;
 }
 
 export function getCurrency() {
   return CURRENCY;
+}
+
+export function getCurrencySymbol() {
+  return CURRENCY_DATA[CURRENCY]?.symbol ?? '$';
 }
 
 export function parseNum(v) {
@@ -20,10 +47,12 @@ export function parseNum(v) {
 export function formatCurrency(value, maxDigits = 2) {
   const v = Number(value);
   if (!Number.isFinite(v)) return '—';
-  return new Intl.NumberFormat('en-IN', {
+  const data = CURRENCY_DATA[CURRENCY];
+  const digits = maxDigits !== undefined ? maxDigits : data.maxDec;
+  return new Intl.NumberFormat(data.locale, {
     style: 'currency',
     currency: CURRENCY,
-    maximumFractionDigits: maxDigits,
+    maximumFractionDigits: digits,
     minimumFractionDigits: 0,
   }).format(v);
 }
@@ -40,7 +69,8 @@ export function formatPpu(ppu, dim = 'mass') {
   const label = labels[dim] ?? 'unit';
   const v = Number(ppu);
   if (!Number.isFinite(v)) return '—';
-  const digits = v >= 100 ? 0 : v >= 1 ? 2 : 3;
+  const data = CURRENCY_DATA[CURRENCY];
+  const digits = v >= 100 ? 0 : v >= 1 ? data.maxDec : data.maxDec + 1;
   return `${formatCurrency(v, digits)}/${label}`;
 }
 
@@ -55,5 +85,6 @@ export function formatQty(baseQty, dim = 'mass') {
 }
 
 function trimNum(n) {
-  return new Intl.NumberFormat('en-IN', { maximumFractionDigits: 3 }).format(n);
+  const data = CURRENCY_DATA[CURRENCY];
+  return new Intl.NumberFormat(data.locale, { maximumFractionDigits: 3 }).format(n);
 }

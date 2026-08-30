@@ -4,8 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>LootLens - Price Per Unit Calculator &amp; Marketing Gimmick Buster</title>
-  <meta name="description" content="Beat supermarket tricks in seconds. Compare price per gram/ml across packs, expose fake discounts, decoy pricing and shrinkflation. Free, no login, works offline. Built for Indian grocery shopping at DMart, BigBasket and kirana stores.">
-  <meta name="keywords" content="price per unit calculator, unit price comparison, shrinkflation, marketing gimmicks, grocery savings India, best value calculator, discount checker, DMart shopping tips">
+  <meta name="description" content="Beat supermarket tricks in seconds. Compare price per gram/ml across 
+packs, expose fake discounts, decoy pricing and shrinkflation. Free, no login. Works worldwide.">
+  <meta name="keywords" content="price per unit calculator, unit price comparison, shrinkflation, marketing gimmicks, grocery savings, best value calculator, discount checker, smart shopping">
   <meta name="robots" content="index, follow, max-image-preview:large">
   <link rel="canonical" href="https://lootlens.antideploy.com/">
   <meta name="theme-color" content="#0c0a09">
@@ -16,7 +17,7 @@
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="LootLens">
   <meta property="og:title" content="LootLens — See Through Marketing Gimmicks. Pay the Right Price.">
-  <meta property="og:description" content="Lay's ₹20 and ₹60 packs cost the same per gram. Check any offer in 5 seconds — free, offline, no signup.">
+  <meta property="og:description" content="Compare prices across pack sizes — find the real deal, avoid the traps. Free, no signup.">
   <meta property="og:url" content="https://lootlens.antideploy.com/">
   <meta property="og:image" content="https://lootlens.antideploy.com/assets/icons/og.png">
   <meta property="og:image:width" content="1200">
@@ -35,14 +36,13 @@
     "applicationCategory": "ShoppingApplication",
     "operatingSystem": "Any (web browser)",
     "description": "Price-per-unit comparison and marketing gimmick detector for grocery shoppers. Exposes decoy pricing, fake discounts, shrinkflation and bundle traps.",
-    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "INR" },
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
     "featureList": [
       "Price per gram / ml / piece comparison",
       "Decoy pricing detection",
       "Fake discount verification",
       "Shrinkflation check",
-      "Combo bundle trap analysis",
-      "Works offline as a PWA"
+      "Combo bundle trap analysis"
     ]
   }
   </script>
@@ -54,17 +54,17 @@
       {
         "@type": "Question",
         "name": "What is a price per unit and why does it matter?",
-        "acceptedAnswer": { "@type": "Answer", "text": "Price per unit is the item's price divided by its quantity (per gram, ml or piece). Lay's 52g for ₹20 is ₹0.38/g, and the 147g for ₹60 is also ₹0.38/g — same unit price, bigger spend. LootLens normalizes every pack automatically and ranks them cheapest per unit." }
+        "acceptedAnswer": { "@type": "Answer", "text": "Price per unit is the item's price divided by its quantity (per gram, ml or piece). For example, a 52g pack for $2 is $0.038/g, and a 147g pack for $6 is also $0.038/g — same unit price, bigger spend. LootLens normalizes every pack automatically and ranks them cheapest per unit." }
       },
       {
         "@type": "Question",
         "name": "How do I know if a discount is actually real?",
-        "acceptedAnswer": { "@type": "Answer", "text": "Work out the actual percentage: (original price minus sale price) divided by original price, times 100. If an Amazon sale says 40% off but the math gives 25%, the claim is inflated. LootLens Claim Check does this instantly, including the tricky 'X% extra free' offers on products like Surf Excel." }
+        "acceptedAnswer": { "@type": "Answer", "text": "Work out the actual percentage: (original price minus sale price) divided by original price, times 100. If a sale says 40% off but the math gives 25%, the claim is inflated. LootLens Claim Check does this instantly, including the tricky 'X% extra free' offers." }
       },
       {
         "@type": "Question",
         "name": "What is shrinkflation?",
-        "acceptedAnswer": { "@type": "Answer", "text": "Shrinkflation is when a brand quietly reduces the pack size while keeping the same price — for example Maggi going from 70g to 60g at ₹14. You pay the same at the counter but about 17% more per gram. LootLens Shrink Check quantifies the hidden hike so you can see exactly how much you are losing." }
+        "acceptedAnswer": { "@type": "Answer", "text": "Shrinkflation is when a brand quietly reduces the pack size while keeping the same price — for example a cereal box going from 500g to 425g at the same price. You pay the same at the counter but about 15% more per gram. LootLens Shrink Check quantifies the hidden hike so you can see exactly how much you are losing." }
       },
       {
         "@type": "Question",
@@ -164,14 +164,13 @@
   <div class="ad-slot ad-slot-top" id="adTop" role="complementary" aria-label="Advertisement"></div>
 
   <section class="hero">
-    <p class="kicker">Marketing gimmick buster · India edition</p>
+    <p class="kicker">Marketing gimmick buster</p>
     <h1>Stop paying the<br><em>gimmick tax.</em></h1>
-    <p>Lay's ₹20 and ₹60 packs cost the same per gram. "50% extra free" is really 33% off.
+    <p>"50% extra free" is really 33% off. Same price per gram in every size.
        Type prices, get truth — in about five seconds.</p>
     <ul class="trust-row" aria-label="Product promises">
       <li><svg class="ic"><use href="#i-check"/></svg>No login</li>
       <li><svg class="ic"><use href="#i-check"/></svg>100% on-device</li>
-      <li><svg class="ic"><use href="#i-check"/></svg>Works offline</li>
       <li><svg class="ic"><use href="#i-check"/></svg>Free forever</li>
     </ul>
   </section>
@@ -182,12 +181,39 @@
       <div class="card intro-card">
         <div class="intro-copy">
           <h2><svg class="ic"><use href="#i-scale"/></svg> Which pack wins?</h2>
-          <p>Add 2+ packs of the same product. We normalize everything to ₹ per gram/ml/piece
+          <p>Add 2+ packs of the same product. We normalize everything to price per gram/ml/piece
              and flag whatever trick is hiding inside.</p>
         </div>
-        <button class="btn ghost sm" id="exampleBtn" type="button">
-          <svg class="ic"><use href="#i-zap"/></svg>Try Lay's trick
-        </button>
+        <div class="intro-actions">
+          <div class="currency-select-wrap">
+            <label for="currencySelect" class="sr-only">Currency</label>
+            <select id="currencySelect" class="currency-select">
+              <option value="USD">$ USD</option>
+              <option value="EUR">€ EUR</option>
+              <option value="GBP">£ GBP</option>
+              <option value="INR" selected>₹ INR</option>
+              <option value="JPY">¥ JPY</option>
+              <option value="CNY">¥ CNY</option>
+              <option value="KRW">₩ KRW</option>
+              <option value="BRL">R$ BRL</option>
+              <option value="MXN">$ MXN</option>
+              <option value="AUD">$ AUD</option>
+              <option value="CAD">$ CAD</option>
+              <option value="SGD">$ SGD</option>
+              <option value="AED">د.إ AED</option>
+              <option value="SAR">﷼ SAR</option>
+              <option value="ZAR">R ZAR</option>
+              <option value="NGN">₦ NGN</option>
+              <option value="EGP">E£ EGP</option>
+              <option value="THB">฿ THB</option>
+              <option value="IDR">Rp IDR</option>
+              <option value="PHP">₱ PHP</option>
+            </select>
+          </div>
+          <button class="btn ghost sm" id="exampleBtn" type="button">
+            <svg class="ic"><use href="#i-zap"/></svg>Try a trick
+          </button>
+        </div>
       </div>
 
       <div id="items" class="items"></div>
@@ -253,8 +279,8 @@
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
           New to this? Open the guide
         </button>
-        <label>Original price (₹)<input id="claimOriginal" inputmode="decimal" placeholder="e.g. 240" autocomplete="off"></label>
-        <label>Sale price (₹)<input id="claimSale" inputmode="decimal" placeholder="e.g. 172" autocomplete="off"></label>
+        <label>Original price<input id="claimOriginal" inputmode="decimal" placeholder="e.g. 240" autocomplete="off"></label>
+        <label>Sale price<input id="claimSale" inputmode="decimal" placeholder="e.g. 172" autocomplete="off"></label>
         <label>Claimed discount (%)<input id="claimPct" inputmode="decimal" placeholder="e.g. 40" autocomplete="off"></label>
         <output class="tool-out" id="claimOut" for="claimOriginal claimSale claimPct" aria-live="polite"></output>
       </form>
@@ -282,8 +308,8 @@
           New to this? Open the guide
         </button>
         <div class="grid2">
-          <label>Old price (₹)<input id="sOldPrice" inputmode="decimal" placeholder="10" autocomplete="off"></label>
-          <label>New price (₹)<input id="sNewPrice" inputmode="decimal" placeholder="10" autocomplete="off"></label>
+          <label>Old price<input id="sOldPrice" inputmode="decimal" placeholder="10" autocomplete="off"></label>
+          <label>New price<input id="sNewPrice" inputmode="decimal" placeholder="10" autocomplete="off"></label>
           <label>Old quantity<input id="sOldQty" inputmode="decimal" placeholder="100" autocomplete="off"></label>
           <label>New quantity<input id="sNewQty" inputmode="decimal" placeholder="90" autocomplete="off"></label>
           <label>Old unit
@@ -311,8 +337,8 @@
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
           New to this? Open the guide
         </button>
-        <label>Combo price (₹)<input id="bCombo" inputmode="decimal" placeholder="e.g. 149" autocomplete="off"></label>
-        <label>Individual prices (₹)<textarea id="bParts" rows="2" inputmode="decimal" placeholder="e.g. 80, 85"></textarea></label>
+        <label>Combo price<input id="bCombo" inputmode="decimal" placeholder="e.g. 149" autocomplete="off"></label>
+        <label>Individual prices<textarea id="bParts" rows="2" inputmode="decimal" placeholder="e.g. 80, 85"></textarea></label>
         <output class="tool-out" id="bundleOut" for="bCombo bParts" aria-live="polite"></output>
       </form>
     </section>
@@ -327,16 +353,16 @@
         <summary>The Decoy Effect<svg class="ic chev"><use href="#i-chev"/></svg></summary>
         <p>A third option is placed purely to make one specific pack look irresistible. Spot it:
            a size whose price sits just slightly under the bigger pack while giving you clearly
-           less product. Take Nescafé Classic — the 1₹ sachet is roughly ₹500/100g, the 50g jar
-           is ₹420/100g, and the 100g jar is ₹380/100g. The tiny sachet exists to make the jar
-           look like genius. Sometimes the large genuinely is best — sometimes it isn't. Per-unit
-           math decides, vibes don't.</p>
+           less product. Take instant coffee — a single-serve sachet might be $0.50 ($5.00/100g),
+           a 50g jar $2.10 ($4.20/100g), and a 100g jar $3.80 ($3.80/100g). The tiny sachet exists
+           to make the jar look like genius. Sometimes the large genuinely is best — sometimes it
+           isn't. Per-unit math decides, vibes don't.</p>
       </details>
 
       <details class="acc">
         <summary>Flat multiplier packs<svg class="ic chev"><use href="#i-chev"/></svg></summary>
-        <p>Lay's Classic Salted: 52g for ₹20, 95g for ₹40, 147g for ₹60. Every option works out
-           to roughly ₹0.38 per gram — identical value regardless of pack size. The bigger bag
+        <p>Brand X Chips: 52g for $2, 95g for $4, 147g for $6. Every option works out
+           to roughly $0.038 per gram — identical value regardless of pack size. The bigger bag
            feels like a bulk deal but delivers zero savings: you just spend more money and eat
            more chips. Run any family of packs through the Compare tab: if the per-gram line is
            flat, buy the size you need, not the biggest one.</p>
@@ -344,9 +370,9 @@
 
       <details class="acc">
         <summary>Shrinkflation<svg class="ic chev"><use href="#i-chev"/></svg></summary>
-        <p>The sneakiest raise you'll ever pay. Price stays ₹10, pack quietly drops from 100g to
-           90g. Nothing changes at the counter, but your cost per gram jumped 11%. Maggi, Surf
-           Excel, Colgate, Amul butter — serial offenders. Use Shrink Check when a pack feels
+        <p>The sneakiest raise you'll ever pay. Price stays the same, pack quietly drops from 100g to
+           90g. Nothing changes at the counter, but your cost per gram jumped 11%. Cereal, coffee,
+           snacks, detergent — serial offenders. Use Shrink Check when a pack feels
            lighter than memory; we quantify exactly how hard the hike hit.</p>
       </details>
 
@@ -359,34 +385,32 @@
           <li>50% extra free = <code>33.3% off</code></li>
           <li>100% extra free = <code>50% off</code></li>
         </ul>
-        <p>Surf Excel "25% extra free" on the big pack sounds great — but that's only 20% off.
+        <p>"25% extra free" on the big pack sounds great — but that's only 20% off.
            Compare it against a straight "20% off" sticker on the smaller pack. The louder offer lost.</p>
       </details>
 
       <details class="acc">
         <summary>Combo &amp; bundle traps<svg class="ic chev"><use href="#i-chev"/></svg></summary>
-        <p>"Combo save ₹50!" — against what baseline? Add the shelf prices of the individual
-           items yourself. Take a Maggi + Surf Excel combo on Amazon: listed as ₹199, individual
-           prices total ₹210. That's only 5% off. Under ~5% combined saving, the combo exists to
+        <p>"Combo save $5!" — against what baseline? Add the shelf prices of the individual
+           items yourself. Take a snack + drink combo: listed as $9.99, individual
+           prices total $10.50. That's only 5% off. Under ~5% combined saving, the combo exists to
            move slow stock, not to reward you. A good combo saves 15%+. Bundle Check does this
            arithmetic before the combo sign does it to you.</p>
       </details>
 
       <details class="acc">
-        <summary>Charm pricing (the ₹99 ending)<svg class="ic chev"><use href="#i-chev"/></svg></summary>
-        <p>₹199 reads as "one-something" in your head while being effectively ₹200. That's why
-           almost every Indian price ends in 99 or 9 — Amazon Great Indian Festival, Flipkart
-           Big Billion Days, DMart shelves. Left-digit anchoring is the oldest trick in retail.
-           Defense: round to the nearest hundred when budgeting, and always compare per-unit —
-           decimals don't do psychology.</p>
+        <summary>Charm pricing (the .99 ending)<svg class="ic chev"><use href="#i-chev"/></svg></summary>
+        <p>$19.99 reads as "one-something" in your head while being effectively $20. That's why
+           almost every retail price ends in 9 or 99. Left-digit anchoring is the oldest trick
+           in retail. Defense: round to the nearest whole number when budgeting, and always
+           compare per-unit — decimals don't do psychology.</p>
       </details>
 
       <details class="acc">
         <summary>Fake MRP anchoring<svg class="ic chev"><use href="#i-chev"/></svg></summary>
-        <p>The struck-through ₹299 may be a price nobody ever charged — invented to make ₹199
-           feel like charity. Verify with Claim Check using the printed MRP, not the sticker's
-           "was" price. And remember: an MRP is a ceiling, not a suggestion. Many staples sell
-           below MRP every day at DMart-style stores.</p>
+        <p>The struck-through $29.99 may be a price nobody ever charged — invented to make $19.99
+           feel like charity. Verify with Claim Check using the original price, not the sticker's
+           "was" price. Many staples sell below the marked price at discount stores.</p>
       </details>
 
       <div class="card checklist-card">
@@ -404,19 +428,19 @@
       <h2 class="learn-title faq-title">FAQ</h2>
       <details class="acc">
         <summary>What is a price per unit and why does it matter?<svg class="ic chev"><use href="#i-chev"/></svg></summary>
-        <p>It's price divided by quantity — per gram, ml or piece. Lay's 52g for ₹20 is ₹0.38/g,
-           and the 147g for ₹60 is also ₹0.38/g. Same unit price, bigger spend. LootLens
+        <p>It's price divided by quantity — per gram, ml or piece. A 52g pack for $2 is $0.038/g,
+           and a 147g pack for $6 is also $0.038/g. Same unit price, bigger spend. LootLens
            normalizes every pack and ranks them instantly so you never fall for the size trick.</p>
       </details>
       <details class="acc">
         <summary>How do I know if a discount is actually real?<svg class="ic chev"><use href="#i-chev"/></svg></summary>
-        <p>Actual % = (original − sale) ÷ original × 100. If an Amazon sale says 40% off but the
+        <p>Actual % = (original − sale) ÷ original × 100. If a sale says 40% off but the
            math says 25%, the claim is inflated. Claim Check runs this instantly, including the
-           misleading "extra free" style offers on Surf Excel and similar products.</p>
+           misleading "extra free" style offers.</p>
       </details>
       <details class="acc">
         <summary>What is shrinkflation?<svg class="ic chev"><use href="#i-chev"/></svg></summary>
-        <p>Same price, smaller pack — Maggi went from 70g to 60g at ₹14 and you silently pay 17%
+        <p>Same price, smaller pack — a cereal box went from 500g to 425g at the same price and you silently pay 17%
            more per gram. Shrink Check quantifies the hidden hike from old vs new pack details.</p>
       </details>
       <details class="acc">
@@ -446,7 +470,7 @@
        device. This site displays advertisements to stay free. Prices shown are examples you
        enter — always verify on the shelf.</p>
     <p><a href="/privacy.html" style="color:var(--accent);text-decoration:none">Privacy Policy</a> ·
-       &copy; 2026 LootLens · Made for smart Indian shoppers</p>
+       &copy; 2026 LootLens · Made for smart shoppers</p>
   </footer>
 
   <nav class="bottom-nav" aria-label="Primary">

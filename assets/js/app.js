@@ -13,6 +13,8 @@ import {
   formatPpu,
   formatQty,
   parseNum,
+  setCurrency,
+  getCurrency,
 } from './format.js';
 
 const $ = (sel, root = document) => root.querySelector(sel);
@@ -50,6 +52,10 @@ let loadTried = false;
 function load() {
   if (loadTried) return;
   loadTried = true;
+  try {
+    const savedCurrency = localStorage.getItem('lootlens:currency');
+    if (savedCurrency) setCurrency(savedCurrency);
+  } catch {}
   try {
     const raw = localStorage.getItem(STORE_KEY);
     if (!raw) return;
@@ -117,9 +123,10 @@ function countUp(el, target, formatter) {
 const UNIT_OPTIONS = ['g', 'kg', 'ml', 'l', 'pc'];
 
 function fieldHTML(item) {
+  const sym = getCurrency();
   return `
     <div class="field">
-      <label for="${item.id}-price">Price ₹</label>
+      <label for="${item.id}-price">Price</label>
       <input id="${item.id}-price" data-f="price" value="${escapeAttr(item.price)}"
              inputmode="decimal" autocomplete="off" placeholder="10">
     </div>
@@ -166,7 +173,7 @@ function renderItem(id, index) {
 
 function addItem(focus = true) {
   if (state.items.length >= 8) {
-    toast('Eight packs is plenty — even for DMart');
+    toast('Eight packs is plenty');
     return;
   }
   const item = newItem();
@@ -563,13 +570,13 @@ $('#exampleBtn').addEventListener('click', () => {
   buzz();
   $('#items').innerHTML = '';
   state.items = [
-    newItem('Lay\'s Classic Salted 52g', 20, 52, 'g'),
-    newItem('Lay\'s Classic Salted 95g', 40, 95, 'g'),
-    newItem('Lay\'s Classic Salted 147g', 60, 147, 'g'),
+    newItem('Brand X Chips Small', 20, 52, 'g'),
+    newItem('Brand X Chips Medium', 40, 95, 'g'),
+    newItem('Brand X Chips Large', 60, 147, 'g'),
   ];
   state.items.forEach((it, i) => $('#items').appendChild(renderItem(it.id, i)));
   refresh();
-  toast('Lay\'s Classic Salted — all three sizes, same ₹/gram.');
+  toast('Same price per gram — all three sizes are equal.');
   setTimeout(() => $('#resultsWrap').scrollIntoView({ behavior: 'smooth', block: 'start' }), 150);
 });
 
@@ -593,30 +600,30 @@ const guides = {
   claim: {
     title: 'Claim Check — Step-by-Step Guide',
     html: `
-      <p class="guide-intro">Use this tool when a shelf tag shouts <strong>"40% OFF!"</strong> or <strong>"Save ₹200!"</strong>. It tells you the real discount percentage and whether the label is lying.</p>
+      <p class="guide-intro">Use this tool when a shelf tag shouts <strong>"40% OFF!"</strong> or <strong>"Save $50!"</strong>. It tells you the real discount percentage and whether the label is lying.</p>
 
       <div class="guide-steps">
         <h3>How to use it</h3>
         <ol>
-          <li><strong>Original price</strong> — the MRP or the price before the sale. Find it on the shelf tag or the product's MRP line.</li>
+          <li><strong>Original price</strong> — the price before the sale. Find it on the shelf tag or product listing.</li>
           <li><strong>Sale price</strong> — what you actually pay right now. The big bold number on the sticker.</li>
           <li><strong>Claimed discount</strong> — the percentage the label claims. Usually the loudest number on the tag.</li>
         </ol>
       </div>
 
       <div class="guide-example">
-        <h3>Real example — Amazon Great Indian Festival</h3>
+        <h3>Real example — Honest tag</h3>
         <div class="guide-sim">
           <div class="guide-sim-label">You see this on the shelf:</div>
           <div class="guide-sim-box">
-            <span class="guide-sim-strike">MRP ₹999</span>
-            <span class="guide-sim-big">Sale ₹599</span>
+            <span class="guide-sim-strike">Was $99.99</span>
+            <span class="guide-sim-big">Now $59.99</span>
             <span class="guide-sim-tag">40% OFF!</span>
           </div>
         </div>
         <ol>
-          <li>Enter <strong>999</strong> as the original price.</li>
-          <li>Enter <strong>599</strong> as the sale price.</li>
+          <li>Enter <strong>99.99</strong> as the original price.</li>
+          <li>Enter <strong>59.99</strong> as the sale price.</li>
           <li>Enter <strong>40</strong> as the claimed discount.</li>
         </ol>
         <div class="guide-sim">
@@ -633,14 +640,14 @@ const guides = {
         <div class="guide-sim">
           <div class="guide-sim-label">You see this on the shelf:</div>
           <div class="guide-sim-box">
-            <span class="guide-sim-strike">MRP ₹499</span>
-            <span class="guide-sim-big">Sale ₹379</span>
+            <span class="guide-sim-strike">Was $49.99</span>
+            <span class="guide-sim-big">Now $37.99</span>
             <span class="guide-sim-tag">35% OFF!</span>
           </div>
         </div>
         <ol>
-          <li>Enter <strong>499</strong> as the original price.</li>
-          <li>Enter <strong>379</strong> as the sale price.</li>
+          <li>Enter <strong>49.99</strong> as the original price.</li>
+          <li>Enter <strong>37.99</strong> as the sale price.</li>
           <li>Enter <strong>35</strong> as the claimed discount.</li>
         </ol>
         <div class="guide-sim">
@@ -653,7 +660,7 @@ const guides = {
       </div>
 
       <div class="guide-tip">
-        <strong>Pro tip:</strong> On Indian e-commerce (Amazon, Flipkart), the "MRP" shown is often inflated before the sale. Cross-check the MRP on the actual product package — the real MRP is printed on it.
+        <strong>Pro tip:</strong> On online stores, the "original price" shown is sometimes inflated before the sale. Cross-check with the actual product listing or receipt.
       </div>
     `
   },
@@ -673,7 +680,7 @@ const guides = {
       </div>
 
       <div class="guide-example">
-        <h3>Real example — Surf Excel "25% Extra Free"</h3>
+        <h3>Real example — "25% Extra Free"</h3>
         <div class="guide-sim">
           <div class="guide-sim-label">You see this on the pack:</div>
           <div class="guide-sim-box">
@@ -722,56 +729,47 @@ const guides = {
   shrink: {
     title: 'Shrink Check — Step-by-Step Guide',
     html: `
-      <p class="guide-intro">Your favourite Maggi, Surf Excel, or Amul butter feels lighter than it used to be — but the price is the same. That's shrinkflation: a quiet price hike hidden inside the pack. This tool quantifies exactly how much you're losing.</p>
+      <p class="guide-intro">Your favourite cereal, coffee, or snack feels lighter than it used to be — but the price is the same. That's shrinkflation: a quiet price hike hidden inside the pack. This tool quantifies exactly how much you're losing.</p>
 
       <div class="guide-steps">
         <h3>How to use it</h3>
         <ol>
-          <li><strong>Old pack</strong> — the price, quantity, and unit of the product as it used to be. Check old bills, old photos of the pack, or ask family.</li>
+          <li><strong>Old pack</strong> — the price, quantity, and unit of the product as it used to be. Check old receipts, old photos of the pack, or ask around.</li>
           <li><strong>New pack</strong> — the price, quantity, and unit of the product as it is now. Read it off the current pack.</li>
           <li>If the price hasn't changed, enter the same number in both price fields.</li>
         </ol>
       </div>
 
       <div class="guide-example">
-        <h3>Real example — Maggi Noodles shrinkflation</h3>
+        <h3>Real example — Cereal shrinkflation</h3>
         <div class="guide-sim">
-          <div class="guide-sim-label">Old pack (2023):</div>
+          <div class="guide-sim-label">Old pack (last year):</div>
           <div class="guide-sim-box">
-            <span>Maggi 70g at ₹14</span>
+            <span>Cereal 500g at $4.99</span>
           </div>
         </div>
         <div class="guide-sim">
-          <div class="guide-sim-label">New pack (2025):</div>
+          <div class="guide-sim-label">New pack (now):</div>
           <div class="guide-sim-box">
-            <span>Maggi 60g at ₹14</span>
+            <span>Cereal 425g at $4.99</span>
           </div>
         </div>
         <ol>
-          <li>Old price: <strong>14</strong>, New price: <strong>14</strong></li>
-          <li>Old quantity: <strong>70</strong>, New quantity: <strong>60</strong></li>
+          <li>Old price: <strong>4.99</strong>, New price: <strong>4.99</strong></li>
+          <li>Old quantity: <strong>500</strong>, New quantity: <strong>425</strong></li>
           <li>Both units: <strong>g</strong></li>
         </ol>
         <div class="guide-sim">
           <div class="guide-sim-label">LootLens tells you:</div>
           <div class="guide-sim-box guide-sim-result">
-            <span>Old PPU: ₹0.20/g → New PPU: ₹0.23/g</span>
-            <span class="guide-verdict guide-bad">Hidden hike: +16.7% — you're paying 17% more per gram.</span>
+            <span>Old PPU: $0.010/g → New PPU: $0.012/g</span>
+            <span class="guide-verdict guide-bad">Hidden hike: +17.6% — you're paying 18% more per gram.</span>
           </div>
         </div>
       </div>
 
-      <div class="guide-example">
-        <h3>Real example — Surf Excel powder</h3>
-        <ol>
-          <li>Old: 1kg at ₹165, New: 900g at ₹165</li>
-          <li>Old PPU: ₹0.165/g, New PPU: ₹0.183/g</li>
-          <li>Hike: <strong>+11.1%</strong></li>
-        </ol>
-      </div>
-
       <div class="guide-tip">
-        <strong>Pro tip:</strong> The most common shrinkflation trick is keeping the pack dimensions the same but reducing the fill level. Weigh it on a kitchen scale if you suspect foul play. Common offenders: Maggi, Nescafé, Surf Excel, Colgate, Amul butter, Parle-G.
+        <strong>Pro tip:</strong> The most common shrinkflation trick is keeping the pack dimensions the same but reducing the fill level. Weigh it on a kitchen scale if you suspect foul play. Common offenders: cereal, coffee, snacks, detergent, chips.
       </div>
     `
   },
@@ -779,7 +777,7 @@ const guides = {
   bundle: {
     title: 'Bundle Check — Step-by-Step Guide',
     html: `
-      <p class="guide-intro">A "combo deal" on Amazon or BigBasket says <strong>"Save ₹50!"</strong>. But is it actually a deal, or are they moving slow stock by hiding it next to something popular? This tool does the math.</p>
+      <p class="guide-intro">A "combo deal" says <strong>"Save $5!"</strong>. But is it actually a deal, or are they moving slow stock by hiding it next to something popular? This tool does the math.</p>
 
       <div class="guide-steps">
         <h3>How to use it</h3>
@@ -790,23 +788,23 @@ const guides = {
       </div>
 
       <div class="guide-example">
-        <h3>Real example — Amazon "Frequently Bought Together"</h3>
+        <h3>Real example — "Frequently Bought Together"</h3>
         <div class="guide-sim">
-          <div class="guide-sim-label">You see this on Amazon:</div>
+          <div class="guide-sim-label">You see this on the store:</div>
           <div class="guide-sim-box">
-            <span class="guide-sim-big">Buy together, save ₹50!</span>
-            <span class="guide-sim-muted">Maggi 4-pack + Surf Excel 500g = ₹199</span>
+            <span class="guide-sim-big">Buy together, save $5!</span>
+            <span class="guide-sim-muted">Cereal + Milk = $9.99</span>
           </div>
         </div>
         <ol>
-          <li>Enter <strong>199</strong> as the combo price.</li>
-          <li>Enter <strong>56, 154</strong> as the individual prices (Maggi ₹56, Surf ₹154).</li>
+          <li>Enter <strong>9.99</strong> as the combo price.</li>
+          <li>Enter <strong>5.99, 4.50</strong> as the individual prices.</li>
         </ol>
         <div class="guide-sim">
           <div class="guide-sim-label">LootLens tells you:</div>
           <div class="guide-sim-box guide-sim-result">
-            <span>Individual total: ₹210, Combo: ₹199</span>
-            <span class="guide-verdict guide-warn">Saves ₹11 (5.2%) — borderline, not the ₹50 they claimed.</span>
+            <span>Individual total: $10.49, Combo: $9.99</span>
+            <span class="guide-verdict guide-warn">Saves $0.50 (4.8%) — borderline, not the $5 they claimed.</span>
           </div>
         </div>
       </div>
@@ -814,10 +812,10 @@ const guides = {
       <div class="guide-example">
         <h3>When the bundle is real</h3>
         <ol>
-          <li>Combo price: <strong>299</strong></li>
-          <li>Individual prices: <strong>180, 149</strong></li>
-          <li>Total: ₹329, Combo: ₹299</li>
-          <li>Saves: ₹30 (<strong>9.1%</strong>) — decent deal, worth it if you need both.</li>
+          <li>Combo price: <strong>29.99</strong></li>
+          <li>Individual prices: <strong>18.00, 14.99</strong></li>
+          <li>Total: $32.99, Combo: $29.99</li>
+          <li>Saves: $3.00 (<strong>9.1%</strong>) — decent deal, worth it if you need both.</li>
         </ol>
       </div>
 
@@ -832,7 +830,7 @@ const guides = {
       </div>
 
       <div class="guide-tip">
-        <strong>Pro tip:</strong> On Amazon and Flipkart, always check the "Frequently Bought Together" section against individual product pages. The "savings" shown are sometimes calculated against inflated "list prices" that nobody actually pays.
+        <strong>Pro tip:</strong> Always check the "Frequently Bought Together" section against individual product pages. The "savings" shown are sometimes calculated against inflated "list prices" that nobody actually pays.
       </div>
     `
   }
@@ -882,11 +880,23 @@ function boot() {
     });
   });
 
-  setView(state.view, { animate: false });
-
-  if ('serviceWorker' in navigator && location.protocol.startsWith('http')) {
-    navigator.serviceWorker.register('/sw.js').catch(() => {});
+  // Currency selector
+  const currencySelect = $('#currencySelect');
+  if (currencySelect) {
+    const savedCurrency = getCurrency();
+    currencySelect.value = savedCurrency;
+    currencySelect.addEventListener('change', () => {
+      setCurrency(currencySelect.value);
+      try { localStorage.setItem('lootlens:currency', currencySelect.value); } catch {}
+      refresh();
+      // Re-render all items to update labels
+      const listEl = $('#items');
+      listEl.innerHTML = '';
+      state.items.forEach((it, i) => listEl.appendChild(renderItem(it.id, i)));
+    });
   }
+
+  setView(state.view, { animate: false });
 
   requestAnimationFrame(() => refresh());
 }
