@@ -693,7 +693,7 @@ document.addEventListener('click', (e) => {
     return;
   }
 
-  if (e.target.id === 'clearAllCompare') {
+  if (e.target.closest('#clearAllCompare')) {
     e.preventDefault();
     buzz();
     $('#items').innerHTML = '';
