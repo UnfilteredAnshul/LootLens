@@ -1,61 +1,13 @@
-const CACHE = 'lootlens-v3';
-const PRECACHE = [
-  '/',
-  '/index.html',
-  '/assets/css/style.css',
-  '/assets/js/engine.js',
-  '/assets/js/format.js',
-  '/assets/js/app.js',
-  '/assets/icons/favicon.svg',
-  '/site.webmanifest',
-];
-
-self.addEventListener('install', (event) => {
-  event.waitUntil(
-    caches
-      .open(CACHE)
-      .then((cache) => cache.addAll(PRECACHE))
-      .then(() => self.skipWaiting())
-  );
+/* Service worker — self-destruct to clear stale caches */
+self.addEventListener('install', () => {
+  self.skipWaiting();
 });
 
 self.addEventListener('activate', (event) => {
   event.waitUntil(
-    caches
-      .keys()
-      .then((keys) => Promise.all(keys.filter((k) => k !== CACHE).map((k) => caches.delete(k))))
-      .then(() => self.clients.claim())
+    caches.keys().then((keys) => Promise.all(keys.map((k) => caches.delete(k))))
+      .then(() => self.unregister())
   );
 });
 
-self.addEventListener('fetch', (event) => {
-  const req = event.request;
-  if (req.method !== 'GET') return;
-  const url = new URL(req.url);
-  if (url.origin !== location.origin) return;
-
-  if (req.mode === 'navigate') {
-    event.respondWith(
-      fetch(req)
-        .then((res) => {
-          const copy = res.clone();
-          caches.open(CACHE).then((c) => c.put('/', copy)).catch(() => {});
-          return res;
-        })
-        .catch(() => caches.match('/').then((r) => r || Response.error()))
-    );
-    return;
-  }
-
-  event.respondWith(
-    caches.match(req).then(
-      (hit) =>
-        hit ||
-        fetch(req).then((res) => {
-          const copy = res.clone();
-          caches.open(CACHE).then((c) => c.put(req, copy)).catch(() => {});
-          return res;
-        })
-    )
-  );
-});
+self.addEventListener('fetch', () => {});
