@@ -1,6 +1,6 @@
 // Formatting helpers — currency-aware, locale-aware.
 
-const CURRENCY_DATA = {
+export const CURRENCY_DATA = {
   USD: { symbol: '$', locale: 'en-US', maxDec: 2 },
   EUR: { symbol: '€', locale: 'de-DE', maxDec: 2 },
   GBP: { symbol: '£', locale: 'en-GB', maxDec: 2 },
@@ -48,6 +48,7 @@ export function formatCurrency(value, maxDigits = 2) {
   const v = Number(value);
   if (!Number.isFinite(v)) return '—';
   const data = CURRENCY_DATA[CURRENCY];
+  if (!data) return `$${v.toFixed(maxDigits)}`;
   const digits = maxDigits !== undefined ? maxDigits : data.maxDec;
   return new Intl.NumberFormat(data.locale, {
     style: 'currency',
@@ -70,7 +71,7 @@ export function formatPpu(ppu, dim = 'mass') {
   const v = Number(ppu);
   if (!Number.isFinite(v)) return '—';
   const data = CURRENCY_DATA[CURRENCY];
-  const digits = v >= 100 ? 0 : v >= 1 ? data.maxDec : data.maxDec + 1;
+  const digits = data ? (v >= 100 ? 0 : v >= 1 ? data.maxDec : data.maxDec + 1) : 2;
   return `${formatCurrency(v, digits)}/${label}`;
 }
 
@@ -86,5 +87,6 @@ export function formatQty(baseQty, dim = 'mass') {
 
 function trimNum(n) {
   const data = CURRENCY_DATA[CURRENCY];
-  return new Intl.NumberFormat(data.locale, { maximumFractionDigits: 3 }).format(n);
+  const locale = data?.locale ?? 'en-US';
+  return new Intl.NumberFormat(locale, { maximumFractionDigits: 3 }).format(n);
 }

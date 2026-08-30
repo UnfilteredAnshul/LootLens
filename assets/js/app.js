@@ -15,6 +15,7 @@ import {
   parseNum,
   setCurrency,
   getCurrency,
+  CURRENCY_DATA,
 } from './format.js';
 
 const $ = (sel, root = document) => root.querySelector(sel);
@@ -172,6 +173,10 @@ function renderItem(id, index) {
 }
 
 function addItem(focus = true) {
+  if (!getCurrency() || !CURRENCY_DATA[getCurrency()]) {
+    toast('Pick a currency first');
+    return;
+  }
   if (state.items.length >= 8) {
     toast('Eight packs is plenty');
     return;
@@ -568,6 +573,11 @@ $('#items').addEventListener('click', (e) => {
 
 $('#exampleBtn').addEventListener('click', () => {
   buzz();
+  // Check if currency is selected
+  if (!getCurrency() || !CURRENCY_DATA[getCurrency()]) {
+    toast('Pick a currency first');
+    return;
+  }
   $('#items').innerHTML = '';
   state.items = [
     newItem('Brand X Chips Small', 20, 52, 'g'),
@@ -880,19 +890,52 @@ function boot() {
     });
   });
 
-  // Currency selector
-  const currencySelect = $('#currencySelect');
-  if (currencySelect) {
-    const savedCurrency = getCurrency();
-    currencySelect.value = savedCurrency;
-    currencySelect.addEventListener('change', () => {
-      setCurrency(currencySelect.value);
-      try { localStorage.setItem('lootlens:currency', currencySelect.value); } catch {}
+  // Currency flow
+  const savedCurrency = getCurrency();
+  const prompt = $('#currencyPrompt');
+  const introCard = $('#introCard');
+  const changeBtn = $('#changeCurrencyBtn');
+  const label = $('#currentCurrencyLabel');
+
+  function showIntro() {
+    prompt.hidden = true;
+    introCard.hidden = false;
+    label.textContent = formatCurrency(0).replace(/[\d.,\s]/g, '').trim() + ' ' + getCurrency();
+  }
+
+  function showPrompt() {
+    prompt.hidden = false;
+    introCard.hidden = true;
+  }
+
+  // If currency already saved, skip prompt
+  if (savedCurrency && CURRENCY_DATA[savedCurrency]) {
+    showIntro();
+  } else {
+    showPrompt();
+  }
+
+  // Currency pill clicks
+  $$('.currency-pill').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      buzz();
+      const c = btn.dataset.c;
+      setCurrency(c);
+      try { localStorage.setItem('lootlens:currency', c); } catch {}
+      showIntro();
       refresh();
-      // Re-render all items to update labels
+      // Re-render items with new currency
       const listEl = $('#items');
       listEl.innerHTML = '';
       state.items.forEach((it, i) => listEl.appendChild(renderItem(it.id, i)));
+    });
+  });
+
+  // Change currency button
+  if (changeBtn) {
+    changeBtn.addEventListener('click', () => {
+      buzz();
+      showPrompt();
     });
   }
 

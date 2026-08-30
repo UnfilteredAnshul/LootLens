@@ -178,40 +178,48 @@ packs, expose fake discounts, decoy pricing and shrinkflation. Free, no login. W
   <main id="app">
     <!-- ============ COMPARE VIEW ============ -->
     <section class="view" id="view-compare" aria-label="Compare packs">
-      <div class="card intro-card">
+
+      <!-- Currency prompt — shown when no currency is selected -->
+      <div class="card currency-prompt" id="currencyPrompt">
+        <h2><svg class="ic"><use href="#i-scale"/></svg> Pick your currency</h2>
+        <p>Choose the currency you shop in. Prices will be formatted automatically.</p>
+        <div class="currency-grid" id="currencyGrid">
+          <button class="currency-pill" data-c="USD">$ USD</button>
+          <button class="currency-pill" data-c="EUR">€ EUR</button>
+          <button class="currency-pill" data-c="GBP">£ GBP</button>
+          <button class="currency-pill" data-c="INR">₹ INR</button>
+          <button class="currency-pill" data-c="JPY">¥ JPY</button>
+          <button class="currency-pill" data-c="CNY">¥ CNY</button>
+          <button class="currency-pill" data-c="KRW">₩ KRW</button>
+          <button class="currency-pill" data-c="BRL">R$ BRL</button>
+          <button class="currency-pill" data-c="MXN">$ MXN</button>
+          <button class="currency-pill" data-c="AUD">$ AUD</button>
+          <button class="currency-pill" data-c="CAD">$ CAD</button>
+          <button class="currency-pill" data-c="SGD">$ SGD</button>
+          <button class="currency-pill" data-c="AED">د.إ AED</button>
+          <button class="currency-pill" data-c="SAR">﷼ SAR</button>
+          <button class="currency-pill" data-c="ZAR">R ZAR</button>
+          <button class="currency-pill" data-c="NGN">₦ NGN</button>
+          <button class="currency-pill" data-c="EGP">E£ EGP</button>
+          <button class="currency-pill" data-c="THB">฿ THB</button>
+          <button class="currency-pill" data-c="IDR">Rp IDR</button>
+          <button class="currency-pill" data-c="PHP">₱ PHP</button>
+        </div>
+      </div>
+
+      <!-- Main compare card — shown after currency is selected -->
+      <div class="card intro-card" id="introCard" hidden>
         <div class="intro-copy">
           <h2><svg class="ic"><use href="#i-scale"/></svg> Which pack wins?</h2>
           <p>Add 2+ packs of the same product. We normalize everything to price per gram/ml/piece
              and flag whatever trick is hiding inside.</p>
         </div>
         <div class="intro-actions">
-          <div class="currency-select-wrap">
-            <label for="currencySelect" class="sr-only">Currency</label>
-            <select id="currencySelect" class="currency-select">
-              <option value="USD">$ USD</option>
-              <option value="EUR">€ EUR</option>
-              <option value="GBP">£ GBP</option>
-              <option value="INR" selected>₹ INR</option>
-              <option value="JPY">¥ JPY</option>
-              <option value="CNY">¥ CNY</option>
-              <option value="KRW">₩ KRW</option>
-              <option value="BRL">R$ BRL</option>
-              <option value="MXN">$ MXN</option>
-              <option value="AUD">$ AUD</option>
-              <option value="CAD">$ CAD</option>
-              <option value="SGD">$ SGD</option>
-              <option value="AED">د.إ AED</option>
-              <option value="SAR">﷼ SAR</option>
-              <option value="ZAR">R ZAR</option>
-              <option value="NGN">₦ NGN</option>
-              <option value="EGP">E£ EGP</option>
-              <option value="THB">฿ THB</option>
-              <option value="IDR">Rp IDR</option>
-              <option value="PHP">₱ PHP</option>
-            </select>
-          </div>
           <button class="btn ghost sm" id="exampleBtn" type="button">
             <svg class="ic"><use href="#i-zap"/></svg>Try a trick
+          </button>
+          <button class="btn ghost sm" id="changeCurrencyBtn" type="button">
+            <span id="currentCurrencyLabel">$ USD</span> ▾
           </button>
         </div>
       </div>
