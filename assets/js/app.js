@@ -675,17 +675,30 @@ document.addEventListener('click', (e) => {
   if (clearAllBtn) {
     e.preventDefault();
     const tool = clearAllBtn.dataset.clearall;
-    const panel = $(`[data-panel="${tool}"]`);
-    if (!panel) return;
-    panel.querySelectorAll('input, textarea').forEach(input => {
-      input.value = '';
-      input.dispatchEvent(new Event('input', { bubbles: true }));
-      updateClearVisibility(input);
-    });
-    panel.querySelectorAll('select').forEach(sel => {
-      sel.selectedIndex = 0;
-      sel.dispatchEvent(new Event('change', { bubbles: true }));
-    });
+    if (tool) {
+      const panel = $(`[data-panel="${tool}"]`);
+      if (!panel) return;
+      panel.querySelectorAll('input, textarea').forEach(input => {
+        input.value = '';
+        input.dispatchEvent(new Event('input', { bubbles: true }));
+        updateClearVisibility(input);
+      });
+      panel.querySelectorAll('select').forEach(sel => {
+        sel.selectedIndex = 0;
+        sel.dispatchEvent(new Event('change', { bubbles: true }));
+      });
+    }
+    return;
+  }
+
+  if (e.target.id === 'clearAllCompare') {
+    e.preventDefault();
+    buzz();
+    $('#items').innerHTML = '';
+    state.items = [newItem(), newItem()];
+    state.items.forEach((it, i) => $('#items').appendChild(renderItem(it.id, i)));
+    refresh();
+    toast('All fields cleared.');
     return;
   }
 });

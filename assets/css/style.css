@@ -932,10 +932,14 @@ footer { padding-bottom: calc(var(--nav-h) + 30px); }
 }
 
 /* Clear all scan button */
-.tool-actions {
+.tool-actions,
+.compare-actions {
   display: flex;
   justify-content: flex-end;
   margin-top: 4px;
+}
+.compare-actions {
+  margin-bottom: 8px;
 }
 .clear-scan {
   font-size: 12px;
