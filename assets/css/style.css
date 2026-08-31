@@ -825,33 +825,38 @@ footer { padding-bottom: calc(var(--nav-h) + 30px); }
     right: 0;
     bottom: 0;
     pointer-events: none;
-    z-index: 1;
+    z-index: 10;
   }
   .side-banner {
     position: absolute;
     width: 160px;
     height: 600px;
     pointer-events: auto;
+    overflow: hidden;
   }
   .side-left {
-    left: max(0px, calc((100vw - 640px) / 2 - 180px));
+    left: 20px;
     top: 50%;
     transform: translateY(-50%);
   }
   .side-left-2 {
-    left: max(0px, calc((100vw - 640px) / 2 - 360px));
+    left: 200px;
+    top: 50%;
+    transform: translateY(-50%);
   }
   .side-right {
-    right: max(0px, calc((100vw - 640px) / 2 - 180px));
+    right: 20px;
     top: 50%;
     transform: translateY(-50%);
   }
   .side-right-2 {
-    right: max(0px, calc((100vw - 640px) / 2 - 360px));
+    right: 200px;
+    top: 50%;
+    transform: translateY(-50%);
   }
   footer, main, .bottom-nav {
     position: relative;
-    z-index: 2;
+    z-index: 11;
   }
 }
 

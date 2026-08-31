@@ -154,6 +154,14 @@
     </footer>
   </div>
 
+  <!-- Side banners for PC/tablet -->
+  <div class="side-banners" id="sideBanners">
+    <div class="side-banner side-left" id="sideBannerLeft1"></div>
+    <div class="side-banner side-left side-left-2" id="sideBannerLeft2"></div>
+    <div class="side-banner side-right" id="sideBannerRight1"></div>
+    <div class="side-banner side-right side-right-2" id="sideBannerRight2"></div>
+  </div>
+
   <script>
   (function(){
     try {
@@ -163,6 +171,27 @@
         s.textContent = 'atOptions={"key":"5f67c3aa64213386f04a397f9f6a38aa","format":"iframe","height":60,"width":468,"params":{}};var _s=document.createElement("script");_s.async=true;_s.src="https://www.highrevenueformat.com/5f67c3aa64213386f04a397f9f6a38aa/invoke.js";document.body.appendChild(_s);';
         el.appendChild(s);
       }
+    } catch(e){}
+  })();
+  // Side banners
+  (function(){
+    try {
+      if(window.innerWidth < 900) return;
+      var sideKeys = ['666e19643f145f1de664605ae137a69b','fe20db6d4114709a58c4e312e5b6aa16','666e19643f145f1de664605ae137a69b','fe20db6d4114709a58c4e312e5b6aa16'];
+      ['sideBannerLeft1','sideBannerLeft2','sideBannerRight1','sideBannerRight2'].forEach(function(id, i){
+        var el = document.getElementById(id);
+        if(!el) return;
+        window.atOptions = {'key':sideKeys[i],'format':'iframe','height':600,'width':160,'params':{}};
+        var s = document.createElement('script');
+        s.async = true;
+        s.src = 'https://www.highrevenueformat.com/'+sideKeys[i]+'/invoke.js';
+        el.appendChild(s);
+      });
+      setInterval(function(){
+        document.querySelectorAll('.side-banner iframe').forEach(function(f){
+          f.style.cssText = 'position:fixed!important;z-index:10!important;width:160px!important;height:600px!important;border:none!important;display:block!important;visibility:visible!important;opacity:1!important;';
+        });
+      }, 200);
     } catch(e){}
   })();
   </script>

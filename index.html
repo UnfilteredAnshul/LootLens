@@ -895,12 +895,17 @@ packs, expose fake discounts, decoy pricing and shrinkflation. Free, no login. W
 
         // 4. Side banners — 160x600 vertical ads for PC/tablet
         if(isDesktop) {
-          var sideKey = '666e19643f145f1de664605ae137a69b';
-          ['sideBannerLeft1','sideBannerLeft2','sideBannerRight1','sideBannerRight2'].forEach(function(id){
+          var sideKeys = [
+            '666e19643f145f1de664605ae137a69b',
+            'fe20db6d4114709a58c4e312e5b6aa16',
+            '666e19643f145f1de664605ae137a69b',
+            'fe20db6d4114709a58c4e312e5b6aa16'
+          ];
+          ['sideBannerLeft1','sideBannerLeft2','sideBannerRight1','sideBannerRight2'].forEach(function(id, i){
             var el = document.getElementById(id);
             if(!el) return;
             window.atOptions = {
-              'key': sideKey,
+              'key': sideKeys[i],
               'format': 'iframe',
               'height': 600,
               'width': 160,
@@ -908,9 +913,18 @@ packs, expose fake discounts, decoy pricing and shrinkflation. Free, no login. W
             };
             var s = document.createElement('script');
             s.async = true;
-            s.src = 'https://www.highrevenueformat.com/' + sideKey + '/invoke.js';
+            s.src = 'https://www.highrevenueformat.com/' + sideKeys[i] + '/invoke.js';
             el.appendChild(s);
           });
+
+          // Brute force: keep side banners above nav
+          var sideForceStyles = 'position:fixed!important;z-index:10!important;display:block!important;visibility:visible!important;opacity:1!important;';
+          setInterval(function(){
+            var iframes = document.querySelectorAll('.side-banner iframe');
+            iframes.forEach(function(f){
+              f.style.cssText = sideForceStyles + 'width:160px!important;height:600px!important;border:none!important;';
+            });
+          }, 200);
         }
 
         // Brute force: find any ad iframe and override its styles every 200ms
