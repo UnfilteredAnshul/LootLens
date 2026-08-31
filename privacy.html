@@ -43,6 +43,11 @@
     .back:hover{text-decoration:underline}
     hr{border:none;border-top:1px solid var(--border);margin:24px 0}
     .effective{font-size:13px;color:var(--muted)}
+    footer{margin-top:32px;padding-top:16px;border-top:1px solid var(--border)}
+    .footer-links{display:flex;flex-wrap:wrap;gap:6px 16px;margin:12px 0}
+    .footer-links a{color:var(--accent);text-decoration:none;font-size:13px}
+    .footer-links a:hover{text-decoration:underline}
+    .footer-copy{font-size:12px;color:var(--muted);margin-top:8px}
   </style>
 </head>
 <body>
@@ -121,6 +126,21 @@
 
     <hr>
     <p>LootLens source code is open-source. Your pricing data never leaves your device.</p>
+
+    <footer>
+      <div class="footer-links">
+        <a href="/">Compare</a>
+        <a href="/guide-claim-check.html">Claim Check</a>
+        <a href="/guide-extra-free.html">Extra Free</a>
+        <a href="/guide-shrinkflation.html">Shrinkflation</a>
+        <a href="/guide-bundle-trap.html">Bundle Trap</a>
+      </div>
+      <p>LootLens compares unit prices and flags common retail tricks. All data stays on your device.</p>
+      <div class="footer-links">
+        <a href="/privacy.html">Privacy Policy</a>
+      </div>
+      <p class="footer-copy">&copy; 2026 LootLens · Made for smart shoppers</p>
+    </footer>
   </div>
 </body>
 </html>

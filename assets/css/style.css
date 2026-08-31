@@ -794,6 +794,66 @@ code {
 
 /* ---------- footer ---------- */
 footer { padding-bottom: calc(var(--nav-h) + 30px); }
+.footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 16px;
+  margin: 12px 0;
+}
+.footer-links a {
+  color: var(--accent);
+  text-decoration: none;
+  font-size: 13px;
+}
+.footer-links a:hover { text-decoration: underline; }
+.footer-copy {
+  font-size: 12px;
+  color: var(--muted);
+  margin-top: 8px;
+}
+
+/* ---------- side banners (PC/tablet) ---------- */
+.side-banners {
+  display: none;
+}
+@media (min-width: 900px) {
+  .side-banners {
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    pointer-events: none;
+    z-index: 1;
+  }
+  .side-banner {
+    position: absolute;
+    width: 160px;
+    height: 600px;
+    pointer-events: auto;
+  }
+  .side-left {
+    left: max(0px, calc((100vw - 640px) / 2 - 180px));
+    top: 50%;
+    transform: translateY(-50%);
+  }
+  .side-left-2 {
+    left: max(0px, calc((100vw - 640px) / 2 - 360px));
+  }
+  .side-right {
+    right: max(0px, calc((100vw - 640px) / 2 - 180px));
+    top: 50%;
+    transform: translateY(-50%);
+  }
+  .side-right-2 {
+    right: max(0px, calc((100vw - 640px) / 2 - 360px));
+  }
+  footer, main, .bottom-nav {
+    position: relative;
+    z-index: 2;
+  }
+}
 
 /* ---------- keyframes shared ---------- */
 @keyframes rise {

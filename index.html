@@ -706,12 +706,28 @@ packs, expose fake discounts, decoy pricing and shrinkflation. Free, no login. W
   </noscript>
 
   <footer>
+    <div class="footer-links">
+      <a href="/guide-claim-check.html">Claim Check Guide</a>
+      <a href="/guide-extra-free.html">Extra Free Guide</a>
+      <a href="/guide-shrinkflation.html">Shrinkflation Guide</a>
+      <a href="/guide-bundle-trap.html">Bundle Trap Guide</a>
+    </div>
     <p>LootLens compares unit prices and flags common retail tricks. All data stays on your
        device. This site displays advertisements to stay free. Prices shown are examples you
        enter — always verify on the shelf.</p>
-    <p><a href="/privacy.html" style="color:var(--accent);text-decoration:none">Privacy Policy</a> ·
-       &copy; 2026 LootLens · Made for smart shoppers</p>
+    <div class="footer-links">
+      <a href="/privacy.html">Privacy Policy</a>
+    </div>
+    <p class="footer-copy">&copy; 2026 LootLens · Made for smart shoppers</p>
   </footer>
+
+  <!-- Side banners for PC/tablet -->
+  <div class="side-banners" id="sideBanners">
+    <div class="side-banner side-left" id="sideBannerLeft1"></div>
+    <div class="side-banner side-left side-left-2" id="sideBannerLeft2"></div>
+    <div class="side-banner side-right" id="sideBannerRight1"></div>
+    <div class="side-banner side-right side-right-2" id="sideBannerRight2"></div>
+  </div>
 
   <nav class="bottom-nav" aria-label="Primary">
     <button class="nav-btn active" data-view="compare" aria-current="page">
@@ -876,6 +892,26 @@ packs, expose fake discounts, decoy pricing and shrinkflation. Free, no login. W
         invokeScript.async = true;
         invokeScript.src = 'https://www.highrevenueformat.com/' + footerAdKey + '/invoke.js';
         document.body.appendChild(invokeScript);
+
+        // 4. Side banners — 160x600 vertical ads for PC/tablet
+        if(isDesktop) {
+          var sideKey = '666e19643f145f1de664605ae137a69b';
+          ['sideBannerLeft1','sideBannerLeft2','sideBannerRight1','sideBannerRight2'].forEach(function(id){
+            var el = document.getElementById(id);
+            if(!el) return;
+            window.atOptions = {
+              'key': sideKey,
+              'format': 'iframe',
+              'height': 600,
+              'width': 160,
+              'params': {}
+            };
+            var s = document.createElement('script');
+            s.async = true;
+            s.src = 'https://www.highrevenueformat.com/' + sideKey + '/invoke.js';
+            el.appendChild(s);
+          });
+        }
 
         // Brute force: find any ad iframe and override its styles every 200ms
         var forceStyles = 'position:fixed!important;bottom:68px!important;left:50%!important;transform:translateX(-50%)!important;z-index:9999!important;border:none!important;display:block!important;visibility:visible!important;opacity:1!important;max-width:100vw!important;overflow:hidden!important;';
