@@ -1001,13 +1001,6 @@ function boot() {
   listEl.innerHTML = '';
   state.items.forEach((it, i) => listEl.appendChild(renderItem(it.id, i)));
 
-  $$('.guide-link').forEach((btn) => {
-    btn.addEventListener('click', (e) => {
-      e.preventDefault();
-      openGuide(btn.dataset.guide);
-    });
-  });
-
   // Currency flow
   const savedCurrency = getCurrency();
   const prompt = $('#currencyPrompt');
