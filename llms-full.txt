@@ -1,0 +1,59 @@
+# LootLens — Full Documentation
+
+LootLens is a free, mobile-first Progressive Web App (PWA) that helps shoppers detect retail marketing gimmicks and find the best price per unit. Built with vanilla JavaScript (zero dependencies), it runs entirely in the browser with no server-side processing.
+
+## How it works
+
+### Compare Packs
+Add 2-8 packs of the same product with price, quantity, and unit. LootLens normalizes everything to price per gram/ml/piece and ranks them from best to worst value. It also detects:
+- **Decoy pricing** — when a third option exists only to make one pack look like a bargain
+- **Flat multiplier packs** — when every size costs the same per unit (no bulk discount)
+- **Charm pricing** — prices ending in 9 or 99 that exploit left-digit anchoring
+
+### Claim Check
+Enter the original price, sale price, and claimed discount percentage. The tool calculates the real discount and tells you if the label is honest, inflated, or understated.
+
+**Formula:** Real % = (original − sale) ÷ original × 100
+
+### Extra Free Check
+Enter the "extra free" percentage from the pack. The tool calculates the real straight discount.
+
+**Formula:** Real % off = X ÷ (100 + X) × 100
+
+Example: "50% extra free" = 50 ÷ 150 × 100 = 33.3% off (not 50%)
+
+### Shrinkflation Check
+Compare old vs new pack details (price, quantity, unit). The tool detects:
+- Size reduction while price stays the same
+- Price per unit increase
+- Whether it's shrinkflation, a price hike, or better value
+
+### Bundle Trap Check
+Enter the combo price and individual item prices. The tool calculates real savings:
+- Under 5% = Trap (exists to move stock)
+- 5-15% = Borderline (worth it only if you need both)
+- Over 15% = Real deal
+
+## Supported currencies
+USD, EUR, GBP, INR, JPY, CNY, KRW, BRL, MXN, AUD, CAD, SGD, AED, SAR, ZAR, NGN, EGP, THB, IDR, PHP
+
+## Technical details
+- **Stack:** Vanilla HTML/CSS/JS, no frameworks, no build step
+- **Data storage:** Browser localStorage only (no server)
+- **Offline:** Service worker for caching (self-destructing to clear stale caches)
+- **Ads:** HighRevenueFormat, ProfitableRateCPMNetwork (keeps the tool free)
+- **Hosting:** Antideploy (GitHub Actions auto-deploy on push to master)
+
+## Pages
+- [https://lootlens.antideploy.com/] — Main comparison tool
+- [https://lootlens.antideploy.com/guide-claim-check.html] — Claim Check step-by-step guide
+- [https://lootlens.antideploy.com/guide-extra-free.html] — Extra Free Check step-by-step guide
+- [https://lootlens.antideploy.com/guide-shrinkflation.html] — Shrinkflation Check step-by-step guide
+- [https://lootlens.antideploy.com/guide-bundle-trap.html] — Bundle Trap Check step-by-step guide
+- [https://lootlens.antideploy.com/privacy.html] — Privacy policy
+
+## Source code
+Open source at https://github.com/UnfilteredAnshul/LootLens
+
+## Contact
+Open an issue at https://github.com/UnfilteredAnshul/LootLens/issues

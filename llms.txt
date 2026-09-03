@@ -1,0 +1,27 @@
+# LootLens
+
+LootLens is a free, mobile-first webapp that exposes retail marketing gimmicks and tells shoppers the best price per unit. Zero-dependency vanilla JavaScript, no build step, no login required.
+
+## What it does
+- Compare grocery pack sizes and find the real best deal per gram/ml/piece
+- Verify if discount labels are honest (Claim Check)
+- Decode "extra free" labels to find the real discount (Extra Free Check)
+- Detect shrinkflation — quiet pack size reductions (Shrinkflation Check)
+- Check if bundle/combo deals actually save money (Bundle Trap Check)
+
+## Key facts
+- Runs entirely in the browser — no data leaves your device
+- Supports 20 currencies worldwide
+- Free forever, no account needed
+- Ad-supported to stay free
+
+## Pages
+- [Compare Prices](https://lootlens.antideploy.com/) — Main tool, add 2-8 packs and compare
+- [Claim Check Guide](https://lootlens.antideploy.com/guide-claim-check.html) — How to verify discount labels
+- [Extra Free Guide](https://lootlens.antideploy.com/guide-extra-free.html) — Decode "extra free" offers
+- [Shrinkflation Guide](https://lootlens.antideploy.com/guide-shrinkflation.html) — Detect hidden price hikes
+- [Bundle Trap Guide](https://lootlens.antideploy.com/guide-bundle-trap.html) — Check combo deals
+- [Privacy Policy](https://lootlens.antideploy.com/privacy.html) — How ads affect your data
+
+## Contact
+Open an issue at https://github.com/UnfilteredAnshul/LootLens/issues
