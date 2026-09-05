@@ -327,6 +327,10 @@ packs, expose fake discounts, decoy pricing and shrinkflation. Free, no login. W
         </div>
       </div>
 
+      <div class="ad-slot" style="margin:12px 0;text-align:center">
+        <div id="adCompareTop"></div>
+      </div>
+
       <div id="items" class="items"></div>
 
       <div class="compare-actions">
@@ -394,6 +398,11 @@ packs, expose fake discounts, decoy pricing and shrinkflation. Free, no login. W
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
           New to this? Read the guide
         </a>
+
+        <div class="ad-slot" style="margin:12px 0;text-align:center">
+          <div id="adClaim"></div>
+        </div>
+
         <div class="field-row">
           <label>Original price
             <div class="input-wrap">
@@ -469,6 +478,11 @@ packs, expose fake discounts, decoy pricing and shrinkflation. Free, no login. W
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
           New to this? Read the guide
         </a>
+
+        <div class="ad-slot" style="margin:12px 0;text-align:center">
+          <div id="adShrink"></div>
+        </div>
+
         <div class="grid2">
           <label>Old price
             <div class="input-wrap">
@@ -526,6 +540,11 @@ packs, expose fake discounts, decoy pricing and shrinkflation. Free, no login. W
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
           New to this? Read the guide
         </a>
+
+        <div class="ad-slot" style="margin:12px 0;text-align:center">
+          <div id="adBundle"></div>
+        </div>
+
         <div class="field-row">
           <label>Combo price
             <div class="input-wrap">
@@ -551,6 +570,9 @@ packs, expose fake discounts, decoy pricing and shrinkflation. Free, no login. W
           Share result
         </button>
       </form>
+
+      <!-- Bottom ad slot — scan -->
+      <div class="ad-slot" id="adScanNative" role="complementary" aria-label="Advertisement"></div>
     </section>
 
     <!-- ============ LEARN VIEW ============ -->
@@ -883,6 +905,22 @@ packs, expose fake discounts, decoy pricing and shrinkflation. Free, no login. W
           cmp.appendChild(p);
         }
 
+        // 2a. Compare top — horizontal banner between intro and items form
+        var cmpTop = document.getElementById('adCompareTop');
+        if(cmpTop){
+          var w = isDesktop ? 468 : 320;
+          var h = isDesktop ? 60 : 50;
+          var adHtml = '<!DOCTYPE html><html><head><style>body{margin:0;padding:0;overflow:hidden;background:transparent;}</style></head><body><script>window.atOptions={"key":"5f67c3aa64213386f04a397f9f6a38aa","format":"iframe","height":'+h+',"width":'+w+',"params":{}};</'+'script><script src="https://www.highrevenueformat.com/5f67c3aa64213386f04a397f9f6a38aa/invoke.js"></'+'script></body></html>';
+          var f = document.createElement('iframe');
+          f.srcdoc = adHtml;
+          f.style.cssText = 'width:'+w+'px;height:'+h+'px;border:none;max-width:100%;display:block;margin:0 auto;';
+          f.setAttribute('scrolling','no');
+          f.setAttribute('frameborder','0');
+          f.setAttribute('loading','lazy');
+          f.setAttribute('title','Advertisement');
+          cmpTop.appendChild(f);
+        }
+
         // 2b. Extra Free tool — load ad lazily when tab is clicked
         var extraFreeAdLoaded = false;
         var efTabBtn = document.querySelector('[data-tool="extrafree"]');
@@ -907,6 +945,105 @@ packs, expose fake discounts, decoy pricing and shrinkflation. Free, no login. W
             }
           });
         }
+
+        // 2c. Claim Check tool — load ad lazily when tab is clicked
+        var claimAdLoaded = false;
+        var claimTabBtn = document.querySelector('[data-tool="claim"]');
+        if(claimTabBtn){
+          claimTabBtn.addEventListener('click', function(){
+            if(!claimAdLoaded){
+              claimAdLoaded = true;
+              var el = document.getElementById('adClaim');
+              if(el){
+                var w = isDesktop ? 468 : 320;
+                var h = isDesktop ? 60 : 50;
+                var adHtml = '<!DOCTYPE html><html><head><style>body{margin:0;padding:0;overflow:hidden;background:transparent;}</style></head><body><script>window.atOptions={"key":"5f67c3aa64213386f04a397f9f6a38aa","format":"iframe","height":'+h+',"width":'+w+',"params":{}};</'+'script><script src="https://www.highrevenueformat.com/5f67c3aa64213386f04a397f9f6a38aa/invoke.js"></'+'script></body></html>';
+                var f = document.createElement('iframe');
+                f.srcdoc = adHtml;
+                f.style.cssText = 'width:'+w+'px;height:'+h+'px;border:none;max-width:100%;display:block;margin:0 auto;';
+                f.setAttribute('scrolling','no');
+                f.setAttribute('frameborder','0');
+                f.setAttribute('loading','lazy');
+                f.setAttribute('title','Advertisement');
+                el.appendChild(f);
+              }
+            }
+          });
+        }
+
+        // 2d. Shrinkflation tool — load ad lazily when tab is clicked
+        var shrinkAdLoaded = false;
+        var shrinkTabBtn = document.querySelector('[data-tool="shrink"]');
+        if(shrinkTabBtn){
+          shrinkTabBtn.addEventListener('click', function(){
+            if(!shrinkAdLoaded){
+              shrinkAdLoaded = true;
+              var el = document.getElementById('adShrink');
+              if(el){
+                var w = isDesktop ? 468 : 320;
+                var h = isDesktop ? 60 : 50;
+                var adHtml = '<!DOCTYPE html><html><head><style>body{margin:0;padding:0;overflow:hidden;background:transparent;}</style></head><body><script>window.atOptions={"key":"5f67c3aa64213386f04a397f9f6a38aa","format":"iframe","height":'+h+',"width":'+w+',"params":{}};</'+'script><script src="https://www.highrevenueformat.com/5f67c3aa64213386f04a397f9f6a38aa/invoke.js"></'+'script></body></html>';
+                var f = document.createElement('iframe');
+                f.srcdoc = adHtml;
+                f.style.cssText = 'width:'+w+'px;height:'+h+'px;border:none;max-width:100%;display:block;margin:0 auto;';
+                f.setAttribute('scrolling','no');
+                f.setAttribute('frameborder','0');
+                f.setAttribute('loading','lazy');
+                f.setAttribute('title','Advertisement');
+                el.appendChild(f);
+              }
+            }
+          });
+        }
+
+        // 2e. Bundle Trap tool — load ad lazily when tab is clicked
+        var bundleAdLoaded = false;
+        var bundleTabBtn = document.querySelector('[data-tool="bundle"]');
+        if(bundleTabBtn){
+          bundleTabBtn.addEventListener('click', function(){
+            if(!bundleAdLoaded){
+              bundleAdLoaded = true;
+              var el = document.getElementById('adBundle');
+              if(el){
+                var w = isDesktop ? 468 : 320;
+                var h = isDesktop ? 60 : 50;
+                var adHtml = '<!DOCTYPE html><html><head><style>body{margin:0;padding:0;overflow:hidden;background:transparent;}</style></head><body><script>window.atOptions={"key":"5f67c3aa64213386f04a397f9f6a38aa","format":"iframe","height":'+h+',"width":'+w+',"params":{}};</'+'script><script src="https://www.highrevenueformat.com/5f67c3aa64213386f04a397f9f6a38aa/invoke.js"></'+'script></body></html>';
+                var f = document.createElement('iframe');
+                f.srcdoc = adHtml;
+                f.style.cssText = 'width:'+w+'px;height:'+h+'px;border:none;max-width:100%;display:block;margin:0 auto;';
+                f.setAttribute('scrolling','no');
+                f.setAttribute('frameborder','0');
+                f.setAttribute('loading','lazy');
+                f.setAttribute('title','Advertisement');
+                el.appendChild(f);
+              }
+            }
+          });
+        }
+
+        // 2f. Native banner below scan tools — outside the forms, in the gap
+        var scanNativeLoaded = false;
+        function loadScanNative(){
+          if(scanNativeLoaded) return;
+          scanNativeLoaded = true;
+          var el = document.getElementById('adScanNative');
+          if(!el) return;
+          var w = isDesktop ? 300 : 250;
+          var h = 250;
+          var adHtml = '<!DOCTYPE html><html><head><style>body{margin:0;padding:0;overflow:hidden;background:transparent;}</style></head><body><script>window.atOptions={"key":"1ea1f8e32afbf0f6efe296bcaaa0ca18","format":"iframe","height":'+h+',"width":'+w+',"params":{}};</'+'script><script src="https://www.highrevenueformat.com/1ea1f8e32afbf0f6efe296bcaaa0ca18/invoke.js"></'+'script></body></html>';
+          var f = document.createElement('iframe');
+          f.srcdoc = adHtml;
+          f.style.cssText = 'width:'+w+'px;height:'+h+'px;border:none;max-width:100%;display:block;margin:0 auto;';
+          f.setAttribute('scrolling','no');
+          f.setAttribute('frameborder','0');
+          f.setAttribute('loading','lazy');
+          f.setAttribute('title','Advertisement');
+          el.appendChild(f);
+        }
+
+        ['claim','extrafree','shrink','bundle'].forEach(function(tool){
+          document.querySelector('[data-tool="'+tool+'"]').addEventListener('click', loadScanNative);
+        });
 
         // 3. Footer ad — brute force repositioning
         var footerAdKey = '5f67c3aa64213386f04a397f9f6a38aa';
