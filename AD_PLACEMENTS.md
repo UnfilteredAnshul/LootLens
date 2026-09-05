@@ -1,7 +1,7 @@
 # LootLens — Ad Placement Documentation
 
 > **Last updated:** 2026-09-05
-> **Perfect final ad placement commit:** `HEAD` (latest)
+> **Perfect final ad placement commit:** Run `git log --oneline -1` to get latest hash
 >
 > **If you ever want to revert to the perfect final ad placement, run:**
 > ```bash
@@ -357,7 +357,17 @@ Used for: `adCompareTop`, `adClaim`, `adExtraFree`, `adShrink`, `adBundle`
 - Ads inside hidden panels (scan tools) MUST be loaded lazily
 - Load ad only when the panel becomes visible (tab click), not on page init
 - Ad scripts don't render in hidden containers
-- Compare banner loads immediately (default visible view)
+- **Exception:** Claim % is the default active tab on page load — both `adClaim` and `adScanNative` load immediately via direct function calls, not just on click
+- Other scan tools (Extra Free, Shrink, Bundle) load lazily on first tab click
+
+### Sticky Notice Bar
+- Fixed position bar at very top of page (z-index: 1001, above everything)
+- Always visible — no show/hide logic
+- Dark background `#1a0a14` with pink accent border
+- Font Awesome `fa-shield-alt` icon in pink `#ff2d7b`
+- Text: "If you're using an ad blocker, please disable it to support this free tool."
+- Body has `padding-top: 36px` to push header/nav below the bar
+- Uses Font Awesome 6.5.1 CDN (loaded in `<head>`)
 
 ### Brute Force Positioning
 - Footer ad uses `setInterval` every 200ms to override ad network iframe styles

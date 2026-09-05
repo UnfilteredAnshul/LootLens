@@ -198,14 +198,15 @@ packs, expose fake discounts, decoy pricing and shrinkflation. Free, no login. W
   </style>
   <link rel="stylesheet" href="/assets/css/style.css?v=6">
   <script src="https://pl31086943.profitableratecpmnetwork.com/36/98/d9/3698d90ac7474a3bc4baa976c8bffc95.js" defer></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
   <noscript><div>LootLens needs JavaScript for the calculators. The guide below still works without it.</div></noscript>
 
-  <!-- Adblocker notice banner (fixed top) -->
-  <div class="adblock-notice" id="adblockBanner">
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4"/><path d="M12 16h.01"/></svg>
-    Ads keep LootLens free. Please consider disabling your ad blocker.
+  <!-- Fixed sticky notice bar -->
+  <div class="adblock-notice">
+    <i class="fas fa-shield-alt" style="color:#ff2d7b;margin-right:8px"></i>
+    If you're using an ad blocker, please disable it to support this free tool. Ads help keep this site running.
   </div>
 
   <!-- Adblocker popup overlay -->
@@ -820,14 +821,9 @@ packs, expose fake discounts, decoy pricing and shrinkflation. Free, no login. W
     }
 
     // --- Show/hide banner + popup ---
-    function showBanner(){
-      document.getElementById('adblockBanner').classList.add('show');
-      document.body.style.paddingTop = '40px';
-    }
-    function hideBanner(){
-      document.getElementById('adblockBanner').classList.remove('show');
-      document.body.style.paddingTop = '';
-    }
+    // Notice bar is now always visible — no show/hide logic needed
+    function showBanner(){}
+    function hideBanner(){}
 
     function showPopup(){
       if(shown) return;
@@ -946,30 +942,32 @@ packs, expose fake discounts, decoy pricing and shrinkflation. Free, no login. W
           });
         }
 
-        // 2c. Claim Check tool — load ad lazily when tab is clicked
+        // 2c. Claim Check tool — load ad lazily when tab is clicked (or immediately if default active)
         var claimAdLoaded = false;
+        function loadClaimAd(){
+          if(claimAdLoaded) return;
+          claimAdLoaded = true;
+          var el = document.getElementById('adClaim');
+          if(el){
+            var w = isDesktop ? 468 : 320;
+            var h = isDesktop ? 60 : 50;
+            var adHtml = '<!DOCTYPE html><html><head><style>body{margin:0;padding:0;overflow:hidden;background:transparent;}</style></head><body><script>window.atOptions={"key":"5f67c3aa64213386f04a397f9f6a38aa","format":"iframe","height":'+h+',"width":'+w+',"params":{}};</'+'script><script src="https://www.highrevenueformat.com/5f67c3aa64213386f04a397f9f6a38aa/invoke.js"></'+'script></body></html>';
+            var f = document.createElement('iframe');
+            f.srcdoc = adHtml;
+            f.style.cssText = 'width:'+w+'px;height:'+h+'px;border:none;max-width:100%;display:block;margin:0 auto;';
+            f.setAttribute('scrolling','no');
+            f.setAttribute('frameborder','0');
+            f.setAttribute('loading','lazy');
+            f.setAttribute('title','Advertisement');
+            el.appendChild(f);
+          }
+        }
         var claimTabBtn = document.querySelector('[data-tool="claim"]');
         if(claimTabBtn){
-          claimTabBtn.addEventListener('click', function(){
-            if(!claimAdLoaded){
-              claimAdLoaded = true;
-              var el = document.getElementById('adClaim');
-              if(el){
-                var w = isDesktop ? 468 : 320;
-                var h = isDesktop ? 60 : 50;
-                var adHtml = '<!DOCTYPE html><html><head><style>body{margin:0;padding:0;overflow:hidden;background:transparent;}</style></head><body><script>window.atOptions={"key":"5f67c3aa64213386f04a397f9f6a38aa","format":"iframe","height":'+h+',"width":'+w+',"params":{}};</'+'script><script src="https://www.highrevenueformat.com/5f67c3aa64213386f04a397f9f6a38aa/invoke.js"></'+'script></body></html>';
-                var f = document.createElement('iframe');
-                f.srcdoc = adHtml;
-                f.style.cssText = 'width:'+w+'px;height:'+h+'px;border:none;max-width:100%;display:block;margin:0 auto;';
-                f.setAttribute('scrolling','no');
-                f.setAttribute('frameborder','0');
-                f.setAttribute('loading','lazy');
-                f.setAttribute('title','Advertisement');
-                el.appendChild(f);
-              }
-            }
-          });
+          claimTabBtn.addEventListener('click', loadClaimAd);
         }
+        // Claim is default active tab — load ad immediately
+        loadClaimAd();
 
         // 2d. Shrinkflation tool — load ad lazily when tab is clicked
         var shrinkAdLoaded = false;
@@ -1044,6 +1042,8 @@ packs, expose fake discounts, decoy pricing and shrinkflation. Free, no login. W
         ['claim','extrafree','shrink','bundle'].forEach(function(tool){
           document.querySelector('[data-tool="'+tool+'"]').addEventListener('click', loadScanNative);
         });
+        // Claim is default active tab — load native ad immediately
+        loadScanNative();
 
         // 3. Footer ad — brute force repositioning
         var footerAdKey = '5f67c3aa64213386f04a397f9f6a38aa';
