@@ -48,7 +48,7 @@ html {
 
 body {
   margin: 0;
-  padding-top: 36px;
+  padding-top: 48px;
   min-height: 100dvh;
   background: var(--bg);
   color: var(--text);
@@ -85,20 +85,20 @@ input, select, textarea { font: inherit; }
 .brand {
   display: inline-flex;
   align-items: center;
-  gap: 9px;
+  gap: 12px;
   text-decoration: none;
   color: var(--text);
 }
 .brand-mark {
   display: grid;
   place-items: center;
-  width: 34px; height: 34px;
-  border-radius: 10px;
+  width: 44px; height: 44px;
+  border-radius: 12px;
   background: #292524;
   border: 1px solid var(--border-strong);
 }
-.brand-mark svg { width: 19px; height: 19px; color: #fff; }
-.brand-name { font-size: 18px; font-weight: 500; letter-spacing: -0.02em; }
+.brand-mark svg { width: 26px; height: 26px; color: #fff; }
+.brand-name { font-size: 24px; font-weight: 500; letter-spacing: -0.02em; }
 .brand-name b { font-weight: 800; color: var(--accent); }
 
 /* ---------- hero ---------- */
@@ -1243,6 +1243,13 @@ footer { padding-bottom: calc(var(--nav-h) + 30px); }
   font-weight: 500;
 }
 .adblock-notice i { color: #ff2d7b; margin-right: 8px; }
+.notice-short { display: none; }
+@media (max-width: 600px) {
+  .adblock-notice { padding: 6px 12px; font-size: 0.7rem; }
+  .notice-full { display: none; }
+  .notice-short { display: inline; }
+  body { padding-top: 40px; }
+}
 
 /* ---------- adblocker popup overlay ---------- */
 .adblock-overlay {
