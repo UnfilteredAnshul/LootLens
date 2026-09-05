@@ -437,6 +437,11 @@ packs, expose fake discounts, decoy pricing and shrinkflation. Free, no login. W
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
           New to this? Read the guide
         </a>
+
+        <div class="ad-slot" style="margin:12px 0;text-align:center">
+          <div id="adExtraFree"></div>
+        </div>
+
         <div class="field-row">
           <label>Extra free amount (%)
             <div class="input-wrap">
@@ -878,6 +883,31 @@ packs, expose fake discounts, decoy pricing and shrinkflation. Free, no login. W
           cmp.appendChild(p);
         }
 
+        // 2b. Extra Free tool — load ad lazily when tab is clicked
+        var extraFreeAdLoaded = false;
+        var efTabBtn = document.querySelector('[data-tool="extrafree"]');
+        if(efTabBtn){
+          efTabBtn.addEventListener('click', function(){
+            if(!extraFreeAdLoaded){
+              extraFreeAdLoaded = true;
+              var el = document.getElementById('adExtraFree');
+              if(el){
+                var w = isDesktop ? 468 : 320;
+                var h = isDesktop ? 60 : 50;
+                var adHtml = '<!DOCTYPE html><html><head><style>body{margin:0;padding:0;overflow:hidden;background:transparent;}</style></head><body><script>window.atOptions={"key":"5f67c3aa64213386f04a397f9f6a38aa","format":"iframe","height":'+h+',"width":'+w+',"params":{}};</'+'script><script src="https://www.highrevenueformat.com/5f67c3aa64213386f04a397f9f6a38aa/invoke.js"></'+'script></body></html>';
+                var f = document.createElement('iframe');
+                f.srcdoc = adHtml;
+                f.style.cssText = 'width:'+w+'px;height:'+h+'px;border:none;max-width:100%;display:block;margin:0 auto;';
+                f.setAttribute('scrolling','no');
+                f.setAttribute('frameborder','0');
+                f.setAttribute('loading','lazy');
+                f.setAttribute('title','Advertisement');
+                el.appendChild(f);
+              }
+            }
+          });
+        }
+
         // 3. Footer ad — brute force repositioning
         var footerAdKey = '5f67c3aa64213386f04a397f9f6a38aa';
         window.atOptions = {
@@ -904,17 +934,15 @@ packs, expose fake discounts, decoy pricing and shrinkflation. Free, no login. W
           ['sideBannerLeft1','sideBannerLeft2','sideBannerRight1','sideBannerRight2'].forEach(function(id, i){
             var el = document.getElementById(id);
             if(!el) return;
-            window.atOptions = {
-              'key': sideKeys[i],
-              'format': 'iframe',
-              'height': 600,
-              'width': 160,
-              'params': {}
-            };
-            var s = document.createElement('script');
-            s.async = true;
-            s.src = 'https://www.highrevenueformat.com/' + sideKeys[i] + '/invoke.js';
-            el.appendChild(s);
+            var sideHtml = '<!DOCTYPE html><html><head><style>body{margin:0;padding:0;overflow:hidden;background:transparent;}</style></head><body><script>window.atOptions={"key":"'+sideKeys[i]+'","format":"iframe","height":600,"width":160,"params":{}};</'+'script><script src="https://www.highrevenueformat.com/'+sideKeys[i]+'/invoke.js"></'+'script></body></html>';
+            var f = document.createElement('iframe');
+            f.srcdoc = sideHtml;
+            f.style.cssText = 'width:160px;height:600px;border:none;';
+            f.setAttribute('scrolling','no');
+            f.setAttribute('frameborder','0');
+            f.setAttribute('loading','lazy');
+            f.setAttribute('title','Advertisement');
+            el.appendChild(f);
           });
 
           // Brute force: keep side banners above nav

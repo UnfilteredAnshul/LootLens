@@ -151,6 +151,8 @@
 
     <div class="ad-slot" id="adGuide" style="margin:24px 0;text-align:center"></div>
 
+    <div class="native-ad-slot" id="adNative" style="margin:24px 0"></div>
+
     <div class="guide-nav">
       <a href="/guide-extra-free.html">Next: Extra Free Check Guide →</a>
     </div>
@@ -187,6 +189,22 @@
         var s = document.createElement('script');
         s.textContent = 'atOptions={"key":"5f67c3aa64213386f04a397f9f6a38aa","format":"iframe","height":60,"width":468,"params":{}};var _s=document.createElement("script");_s.async=true;_s.src="https://www.highrevenueformat.com/5f67c3aa64213386f04a397f9f6a38aa/invoke.js";document.body.appendChild(_s);';
         el.appendChild(s);
+      }
+    } catch(e){}
+  })();
+  // Native content ad
+  (function(){
+    try {
+      var el = document.getElementById('adNative');
+      if(el) {
+        var d = document.createElement('div');
+        d.id = 'container-9020c1d3adc61e269ff2bea91a7845a4';
+        el.appendChild(d);
+        var p = document.createElement('script');
+        p.async = false;
+        p.setAttribute('data-cfasync','false');
+        p.src = 'https://pl31086945.profitableratecpmnetwork.com/9020c1d3adc61e269ff2bea91a7845a4/invoke.js';
+        d.appendChild(p);
       }
     } catch(e){}
   })();
