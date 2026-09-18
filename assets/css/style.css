@@ -957,7 +957,19 @@ code {
 .nav-btn.active { color: var(--accent); }
 .nav-btn.active .ic { transform: translateY(-2px) scale(1.06); color: var(--accent); }
 .nav-btn span { position: relative; }
-.nav-btn small { font-size: 8px; font-weight: 500; letter-spacing: 0.02em; opacity: 0.6; text-transform: none; margin-top: -2px; }
+.nav-btn .nav-badge {
+  display: inline-block;
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  padding: 1px 5px;
+  border-radius: 6px;
+  background: rgba(255,255,255,0.1);
+  color: var(--faint);
+  margin-top: -1px;
+  line-height: 1.4;
+}
+.nav-btn.active .nav-badge { background: rgba(6,182,212,0.15); color: var(--accent); }
 .nav-btn.active span::after {
   content: "";
   position: absolute;
