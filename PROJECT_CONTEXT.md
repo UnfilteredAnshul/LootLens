@@ -133,7 +133,8 @@ isCharmEnding(price)
 - **Typography:** SF Pro Display / SF Pro Text system font stack. 26px bold brand name, 17px body,
   proper weight hierarchy (600 headings, 500 body, 400 muted).
 - **One-thumb reachability:** primary actions bottom-anchored; max content width 480px (640px desktop);
-  sticky glass bottom-nav with safe-area insets.
+  sticky glass bottom-nav with safe-area insets. Nav buttons include contextual subtitles
+  ("Multiple packs" under Compare, "Single product" under Scan) for instant clarity.
 - **Motion language:** 200–320ms, `cubic-bezier(0.16,1,0.3,1)`; staggered card entrances;
   bar-grow reveals; count-up savings; crown pop on winner; press-scale 0.97 feedback;
   haptics via `navigator.vibrate` where supported.
