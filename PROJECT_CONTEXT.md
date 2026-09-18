@@ -5,7 +5,7 @@
 A mobile-first PWA that busts retail marketing gimmicks (decoy pricing, shrinkflation,
 fake discounts, combo traps, flat-multiplier packs) and tells shoppers — in seconds — which
 pack actually gives them the best price per unit. Zero-dependency vanilla JS, no build step.
-Global audience with multi-currency support (20 currencies).
+Global audience with multi-currency support (58 currencies with searchable dropdown).
 
 ---
 
@@ -79,7 +79,7 @@ LootLens/
 ├── assets/
 │   ├── css/style.css       # design system + components + motion
 │   ├── js/engine.js        # PURE logic: units, ranking, all detectors (no DOM)
-│   ├── js/format.js        # multi-currency formatting (20 currencies)
+│   ├── js/format.js        # multi-currency formatting (58 currencies + search metadata)
 │   ├── js/app.js           # state, rendering, events, animations, persistence
 │   └── icons/              # favicon.svg, PWA PNGs, og.png
 ├── tests/engine.test.js    # node:test suite (~25 assertions)
@@ -127,15 +127,22 @@ isCharmEnding(price)
 
 ## 6. UX / Motion Guidelines
 
-- **One-thumb reachability:** primary actions bottom-anchored; max content width 480px; sticky
-  glass bottom-nav with safe-area insets.
-- **Motion language:** 200–320ms, `cubic-bezier(0.22,1,0.36,1)`; staggered card entrances;
+- **Design theme:** Premium dark slate (#09090b) with vibrant teal accent (#06b6d4). Frosted glass
+  header and nav with `backdrop-filter: blur(20px)`. Gradient accents, glow shadows, and smooth
+  transitions throughout.
+- **Typography:** SF Pro Display / SF Pro Text system font stack. 26px bold brand name, 17px body,
+  proper weight hierarchy (600 headings, 500 body, 400 muted).
+- **One-thumb reachability:** primary actions bottom-anchored; max content width 480px (640px desktop);
+  sticky glass bottom-nav with safe-area insets.
+- **Motion language:** 200–320ms, `cubic-bezier(0.16,1,0.3,1)`; staggered card entrances;
   bar-grow reveals; count-up savings; crown pop on winner; press-scale 0.97 feedback;
   haptics via `navigator.vibrate` where supported.
 - **Accessibility:** AA contrast on dark theme, visible focus rings, aria-live results region,
   48px touch targets, full `prefers-reduced-motion` support.
 - **Performance:** zero external requests (except ad networks + Font Awesome CDN); fonts = system
   stack; reserved ad space (no CLS); service-worker cached shell → sub-second repeat loads.
+- **Currency selector:** Custom dropdown with search bar. Searches by code, name, country, and
+  aliases (e.g., "rupee" finds INR, PKR, BDT). 58 currencies grouped by region.
 
 ## 7. SEO Plan
 
