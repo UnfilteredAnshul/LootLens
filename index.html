@@ -818,13 +818,13 @@ packs, expose fake discounts, decoy pricing and shrinkflation. Free, no login. W
 
   <nav class="bottom-nav" aria-label="Primary">
     <button class="nav-btn active" data-view="compare" aria-current="page">
-      <svg class="ic"><use href="#i-scale"/></svg><span>Compare</span><span class="nav-badge">2–8</span>
+      <span class="nav-badge">Multiple packs</span><svg class="ic"><use href="#i-scale"/></svg><span>Compare</span>
     </button>
     <button class="nav-btn" data-view="scan">
-      <svg class="ic"><use href="#i-shield"/></svg><span>Scan</span><span class="nav-badge">×1</span>
+      <span class="nav-badge">Single pack</span><svg class="ic"><use href="#i-shield"/></svg><span>Scan</span>
     </button>
     <button class="nav-btn" data-view="learn">
-      <svg class="ic"><use href="#i-book"/></svg><span>Learn</span>
+      <span class="nav-badge is-hidden">Learn</span><svg class="ic"><use href="#i-book"/></svg><span>Learn</span>
     </button>
   </nav>
 
@@ -1152,7 +1152,7 @@ packs, expose fake discounts, decoy pricing and shrinkflation. Free, no login. W
         }
 
         // Brute force: find any ad iframe and override its styles every 200ms
-        var forceStyles = 'position:fixed!important;bottom:68px!important;left:50%!important;transform:translateX(-50%)!important;z-index:9999!important;border:none!important;display:block!important;visibility:visible!important;opacity:1!important;max-width:100vw!important;overflow:hidden!important;';
+        var forceStyles = 'position:fixed!important;bottom:82px!important;left:50%!important;transform:translateX(-50%)!important;z-index:9999!important;border:none!important;display:block!important;visibility:visible!important;opacity:1!important;max-width:100vw!important;overflow:hidden!important;';
         setInterval(function(){
           var iframes = document.querySelectorAll('iframe');
           iframes.forEach(function(f){
