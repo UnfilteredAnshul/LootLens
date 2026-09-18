@@ -1007,6 +1007,12 @@ function boot() {
   const introCard = $('#introCard');
   const changeBtn = $('#changeCurrencyBtn');
   const label = $('#currentCurrencyLabel');
+  const trigger = $('#currencyTrigger');
+  const triggerLabel = $('#currencyTriggerLabel');
+  const dropdown = $('#currencyDropdown');
+  const searchInput = $('#currencySearch');
+  const optionsContainer = $('#currencyOptions');
+  const options = $$('.custom-select-option');
 
   function showIntro() {
     prompt.hidden = true;
@@ -1017,6 +1023,66 @@ function boot() {
   function showPrompt() {
     prompt.hidden = false;
     introCard.hidden = true;
+    closeDropdown();
+    // Update trigger label to current selection
+    const cur = getCurrency();
+    if (cur && CURRENCY_DATA[cur]) {
+      const opt = options.find(o => o.dataset.c === cur);
+      triggerLabel.textContent = opt ? opt.textContent : cur;
+    } else {
+      triggerLabel.textContent = 'Select a currency…';
+    }
+  }
+
+  function openDropdown() {
+    dropdown.classList.add('open');
+    trigger.setAttribute('aria-expanded', 'true');
+    searchInput.value = '';
+    filterOptions('');
+    options.forEach(o => o.classList.remove('selected'));
+    const cur = getCurrency();
+    if (cur) {
+      const active = options.find(o => o.dataset.c === cur);
+      if (active) {
+        active.classList.add('selected');
+        active.scrollIntoView({ block: 'nearest' });
+      }
+    }
+    setTimeout(() => searchInput.focus(), 50);
+  }
+
+  function closeDropdown() {
+    dropdown.classList.remove('open');
+    trigger.setAttribute('aria-expanded', 'false');
+  }
+
+  function selectCurrency(code) {
+    if (!code || !CURRENCY_DATA[code]) return;
+    buzz();
+    setCurrency(code);
+    try { localStorage.setItem('lootlens:currency', code); } catch {}
+    closeDropdown();
+    showIntro();
+    refresh();
+    const listEl = $('#items');
+    listEl.innerHTML = '';
+    state.items.forEach((it, i) => listEl.appendChild(renderItem(it.id, i)));
+  }
+
+  function filterOptions(query) {
+    const q = query.toLowerCase().trim();
+    options.forEach(opt => {
+      if (!q) {
+        opt.classList.remove('hidden');
+        return;
+      }
+      const code = opt.dataset.c.toLowerCase();
+      const name = (opt.dataset.name || '').toLowerCase();
+      const country = (opt.dataset.country || '').toLowerCase();
+      const aliases = (opt.dataset.aliases || '').toLowerCase();
+      const match = code.includes(q) || name.includes(q) || country.includes(q) || aliases.includes(q);
+      opt.classList.toggle('hidden', !match);
+    });
   }
 
   // If currency already saved, skip prompt
@@ -1026,20 +1092,43 @@ function boot() {
     showPrompt();
   }
 
-  // Currency pill clicks
-  $$('.currency-pill').forEach((btn) => {
-    btn.addEventListener('click', () => {
-      buzz();
-      const c = btn.dataset.c;
-      setCurrency(c);
-      try { localStorage.setItem('lootlens:currency', c); } catch {}
-      showIntro();
-      refresh();
-      // Re-render items with new currency
-      const listEl = $('#items');
-      listEl.innerHTML = '';
-      state.items.forEach((it, i) => listEl.appendChild(renderItem(it.id, i)));
+  // Trigger click
+  if (trigger) {
+    trigger.addEventListener('click', (e) => {
+      e.stopPropagation();
+      if (dropdown.classList.contains('open')) {
+        closeDropdown();
+      } else {
+        openDropdown();
+      }
     });
+  }
+
+  // Search input
+  if (searchInput) {
+    searchInput.addEventListener('input', () => {
+      filterOptions(searchInput.value);
+    });
+    searchInput.addEventListener('click', (e) => e.stopPropagation());
+  }
+
+  // Option clicks
+  options.forEach(opt => {
+    opt.addEventListener('click', () => {
+      selectCurrency(opt.dataset.c);
+    });
+  });
+
+  // Close on outside click
+  document.addEventListener('click', (e) => {
+    if (!dropdown.contains(e.target)) {
+      closeDropdown();
+    }
+  });
+
+  // Close on escape
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeDropdown();
   });
 
   // Change currency button

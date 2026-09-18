@@ -122,7 +122,7 @@ packs, expose fake discounts, decoy pricing and shrinkflation. Free, no login. W
       {
         "@type": "Question",
         "name": "What currencies does LootLens support?",
-        "acceptedAnswer": { "@type": "Answer", "text": "LootLens supports 20 currencies including USD, EUR, GBP, INR, JPY, CNY, KRW, BRL, MXN, AUD, CAD, SGD, AED, SAR, ZAR, NGN, EGP, THB, IDR, and PHP. Select your currency when you first open the app, and all prices will be formatted automatically." }
+        "acceptedAnswer": { "@type": "Answer", "text": "LootLens supports 58 currencies including USD, EUR, GBP, INR, JPY, CNY, KRW, BRL, MXN, AUD, CAD, SGD, AED, SAR, ZAR, NGN, EGP, THB, IDR, PHP, CHF, SEK, NOK, DKK, PLN, CZK, HUF, RON, TRY, RUB, and more. Select your currency when you first open the app, and all prices will be formatted automatically." }
       }
     ]
   }
@@ -138,7 +138,7 @@ packs, expose fake discounts, decoy pricing and shrinkflation. Free, no login. W
       {
         "@type": "HowToStep",
         "name": "Select your currency",
-        "text": "Choose the currency you shop in from the currency selector. LootLens supports 20 currencies including USD, EUR, GBP, and INR.",
+        "text": "Choose the currency you shop in from the currency selector. LootLens supports 58 currencies including USD, EUR, GBP, and INR.",
         "url": "https://lootlens.antideploy.com/#currency"
       },
       {
@@ -269,6 +269,7 @@ packs, expose fake discounts, decoy pricing and shrinkflation. Free, no login. W
     <symbol id="i-x" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" d="M6 6l12 12M18 6 6 18"/></symbol>
     <symbol id="i-chev" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="m6 9 6 6 6-6"/></symbol>
     <symbol id="i-tag" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" d="M3 11V4a1 1 0 0 1 1-1h7l10 10-8 8L3 11Z"/><circle cx="8" cy="8" r="1.5" fill="currentColor" stroke="none"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="2"/><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="m16.5 16.5 4 4"/></symbol>
   </svg>
 
   <header class="site-head">
@@ -301,27 +302,71 @@ packs, expose fake discounts, decoy pricing and shrinkflation. Free, no login. W
       <div class="card currency-prompt" id="currencyPrompt">
         <h2><svg class="ic"><use href="#i-scale"/></svg> Pick your currency</h2>
         <p>Choose the currency you shop in. Prices will be formatted automatically.</p>
-        <div class="currency-grid" id="currencyGrid">
-          <button class="currency-pill" data-c="USD">$ USD</button>
-          <button class="currency-pill" data-c="EUR">€ EUR</button>
-          <button class="currency-pill" data-c="GBP">£ GBP</button>
-          <button class="currency-pill" data-c="INR">₹ INR</button>
-          <button class="currency-pill" data-c="JPY">¥ JPY</button>
-          <button class="currency-pill" data-c="CNY">¥ CNY</button>
-          <button class="currency-pill" data-c="KRW">₩ KRW</button>
-          <button class="currency-pill" data-c="BRL">R$ BRL</button>
-          <button class="currency-pill" data-c="MXN">$ MXN</button>
-          <button class="currency-pill" data-c="AUD">$ AUD</button>
-          <button class="currency-pill" data-c="CAD">$ CAD</button>
-          <button class="currency-pill" data-c="SGD">$ SGD</button>
-          <button class="currency-pill" data-c="AED">د.إ AED</button>
-          <button class="currency-pill" data-c="SAR">﷼ SAR</button>
-          <button class="currency-pill" data-c="ZAR">R ZAR</button>
-          <button class="currency-pill" data-c="NGN">₦ NGN</button>
-          <button class="currency-pill" data-c="EGP">E£ EGP</button>
-          <button class="currency-pill" data-c="THB">฿ THB</button>
-          <button class="currency-pill" data-c="IDR">Rp IDR</button>
-          <button class="currency-pill" data-c="PHP">₱ PHP</button>
+        <div class="custom-select" id="currencyCustomSelect">
+          <button type="button" class="custom-select-trigger" id="currencyTrigger">
+            <span id="currencyTriggerLabel">Select a currency…</span>
+            <svg class="custom-select-chevron"><use href="#i-chev"/></svg>
+          </button>
+          <div class="custom-select-dropdown" id="currencyDropdown">
+            <div class="custom-select-search-wrap">
+              <input type="text" class="custom-select-search" id="currencySearch" placeholder="Search currency, country, or name…" autocomplete="off" />
+              <svg class="custom-select-search-icon"><use href="#i-search"/></svg>
+            </div>
+            <div class="custom-select-options" id="currencyOptions">
+              <button type="button" class="custom-select-option" data-c="USD" data-name="US Dollar" data-country="United States" data-aliases="america american us united states dollar">$ USD — US Dollar</button>
+              <button type="button" class="custom-select-option" data-c="EUR" data-name="Euro" data-country="European Union" data-aliases="europe european eu">€ EUR — Euro</button>
+              <button type="button" class="custom-select-option" data-c="GBP" data-name="British Pound" data-country="United Kingdom" data-aliases="british uk england pound sterling">£ GBP — British Pound</button>
+              <button type="button" class="custom-select-option" data-c="INR" data-name="Indian Rupee" data-country="India" data-aliases="india indian rupee rupees ruppee">₹ INR — Indian Rupee</button>
+              <button type="button" class="custom-select-option" data-c="JPY" data-name="Japanese Yen" data-country="Japan" data-aliases="japan japanese yen">¥ JPY — Japanese Yen</button>
+              <button type="button" class="custom-select-option" data-c="CNY" data-name="Chinese Yuan" data-country="China" data-aliases="china chinese yuan rmb renminbi">¥ CNY — Chinese Yuan</button>
+              <button type="button" class="custom-select-option" data-c="KRW" data-name="South Korean Won" data-country="South Korea" data-aliases="korea korean won south korea">₩ KRW — South Korean Won</button>
+              <button type="button" class="custom-select-option" data-c="BRL" data-name="Brazilian Real" data-country="Brazil" data-aliases="brazil brazilian real">R$ BRL — Brazilian Real</button>
+              <button type="button" class="custom-select-option" data-c="MXN" data-name="Mexican Peso" data-country="Mexico" data-aliases="mexico mexican peso">$ MXN — Mexican Peso</button>
+              <button type="button" class="custom-select-option" data-c="AUD" data-name="Australian Dollar" data-country="Australia" data-aliases="australia australian aussie">$ AUD — Australian Dollar</button>
+              <button type="button" class="custom-select-option" data-c="CAD" data-name="Canadian Dollar" data-country="Canada" data-aliases="canada canadian loonie">$ CAD — Canadian Dollar</button>
+              <button type="button" class="custom-select-option" data-c="SGD" data-name="Singapore Dollar" data-country="Singapore" data-aliases="singapore singaporean">$ SGD — Singapore Dollar</button>
+              <button type="button" class="custom-select-option" data-c="AED" data-name="UAE Dirham" data-country="United Arab Emirates" data-aliases="uae emirates dirham dubai">د.إ AED — UAE Dirham</button>
+              <button type="button" class="custom-select-option" data-c="SAR" data-name="Saudi Riyal" data-country="Saudi Arabia" data-aliases="saudi riyal arabia">﷼ SAR — Saudi Riyal</button>
+              <button type="button" class="custom-select-option" data-c="ZAR" data-name="South African Rand" data-country="South Africa" data-aliases="south africa african rand">R ZAR — South African Rand</button>
+              <button type="button" class="custom-select-option" data-c="NGN" data-name="Nigerian Naira" data-country="Nigeria" data-aliases="nigeria nigerian naira">₦ NGN — Nigerian Naira</button>
+              <button type="button" class="custom-select-option" data-c="EGP" data-name="Egyptian Pound" data-country="Egypt" data-aliases="egypt egyptian pound">E£ EGP — Egyptian Pound</button>
+              <button type="button" class="custom-select-option" data-c="THB" data-name="Thai Baht" data-country="Thailand" data-aliases="thailand thai baht">฿ THB — Thai Baht</button>
+              <button type="button" class="custom-select-option" data-c="IDR" data-name="Indonesian Rupiah" data-country="Indonesia" data-aliases="indonesia indonesian rupiah">Rp IDR — Indonesian Rupiah</button>
+              <button type="button" class="custom-select-option" data-c="PHP" data-name="Philippine Peso" data-country="Philippines" data-aliases="philippines philippine peso">₱ PHP — Philippine Peso</button>
+              <button type="button" class="custom-select-option" data-c="CHF" data-name="Swiss Franc" data-country="Switzerland" data-aliases="switzerland swiss franc">CHF — Swiss Franc</button>
+              <button type="button" class="custom-select-option" data-c="SEK" data-name="Swedish Krona" data-country="Sweden" data-aliases="sweden swedish krona kronor">kr SEK — Swedish Krona</button>
+              <button type="button" class="custom-select-option" data-c="NOK" data-name="Norwegian Krone" data-country="Norway" data-aliases="norway norwegian krone">kr NOK — Norwegian Krone</button>
+              <button type="button" class="custom-select-option" data-c="DKK" data-name="Danish Krone" data-country="Denmark" data-aliases="denmark danish krone">kr DKK — Danish Krone</button>
+              <button type="button" class="custom-select-option" data-c="PLN" data-name="Polish Zloty" data-country="Poland" data-aliases="poland polish zloty zlotych">zł PLN — Polish Zloty</button>
+              <button type="button" class="custom-select-option" data-c="CZK" data-name="Czech Koruna" data-country="Czech Republic" data-aliases="czech czechia koruna">Kč CZK — Czech Koruna</button>
+              <button type="button" class="custom-select-option" data-c="HUF" data-name="Hungarian Forint" data-country="Hungary" data-aliases="hungary hungarian forint">Ft HUF — Hungarian Forint</button>
+              <button type="button" class="custom-select-option" data-c="RON" data-name="Romanian Leu" data-country="Romania" data-aliases="romania romanian leu">lei RON — Romanian Leu</button>
+              <button type="button" class="custom-select-option" data-c="TRY" data-name="Turkish Lira" data-country="Turkey" data-aliases="turkey turkish lira">₺ TRY — Turkish Lira</button>
+              <button type="button" class="custom-select-option" data-c="RUB" data-name="Russian Ruble" data-country="Russia" data-aliases="russia russian ruble rouble">₽ RUB — Russian Ruble</button>
+              <button type="button" class="custom-select-option" data-c="CLP" data-name="Chilean Peso" data-country="Chile" data-aliases="chile chilean peso">$ CLP — Chilean Peso</button>
+              <button type="button" class="custom-select-option" data-c="COP" data-name="Colombian Peso" data-country="Colombia" data-aliases="colombia colombian peso">$ COP — Colombian Peso</button>
+              <button type="button" class="custom-select-option" data-c="PEN" data-name="Peruvian Sol" data-country="Peru" data-aliases="peru peruvian sol">S/ PEN — Peruvian Sol</button>
+              <button type="button" class="custom-select-option" data-c="ARS" data-name="Argentine Peso" data-country="Argentina" data-aliases="argentina argentine peso">$ ARS — Argentine Peso</button>
+              <button type="button" class="custom-select-option" data-c="UYU" data-name="Uruguayan Peso" data-country="Uruguay" data-aliases="uruguay uruguayan peso">$ UYU — Uruguayan Peso</button>
+              <button type="button" class="custom-select-option" data-c="VND" data-name="Vietnamese Dong" data-country="Vietnam" data-aliases="vietnam vietnamese dong">₫ VND — Vietnamese Dong</button>
+              <button type="button" class="custom-select-option" data-c="MYR" data-name="Malaysian Ringgit" data-country="Malaysia" data-aliases="malaysia malaysian ringgit">RM MYR — Malaysian Ringgit</button>
+              <button type="button" class="custom-select-option" data-c="TWD" data-name="New Taiwan Dollar" data-country="Taiwan" data-aliases="taiwan taiwanese ntd nt dollar">NT$ TWD — New Taiwan Dollar</button>
+              <button type="button" class="custom-select-option" data-c="HKD" data-name="Hong Kong Dollar" data-country="Hong Kong" data-aliases="hong kong hongkong">HK$ HKD — Hong Kong Dollar</button>
+              <button type="button" class="custom-select-option" data-c="NZD" data-name="New Zealand Dollar" data-country="New Zealand" data-aliases="new zealand kiwi">$ NZD — New Zealand Dollar</button>
+              <button type="button" class="custom-select-option" data-c="PKR" data-name="Pakistani Rupee" data-country="Pakistan" data-aliases="pakistan pakistani rupee rupees">₨ PKR — Pakistani Rupee</button>
+              <button type="button" class="custom-select-option" data-c="BDT" data-name="Bangladeshi Taka" data-country="Bangladesh" data-aliases="bangladesh bangladeshi taka">৳ BDT — Bangladeshi Taka</button>
+              <button type="button" class="custom-select-option" data-c="ILS" data-name="Israeli Shekel" data-country="Israel" data-aliases="israel israeli shekel shekels nis">₪ ILS — Israeli Shekel</button>
+              <button type="button" class="custom-select-option" data-c="KWD" data-name="Kuwaiti Dinar" data-country="Kuwait" data-aliases="kuwait kuwaiti dinar">د.ك KWD — Kuwaiti Dinar</button>
+              <button type="button" class="custom-select-option" data-c="QAR" data-name="Qatari Riyal" data-country="Qatar" data-aliases="qatar qatari riyal">ر.ق QAR — Qatari Riyal</button>
+              <button type="button" class="custom-select-option" data-c="OMR" data-name="Omani Rial" data-country="Oman" data-aliases="oman omani rial riyal">ر.ع. OMR — Omani Rial</button>
+              <button type="button" class="custom-select-option" data-c="BHD" data-name="Bahraini Dinar" data-country="Bahrain" data-aliases="bahrain bahraini dinar">د.ب BHD — Bahraini Dinar</button>
+              <button type="button" class="custom-select-option" data-c="JOD" data-name="Jordanian Dinar" data-country="Jordan" data-aliases="jordan jordanian dinar">د.ا JOD — Jordanian Dinar</button>
+              <button type="button" class="custom-select-option" data-c="GHS" data-name="Ghanaian Cedi" data-country="Ghana" data-aliases="ghana ghanaian cedi">GH₵ GHS — Ghanaian Cedi</button>
+              <button type="button" class="custom-select-option" data-c="KES" data-name="Kenyan Shilling" data-country="Kenya" data-aliases="kenya kenyan shilling">KSh KES — Kenyan Shilling</button>
+              <button type="button" class="custom-select-option" data-c="MAD" data-name="Moroccan Dirham" data-country="Morocco" data-aliases="morocco moroccan dirham">د.م. MAD — Moroccan Dirham</button>
+              <button type="button" class="custom-select-option" data-c="KZT" data-name="Kazakhstani Tenge" data-country="Kazakhstan" data-aliases="kazakhstan kazakh tenge">₸ KZT — Kazakhstani Tenge</button>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -721,7 +766,7 @@ packs, expose fake discounts, decoy pricing and shrinkflation. Free, no login. W
       <p>LootLens is a free online grocery price comparison tool that calculates the price per unit (per gram, per ml, or per piece) for different pack sizes. It helps shoppers find the best value and detect marketing tricks like decoy pricing, fake discounts, shrinkflation, and bundle traps.</p>
       <h3>How to use LootLens</h3>
       <ol>
-        <li><strong>Select your currency</strong> — Choose from 20 currencies including USD, EUR, GBP, INR, JPY, and more.</li>
+        <li><strong>Select your currency</strong> — Choose from 58 currencies including USD, EUR, GBP, INR, JPY, and more.</li>
         <li><strong>Add packs to compare</strong> — Enter the price, quantity, and unit for 2-8 packs of the same product.</li>
         <li><strong>View ranked results</strong> — LootLens calculates price per unit and ranks packs from best to worst value.</li>
         <li><strong>Check for tricks</strong> — Use the Scan tools to verify discount claims, decode "extra free" offers, detect shrinkflation, and check bundle deals.</li>

@@ -40,8 +40,10 @@ plain-language verdict on which tricks are being played on you.
   schema, full content, and ad placements.
 - **Privacy policy** — `privacy.html` with WebPage schema, indexable.
 - PWA install + offline shell, share sheet integration, local persistence (localStorage).
-- Multi-currency support — 20 currencies (USD, EUR, GBP, INR, JPY, CNY, KRW, BRL, MXN,
-  AUD, CAD, SGD, AED, SAR, ZAR, NGN, EGP, THB, IDR, PHP).
+- Multi-currency support — 58 currencies (USD, EUR, GBP, INR, JPY, CNY, KRW, BRL, MXN,
+  AUD, CAD, SGD, AED, SAR, ZAR, NGN, EGP, THB, IDR, PHP, CHF, SEK, NOK, DKK, PLN, CZK,
+  HUF, RON, TRY, RUB, CLP, COP, PEN, ARS, UYU, VND, MYR, TWD, HKD, NZD, PKR, BDT, ILS,
+  KWD, QAR, OMR, BHD, JOD, GHS, KES, MAD, KZT).
 - **404 page** — custom 404 with navigation links.
 - **AI-friendly content** — `llms.txt` and `llms-full.txt` for LLM context.
 - Full ad integration with 3 ad networks (see Section 11).
