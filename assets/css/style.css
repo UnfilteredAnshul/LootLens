@@ -957,6 +957,7 @@ code {
 .nav-btn.active { color: var(--accent); }
 .nav-btn.active .ic { transform: translateY(-2px) scale(1.06); color: var(--accent); }
 .nav-btn span { position: relative; }
+.nav-btn small { font-size: 8px; font-weight: 500; letter-spacing: 0.02em; opacity: 0.6; text-transform: none; margin-top: -2px; }
 .nav-btn.active span::after {
   content: "";
   position: absolute;
